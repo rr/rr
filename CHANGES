@@ -1,3 +1,6 @@
+1.0.5 (unreleased)
+- Compatibility with RSpec 2 (especially for spies)
+
 1.0.3
 - Eliminate usage of ObjectSpace._id2ref (Patch Evan Phoenix)
 - Added minitest adapter (Patch Caleb Spare)
@@ -54,7 +57,7 @@
 - Fixed issue with mock.proxy and returns [http://github.com/btakita/rr/issues/#issue/2]. Identified by trogdoro (http://github.com/trogdoro)
 
 * 0.10.0
-- Method is no longer invoked if respond_to? returns false. This was in place to support ActiveRecord association proxies, and is no longer needed. 
+- Method is no longer invoked if respond_to? returns false. This was in place to support ActiveRecord association proxies, and is no longer needed.
 
 * 0.9.0
 - instance_of Doubles now apply to methods invoked in the subject's #initialize method.
@@ -80,7 +83,7 @@
 
 * 0.6.1
 - DoubleDefinitionCreatorProxy definition eval block is instance_evaled when the arity is not 1. When the arity is 1, the block is yielded with the DoubleDefinitionCreatorProxy passed in.
- 
+
 * 0.6.0
 - Friendlier DoubleNotFound error message
 - Implemented Double strategy creation methods (#mock, #stub, #proxy, #instance_of, and ! equivalents) on DoubleDefinition
