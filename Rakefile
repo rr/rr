@@ -22,7 +22,7 @@ end
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
-    s.name = "rr"
+    s.name = "mcmire-rr"
     s.summary = "RR (Double Ruby) is a double framework that features a rich " <<
                 "selection of double techniques and a terse syntax. " <<
                 "http://xunitpatterns.com/Test%20Double.html"
