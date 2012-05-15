@@ -175,7 +175,6 @@ Gem::Specification.new do |s|
   s.homepage = "http://pivotallabs.com"
   s.rdoc_options = ["--main", "README.rdoc", "--inline-source", "--line-numbers"]
   s.require_paths = ["lib"]
-  s.rubyforge_project = "pivotalrb"
   s.rubygems_version = "1.8.11"
   s.summary = "RR (Double Ruby) is a double framework that features a rich selection of double techniques and a terse syntax. http://xunitpatterns.com/Test%20Double.html"
   s.test_files = ["spec/proc_from_block_spec.rb", "spec/rr_spec.rb", "spec/spy_verification_spec.rb"]
