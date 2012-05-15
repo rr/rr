@@ -5,9 +5,9 @@
 
 Gem::Specification.new do |s|
   s.name = "mcmire-rr"
-  s.version = "1.0.4"
+  s.version = "1.0.5.rc1"
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+  s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brian Takita"]
   s.date = "2012-05-15"
   s.description = "RR (Double Ruby) is a double framework that features a rich selection of double techniques and a terse syntax. http://xunitpatterns.com/Test%20Double.html"
