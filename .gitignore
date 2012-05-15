@@ -4,6 +4,7 @@
 *.swp
 *.gem
 .idea
+Gemfile.lock
 previous_failures.txt
 pkg
 pmip
