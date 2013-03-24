@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>RR - a test double framework for Ruby</title>
+  <link rel="stylesheet" href="layout.css" type='text/css' />
+  <link href='http://fonts.googleapis.com/css?family=Oxygen:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato:900,400italic' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Oswald:300,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+<header>
+  <div class="name">
+    <h1><a href="http://github.com/rr/rr#readme">rr</a></h1>
+    <div><span>a test double framework for Ruby with a succinct syntax</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="version">
+    Current version:
+    <a href="https://github.com/rr/rr/blob/master/CHANGES.md#105-2013-03-23">1.0.5</a>
+  </div>
+
+  <p><b>RR</b> is a Ruby library that lets you create and work with test
+  doubles. Test doubles are useful because they let you temporarily replace
+  parts of your code during a test, similar to how a producer might use a stunt
+  double to temporarily take the place of an actor in a movie. You can use a
+  test double to override a method on an object with a simpler implementation;
+  create an object that responds to a particular method; or even establish an
+  expectation that a particular method should be called on a object, which will
+  be verified after your test runs.</p>
+
+  <p>RR features a succinct syntax which aims to makes it easier to translate
+  main code to test double form by matching double definitions on methods
+  as closely as possible to actual invocations of those methods. In addition, RR
+  differs from existing mock / test double frameworks by staying out of the
+  global Object class; instead, it limits its scope to your surrounding test
+  case, and asks that beyond this scope you explicitly wrap any objects on which
+  you want to define test doubles.</p>
+
+  <p>Finally, RR provides adapters so you can integrate it with your test
+  framework of choice, whether RSpec, Test::Unit or MiniTest/MiniSpec. In
+  addition, RR is constantly tested against Ruby 1.9 and 2.0 as well as Rubinius
+  and JRuby.</p>
+
+  <p>RR was created by <a href="http://github.com/btakita">Brian Takita</a> and
+  is currently maintained by <a href="http://github.com/mcmire">Elliot
+  Winkler</a>.</p>
+</section>
+
+<section>
+  <h2>Examples</h2>
+
+  <p>RR includes a rich set of test double strategies. Following is a sample of
+  what RR looks like.</p>
+
+  <hr>
+
+  <h3>Stubs</h3>
+
+  <pre>
+    <span class="c"># Stub a method to return nothing</span>
+    <span class="kw">stub</span>(object).foo
+    <span class="kw">stub</span>(MyClass).foo { 'bar' }
+
+    <span class="c"># Stub a method to always return a value</span>
+    <span class="kw">stub</span>(object).foo { 'bar' }
+    <span class="kw">stub</span>(MyClass).foo { 'bar' }
+
+    <span class="c"># Stub a method to return a value when called with certain arguments</span>
+    <span class="kw">stub</span>(object).foo(1, 2) { 'bar' }
+    <span class="kw">stub</span>(MyClass).foo(1, 2) { 'bar' }
+  </pre>
+
+  <h3>Mocks</h3>
+
+  <pre>
+    <span class="c"># Create an expectation on a method</span>
+    <span class="kw">mock</span>(object).foo
+    <span class="kw">mock</span>(MyClass).foo
+
+    <span class="c"># Create an expectation on a method
+    # and stub it to always return a value</span>
+    <span class="kw">mock</span>(object).foo { 'bar' }
+    <span class="kw">mock</span>(MyClass).foo { 'bar' }
+
+    <span class="c"># Create an expectation on a method with certain arguments
+    # and stub it to return a value when called that way</span>
+    <span class="kw">mock</span>(object).foo(1, 2) { 'bar' }
+    <span class="kw">mock</span>(MyClass).foo(1, 2) { 'bar' }
+  </pre>
+
+  <h3>Proxies</h3>
+
+  <pre>
+    <span class="c"># Intercept a existing method without completely overriding it,
+    # and create a new return value from the existing one</span>
+    <span class="kw">stub.proxy</span>(object).foo {|str| str.upcase }
+    <span class="kw">stub.proxy</span>(MyClass).foo {|str| str.upcase }
+
+    <span class="c"># Do the same thing except also create an expectation</span>
+    <span class="kw">mock.proxy</span>(object).foo {|str| str.upcase }
+    <span class="kw">mock.proxy</span>(MyClass).foo {|str| str.upcase }
+
+    <span class="c"># Intercept a class's new method and define a double on the return value</span>
+    <span class="kw">stub.proxy</span>(MyClass).new {|obj| <span class="kw">stub</span>(obj).foo; obj }
+
+    <span class="c"># Do the same thing except also create an expectation on .new</span>
+    <span class="kw">mock.proxy</span>(MyClass).new {|obj| <span class="kw">stub</span>(obj).foo; obj }
+  </pre>
+
+  <h3>Class instances</h3>
+
+  <pre>
+    <span class="c"># Stub a method on an instance of MyClass when it is created</span>
+    <span class="kw">any_instance_of</span>(MyClass) do |klass|
+      <span class="kw">stub</span>(klass).foo { 'bar' }
+    end
+
+    <span class="c"># Another way to do this which gives you access to the instance itself</span>
+    <span class="kw">stub.proxy</span>(MyClass).new do |obj|
+      <span class="kw">stub</span>(obj).foo { 'bar' }
+    end
+  </pre>
+</section>
+
+<footer>
+  Design inspired by <a href="http://defunkt.io/hub">hub</a>.
+</footer>
+
+</body>
+
+</html>
