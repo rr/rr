@@ -5,6 +5,7 @@ body {
   width: 50em;
   margin: 2em auto;
   color: #333;
+  background: #ddd url(scribble_light.png);
 }
 
 a {
