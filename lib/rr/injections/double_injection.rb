@@ -145,7 +145,7 @@ module RR
           def #{method_name}(*args, &block)
             arguments = MethodArguments.new(args, block)
             obj = ::RR::Injections::DoubleInjection::BoundObjects[#{id}]
-            RR::Injections::DoubleInjection.dispatch_method(self, obj, :#{method_name}, arguments.arguments, arguments.block)
+            ::RR::Injections::DoubleInjection.dispatch_method(self, obj, :#{method_name}, arguments.arguments, arguments.block)
           end
         RUBY
         self
