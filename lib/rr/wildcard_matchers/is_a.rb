@@ -11,15 +11,14 @@ module RR
         self == other || other.is_a?(klass)
       end
 
+      def ==(other)
+        other.is_a?(self.class) && klass == other.klass
+      end
+      alias :eql? :==
+
       def inspect
         "is_a(#{klass})"
       end
-
-      def ==(other)
-        return false unless other.is_a?(self.class)
-        self.klass == other.klass
-      end
-      alias_method :eql?, :==
     end
   end
 end
