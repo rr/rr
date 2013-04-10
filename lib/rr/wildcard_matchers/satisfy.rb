@@ -8,19 +8,19 @@ module RR
       end
 
       def wildcard_match?(other)
-        return true if self == other
+        self == other ||
         !!expectation_proc.call(other)
       end
 
-      def inspect
-        "satisfy {block}"
-      end
-
       def ==(other)
-        return false unless other.is_a?(self.class)
-        self.expectation_proc == other.expectation_proc
+        other.is_a?(self.class) &&
+        other.expectation_proc.equal?(self.expectation_proc)
       end
-      alias_method :eql?, :==
+      alias :eql? :==
+
+      def inspect
+        "satisfy { ... }"
+      end
     end
   end
 end
