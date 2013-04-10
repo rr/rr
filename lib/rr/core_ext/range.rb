@@ -1,7 +1,8 @@
 class Range
   def wildcard_match?(other)
-    return true if self == other
-    return false unless other.is_a?(Numeric)
-    self.include?(other)
+    self == other ||
+    (other.is_a?(Numeric) && include?(other))
   end
+
+  alias_method :eql, :==
 end
