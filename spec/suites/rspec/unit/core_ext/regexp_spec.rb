@@ -1,43 +1,41 @@
-require File.expand_path("#{File.dirname(__FILE__)}/../../spec_helper")
+require File.expand_path('../../../spec_helper', __FILE__)
 
 describe Regexp do
-  attr_reader :matcher
+  include WildcardMatcherMatchers
 
-  before do
-    @matcher = /foo/
-  end
+  describe '#wildcard_match?' do
+    subject { /foo/ }
 
-  describe "#wildcard_match?" do
-    before do
-      @matching_object = Object.new
-      def @matching_object.quack
-      end
-      def @matching_object.waddle
-      end
-
-      @partial_matching_object = Object.new
-      def @partial_matching_object.quack
-      end
-
-      @not_match_object = Object.new
+    it "returns true when given Regexp is exactly equal to this Regexp" do
+      should wildcard_match(/foo/)
     end
 
-    context "when passed-in String matches the Regexp" do
-      it "returns true" do
-        expect(matcher).to be_wildcard_match("foobarbaz")
-      end
+    it "returns true if given string matches the regexp" do
+      should wildcard_match('foobarbaz')
     end
 
-    context "when passed-in String does not match the Regexp" do
-      it "returns false" do
-        matcher.should_not be_wildcard_match("no match here")
-      end
+    it "returns false if given string does not match the regexp" do
+      should_not wildcard_match('aslkj')
     end
   end
 
-  describe "#inspect" do
-    it "returns the regexp" do
-      expect(matcher.inspect).to eq "/foo/"
+  describe '#==' do
+    subject { /foo/ }
+
+    it "returns true when given Regexp is exactly equal to this Regexp" do
+      should equal_match(/foo/)
+    end
+
+    it "returns false when given Regexp is not exactly equal to this Regexp" do
+      should_not equal_match(/alkj/)
+    end
+
+    it "returns false even when given an object that wildcard matches this Regexp" do
+      should_not equal_match('foobarbaz')
+    end
+
+    it "returns false when not even given a Regexp" do
+      should_not equal_match(:something_else)
     end
   end
 end
