@@ -8,25 +8,21 @@ module RR
       end
 
       def wildcard_match?(other)
-        return true if self == other
-        required_methods.each do |m|
-          return false unless other.respond_to?(m)
-        end
-        return true
-      end
-
-      def inspect
-        formatted_required_methods = required_methods.collect do |method_name|
-          method_name.inspect
-        end.join(', ')
-        "duck_type(#{formatted_required_methods})"
+        self == other ||
+        required_methods.all? {|m| other.respond_to?(m) }
       end
 
       def ==(other)
-        return false unless other.is_a?(self.class)
-        self.required_methods == other.required_methods
+        other.is_a?(self.class) &&
+        other.required_methods == self.required_methods
       end
-      alias_method :eql?, :==
+      alias :eql? :==
+
+      def inspect
+        formatted_required_methods =
+          required_methods.map { |method_name| method_name.inspect }.join(', ')
+        "duck_type(#{formatted_required_methods})"
+      end
     end
   end
 end

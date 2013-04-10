@@ -1,49 +1,61 @@
-require File.expand_path("#{File.dirname(__FILE__)}/../../spec_helper")
+require File.expand_path('../../../spec_helper', __FILE__)
+require 'ostruct'
 
 module RR
   module WildcardMatchers
     describe DuckType do
-      attr_reader :matcher
-      before do
-        @matcher = DuckType.new(:quack, :waddle)
+      include WildcardMatcherMatchers
+
+      describe '#wildcard_match?' do
+        subject { described_class.new(:quack, :waddle) }
+
+        it "returns true when given DuckType is a copy of this DuckType" do
+          matcher2 = described_class.new(:quack, :waddle)
+          should wildcard_match(matcher2)
+        end
+
+        it "returns true when given object responds to all methods" do
+          object = OpenStruct.new(:quack => 'x', :waddle => 'x')
+          should wildcard_match(object)
+        end
+
+        it "returns false when given object responds to only some methods" do
+          object = OpenStruct.new(:quack => 'x')
+          should_not wildcard_match(object)
+        end
+
+        it "returns false when given object responds to no methods" do
+          object = Object.new
+          should_not wildcard_match(object)
+        end
       end
 
-      describe "#wildcard_match?" do
-        before do
-          @matching_object = Object.new
-          def @matching_object.quack
-          end
-          def @matching_object.waddle
-          end
+      describe '#==' do
+        subject { described_class.new(:quack, :waddle) }
 
-          @partial_matching_object = Object.new
-          def @partial_matching_object.quack
-          end
-
-          @not_match_object = Object.new
+        it "returns true when given DuckType is a copy of this DuckType" do
+          matcher2 = described_class.new(:quack, :waddle)
+          should equal_match(matcher2)
         end
 
-        context "when passed-in object matches all required methods" do
-          it "returns true" do
-            expect(matcher).to be_wildcard_match(@matching_object)
-          end
+        it "returns false when given DuckType is not a copy of this DuckType" do
+          matcher2 = described_class.new(:something_else)
+          should_not equal_match(matcher2)
         end
 
-        context "when passed-in object matches some required methods" do
-          it "returns false" do
-            matcher.should_not be_wildcard_match(@partial_matching_object)
-          end
+        it "returns false even when given a DuckType that wildcard matches this DuckType" do
+          object = OpenStruct.new(:quack => 'x', :waddle => 'x')
+          should_not equal_match(object)
         end
 
-        context "when passed-in object matches no required methods" do
-          it "returns false" do
-            matcher.should_not be_wildcard_match(@not_match_object)
-          end
+        it "returns false when not given a DuckType object whatsoever" do
+          should_not equal_match(:something_else)
         end
       end
 
       describe "#inspect" do
-        it "returns duck_type with methods" do
+        it "returns the correct string" do
+          matcher = described_class.new(:quack, :waddle)
           expect(matcher.inspect).to eq "duck_type(:quack, :waddle)"
         end
       end
