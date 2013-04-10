@@ -8,7 +8,7 @@ module RR
       def ==(other)
         other.is_a?(self.class)
       end
-      alias_method :eql?, :==
+      alias :eql? :==
 
       def inspect
         'anything'
