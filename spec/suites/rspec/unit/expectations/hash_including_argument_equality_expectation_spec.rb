@@ -4,20 +4,20 @@ module RR
 module Expectations
   describe ArgumentEqualityExpectation, "with HashIncluding argument" do
     attr_reader :expectation, :expected_hash
-    
+
     before do
       @expected_hash = {:texas => "Austin", :maine => "Augusta"}
     end
-    
+
     describe "#exact_match?" do
       before do
         @expectation = ArgumentEqualityExpectation.new(hash_including(expected_hash))
       end
-      
+
       it "returns true when passed in a HashIncluding matcher with the same hash" do
         expect(expectation).to be_exact_match(RR::WildcardMatchers::HashIncluding.new(expected_hash))
       end
-      
+
       it "returns false when passed in a HashIncluding matcher with a different argument list" do
         expectation.should_not be_exact_match(RR::WildcardMatchers::HashIncluding.new(:foo => 1))
       end
@@ -40,26 +40,26 @@ module Expectations
       it "returns true when hash contains same key/values as the expectation" do
         expect(expectation).to be_wildcard_match(expected_hash)
       end
-      
+
       it "returns true when hash contains at least expectation's key/values" do
         expect(expectation).to be_wildcard_match(expected_hash.merge(:oregon => "Salem"))
       end
-      
+
       it "returns true when passed the same hash, even after the original is modified" do
         original_expected_hash = expected_hash.clone
         expected_hash[:texas] = nil
         expect(expectation).to be_wildcard_match(original_expected_hash)
       end
-      
+
       it "returns true even if one of the expectation's values is nil" do
         expectation = ArgumentEqualityExpectation.new(hash_including(:foo => nil))
         expect(expectation).to be_wildcard_match({:foo => nil})
       end
-      
+
       it "returns false when hash matches only some required key/values" do
         expectation.should_not be_wildcard_match({:texas => "Austin"})
       end
-      
+
       it "returns false when hash matches all the keys but not all the values" do
         expectation.should_not be_wildcard_match({:texas => "Austin", :maine => "Portland"})
       end
