@@ -1,5 +1,8 @@
 module Enumerable
   def wildcard_match?(other)
+    if is_a?(String)
+      return RR::Expectations::ArgumentEqualityExpectation.recursive_safe_eq(self, other)
+    end
     return false unless other.is_a?(Enumerable)
     other_entries = other.entries
     each_with_index do |value, i|
