@@ -27,3 +27,4 @@ RSpec.configure do |c|
 end
 
 Dir[ File.expand_path('../shared/*.rb', __FILE__) ].each {|fn| require fn }
+Dir[ File.expand_path('../support/**/*.rb', __FILE__) ].each {|fn| require fn }
