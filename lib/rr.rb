@@ -1,6 +1,10 @@
 dir = File.dirname(__FILE__)
 require 'forwardable'
 
+require "#{dir}/rr/core_ext/enumerable"
+require "#{dir}/rr/core_ext/hash"
+require "#{dir}/rr/core_ext/array"
+
 require "#{dir}/rr/class_instance_method_defined"
 require "#{dir}/rr/blank_slate"
 
