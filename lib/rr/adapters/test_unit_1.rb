@@ -34,7 +34,9 @@ module RR
             alias_method :teardown_without_rr, :teardown
             def teardown_with_rr
               RR.verify
+            rescue => e
               teardown_without_rr
+              raise e
             end
             alias_method :teardown, :teardown_with_rr
           end
