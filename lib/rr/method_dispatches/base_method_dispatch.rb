@@ -73,7 +73,7 @@ module RR
           "  #{Double.formatted_name(method_name, args)}\n" <<
           "expected invocations:\n" <<
           Double.list_message_part(doubles)
-        raise Errors::DoubleNotFoundError, message
+        raise RR::Errors.build_error(:DoubleNotFoundError, message)
       end
 
       def_delegators :definition, :after_call_proc

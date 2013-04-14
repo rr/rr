@@ -6,26 +6,26 @@ module RR
       @recorded_calls = recorded_calls
       @ordered_index = 0
     end
-  
+
     attr_reader :recorded_calls
-  
+
     def clear
       self.ordered_index = 0
       recorded_calls.clear
     end
-  
+
     def <<(recorded_call)
       recorded_calls << recorded_call
     end
-  
+
     def any?(&block)
       recorded_calls.any?(&block)
     end
-  
+
     def ==(other)
       recorded_calls == other.recorded_calls
     end
-  
+
     def match_error(spy_verification)
       double_injection_exists_error(spy_verification) || begin
         if spy_verification.ordered?
@@ -35,20 +35,20 @@ module RR
         end
       end
     end
-  
+
   protected
     attr_accessor :ordered_index
 
     def double_injection_exists_error(spy_verification)
       unless Injections::DoubleInjection.exists_by_subject?(spy_verification.subject, spy_verification.method_name)
-        RR::Errors::SpyVerificationErrors::DoubleInjectionNotFoundError.new(
+        RR::Errors.build_error(RR::Errors::SpyVerificationErrors::DoubleInjectionNotFoundError,
           "A Double Injection for the subject and method call:\n" <<
           "#{spy_verification.subject.inspect}\n" <<
           "#{spy_verification.method_name}\ndoes not exist in:\n" <<
           "\t#{recorded_calls.map {|call| call.inspect}.join("\n\t")}"
         )
       end
-    end    
+    end
 
     def ordered_match_error(spy_verification)
       memoized_matching_recorded_calls = matching_recorded_calls(spy_verification)
@@ -63,7 +63,7 @@ module RR
 
     def unordered_match_error(spy_verification)
       memoized_matching_recorded_calls = matching_recorded_calls(spy_verification)
-      
+
       spy_verification.times_matcher.matches?(
         memoized_matching_recorded_calls.size
       ) ? nil : invocation_count_error(spy_verification, memoized_matching_recorded_calls)
@@ -90,7 +90,7 @@ module RR
     end
 
     def invocation_count_error(spy_verification, matching_recorded_calls)
-      RR::Errors::SpyVerificationErrors::InvocationCountError.new(
+      RR::Errors.build_error(RR::Errors::SpyVerificationErrors::InvocationCountError,
         "On subject #{spy_verification.subject.inspect}\n" <<
         "Expected #{Double.formatted_name(spy_verification.method_name, spy_verification.argument_expectation.expected_arguments)}\n" <<
         "to be called #{spy_verification.times_matcher.expected_times_message},\n" <<

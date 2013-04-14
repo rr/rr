@@ -30,7 +30,7 @@ module AdapterTests
   def test_times_called_verification
     subject = Object.new
     mock(subject).foobar(1, 2) { :baz }
-    assert_raise RR::Errors::TimesCalledError do
+    assert_raise RR::Errors.error_class(:TimesCalledError) do
       RR.verify
     end
   end

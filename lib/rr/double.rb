@@ -106,21 +106,21 @@ module RR
 
     def verify_times_matcher_is_set
       unless definition.times_matcher
-        raise RR::Errors::DoubleDefinitionError, "#definition.times_matcher is not set"
+        raise RR::Errors.build_error(:DoubleDefinitionError, "#definition.times_matcher is not set")
       end
     end
 
     def verify_argument_expectation_is_set
       unless definition.argument_expectation
-        raise RR::Errors::DoubleDefinitionError, "#definition.argument_expectation is not set"
+        raise RR::Errors.build_error(:DoubleDefinitionError, "#definition.argument_expectation is not set")
       end
     end
 
     def verify_method_signature
       unless double_injection.subject_has_original_method?
-        raise RR::Errors::SubjectDoesNotImplementMethodError
+        raise RR::Errors.build_error(:SubjectDoesNotImplementMethodError)
       end
-      raise RR::Errors::SubjectHasDifferentArityError unless arity_matches?
+      raise RR::Errors.build_error(:SubjectHasDifferentArityError) unless arity_matches?
     end
 
     def subject_arity

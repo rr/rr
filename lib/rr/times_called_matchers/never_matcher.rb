@@ -16,7 +16,7 @@ module RR
       end
 
       def attempt?(times_called)
-        raise RR::Errors::TimesCalledError, error_message(1)
+        raise RR::Errors.build_error(:TimesCalledError, error_message(1))
       end
     end
   end

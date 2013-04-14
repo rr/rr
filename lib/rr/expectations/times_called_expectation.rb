@@ -26,13 +26,7 @@ module RR
 
       def verify!
         unless verify
-          if @verify_backtrace
-            error = Errors::TimesCalledError.new(error_message)
-            error.backtrace = @verify_backtrace
-            raise error
-          else
-            raise Errors::TimesCalledError, error_message
-          end
+          raise RR::Errors.build_error(:TimesCalledError, error_message, @verify_backtrace)
         end
       end
 
@@ -46,7 +40,7 @@ module RR
       end
 
       def verify_input_error
-        raise Errors::TimesCalledError, error_message
+        raise RR::Errors.build_error(:TimesCalledError, error_message)
       end
 
       def error_message

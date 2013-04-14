@@ -37,14 +37,14 @@ module RR
     # in the correct position.
     def verify_ordered_double(double)
       unless double.terminal?
-        raise Errors::DoubleOrderError,
-              "Ordered Doubles cannot have a NonTerminal TimesCalledExpectation"
+        raise RR::Errors.build_error(:DoubleOrderError,
+          "Ordered Doubles cannot have a NonTerminal TimesCalledExpectation")
       end
       unless @ordered_doubles.first == double
         message = Double.formatted_name(double.method_name, double.expected_arguments)
         message << " called out of order in list\n"
         message << Double.list_message_part(@ordered_doubles)
-        raise Errors::DoubleOrderError, message
+        raise RR::Errors.build_error(:DoubleOrderError, message)
       end
       @ordered_doubles.shift unless double.attempt?
       double

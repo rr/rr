@@ -10,6 +10,7 @@ require "#{dir}/rr/core_ext/regexp"
 require "#{dir}/rr/class_instance_method_defined"
 require "#{dir}/rr/blank_slate"
 
+require "#{dir}/rr/errors"
 require "#{dir}/rr/errors/rr_error"
 require "#{dir}/rr/errors/subject_does_not_implement_method_error"
 require "#{dir}/rr/errors/subject_has_different_arity_error"
