@@ -1,8 +1,6 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class MiniTestIntegrationTest < MiniTest::Unit::TestCase
-  include RR::Adapters::MiniTest # Testing against double inclusion issues
-
   def setup
     super
     @subject = Object.new
