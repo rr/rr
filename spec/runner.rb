@@ -3,7 +3,7 @@ require 'session'
 class SuitesRunner
   TEST_SUITES = [
     [:rspec_2, 'RSpec', 'RSpec'],
-    [:test_unit, 'TestUnit', 'Test::Unit'],
+    [:test_unit_2, 'TestUnit', 'Test::Unit'],
     [:minitest, 'Minitest', 'MiniTest']
   ]
 
