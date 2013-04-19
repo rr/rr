@@ -97,6 +97,7 @@ require "#{dir}/rr/version"
 module RR
   class << self
     include Adapters::RRMethods
+
     (RR::Space.instance_methods - Object.instance_methods).each do |method_name|
       class_eval((<<-METHOD), __FILE__, __LINE__ + 1)
         def #{method_name}(*args, &block)
@@ -104,5 +105,29 @@ module RR
         end
       METHOD
     end
+
+    def autodetect_adapter
+      adapters.find {|adapter| adapter.applies? }
+    end
+
+    def autohook
+      adapter = RR.autodetect_adapter
+      #puts "Using adapter: #{adapter.name}"
+      adapter.hook
+    end
+
+    def add_adapter(adapter)
+      adapter = RR::Adapters.const_get(adapter).new if adapter.is_a?(Symbol)
+      adapters << adapter
+    end
+
+    private
+
+    def adapters
+      @adapters ||= []
+    end
   end
 end
+
+require "#{dir}/rr/adapters/none"
+
