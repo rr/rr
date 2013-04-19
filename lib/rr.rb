@@ -87,7 +87,7 @@ require "#{dir}/rr/spy_verification_proxy"
 require "#{dir}/rr/spy_verification"
 
 require "#{dir}/rr/adapters/rspec/invocation_matcher"
-require "#{dir}/rr/adapters/rspec"
+require "#{dir}/rr/adapters/rspec_1"
 require "#{dir}/rr/adapters/rspec_2"
 require "#{dir}/rr/adapters/test_unit_2"
 require "#{dir}/rr/adapters/minitest"

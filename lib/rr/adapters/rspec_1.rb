@@ -1,6 +1,6 @@
 module RR
   module Adapters
-    module Rspec
+    module RSpec1
       def self.included(mod)
         patterns = ::Spec::Runner::QuietBacktraceTweaker::IGNORE_PATTERNS
         unless patterns.include?(RR::Errors::BACKTRACE_IDENTIFIER)
@@ -23,7 +23,7 @@ module RR
       end
 
       def have_received(method = nil)
-        RR::Adapters::RSpec::InvocationMatcher.new(method)
+        RSpec::InvocationMatcher.new(method)
       end
     end
   end

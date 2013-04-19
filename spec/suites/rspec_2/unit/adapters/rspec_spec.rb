@@ -2,7 +2,7 @@ require File.expand_path("#{File.dirname(__FILE__)}/../../spec_helper")
 
 module RR
   module Adapters
-    describe Rspec do
+    describe RSpec1 do
       attr_reader :fixture, :method_name
 
       describe "#setup_mocks_for_rspec" do
@@ -10,7 +10,7 @@ module RR
 
         before do
           @fixture = Object.new
-          fixture.extend Rspec
+          fixture.extend RSpec1
           @method_name = :foobar
         end
 
@@ -28,7 +28,7 @@ module RR
 
         before do
           @fixture = Object.new
-          fixture.extend Rspec
+          fixture.extend RSpec1
           @method_name = :foobar
         end
 
@@ -47,7 +47,7 @@ module RR
 
         before do
           @fixture = Object.new
-          fixture.extend Rspec
+          fixture.extend RSpec1
           @method_name = :foobar
         end
 
