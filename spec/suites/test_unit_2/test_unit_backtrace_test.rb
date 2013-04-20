@@ -1,4 +1,4 @@
-require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
+require File.expand_path('../test_helper', __FILE__)
 
 class TestUnitBacktraceTest < Test::Unit::TestCase
   def setup
@@ -14,6 +14,7 @@ class TestUnitBacktraceTest < Test::Unit::TestCase
     assert RR.trim_backtrace
   end
 
+=begin
   def test_backtrace_tweaking
     if defined?(Test::Unit::TestResult)
       old_result = @_result
@@ -29,9 +30,5 @@ class TestUnitBacktraceTest < Test::Unit::TestCase
       assert !error_display.include?("lib/rr")
     end
   end
-
-  def backtrace_tweaking
-    mock(@subject).foobar
-    RR::Space::instance.verify_double(@subject, :foobar)
-  end
+=end
 end
