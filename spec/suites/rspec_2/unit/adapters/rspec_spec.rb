@@ -10,7 +10,7 @@ module RR
 
         before do
           @fixture = Object.new
-          fixture.extend RSpec1
+          fixture.extend RSpec1::AdapterMethods
           @method_name = :foobar
         end
 
@@ -28,7 +28,7 @@ module RR
 
         before do
           @fixture = Object.new
-          fixture.extend RSpec1
+          fixture.extend RSpec1::AdapterMethods
           @method_name = :foobar
         end
 
@@ -47,7 +47,7 @@ module RR
 
         before do
           @fixture = Object.new
-          fixture.extend RSpec1
+          fixture.extend RSpec1::AdapterMethods
           @method_name = :foobar
         end
 
