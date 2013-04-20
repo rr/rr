@@ -1,13 +1,28 @@
 module RR
   module Adapters
-    module TestUnit2
-      include RRMethods
+    class TestUnit2
+      module AdapterMethods
+        def assert_received(subject, &block)
+          block.call(received(subject)).call
+        end
+      end
 
-      def self.included(mod)
+      def name
+        'Test::Unit 2'
+      end
+
+      def applies?
+        defined?(::Test::Unit) && has_test_unit_version?
+      end
+
+      def hook
         RR.trim_backtrace = true
 
-        mod.class_eval do
-          unless instance_methods.detect {|method_name| method_name.to_sym == :setup_with_rr}
+        ::Test::Unit::TestCase.class_eval do
+          include RRMethods
+          include AdapterMethods
+
+          unless instance_methods.detect {|method_name| method_name.to_sym == :setup_with_rr }
             alias_method :setup_without_rr, :setup
             def setup_with_rr
               setup_without_rr
@@ -25,9 +40,16 @@ module RR
         end
       end
 
-      def assert_received(subject, &block)
-        block.call(received(subject)).call
+      private
+
+      def has_test_unit_version?
+        require 'test/unit/version'
+        true
+      rescue LoadError
+        false
       end
     end
   end
+
+  add_adapter :TestUnit2
 end
