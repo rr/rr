@@ -5,5 +5,3 @@ if defined?(::Test::Unit::VERSION)
 end
 
 require File.expand_path('../../../global_helper', __FILE__)
-
-RR.autohook

@@ -21,6 +21,4 @@ Spec::Runner.configure do |c|
   c.extend ExampleGroupMethods
 end
 
-RR.autohook
-
 Dir[ File.expand_path('../shared/*.rb', __FILE__) ].each {|fn| require fn }

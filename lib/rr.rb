@@ -132,3 +132,5 @@ require "#{dir}/rr/adapters/test_unit_2"
 require "#{dir}/rr/adapters/minitest"
 require "#{dir}/rr/adapters/none"
 
+RR.autohook
+
