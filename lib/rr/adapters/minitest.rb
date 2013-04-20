@@ -43,6 +43,4 @@ module RR
       end
     end
   end
-
-  add_adapter :MiniTest
 end

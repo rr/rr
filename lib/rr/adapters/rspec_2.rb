@@ -21,6 +21,4 @@ module RR
       end
     end
   end
-
-  add_adapter :RSpec2
 end

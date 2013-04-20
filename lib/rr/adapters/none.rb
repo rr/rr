@@ -14,6 +14,4 @@ module RR
       end
     end
   end
-
-  add_adapter :None
 end

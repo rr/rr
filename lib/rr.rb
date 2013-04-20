@@ -92,6 +92,15 @@ require "#{dir}/rr/version"
 
 module RR
   class << self
+    ADAPTERS = [
+      :RSpec1,
+      :RSpec2,
+      :TestUnit1,
+      :TestUnit2,
+      :MiniTest,
+      :None
+    ]
+
     include Adapters::RRMethods
 
     (RR::Space.instance_methods - Object.instance_methods).each do |method_name|
@@ -103,24 +112,15 @@ module RR
     end
 
     def autodetect_adapter
-      adapters.find {|adapter| adapter.applies? }
+      ADAPTERS.
+        map {|adapter| RR::Adapters.const_get(adapter).new }.
+        find {|adapter| adapter.applies? }
     end
 
     def autohook
       adapter = RR.autodetect_adapter
       #puts "Using adapter: #{adapter.name}"
       adapter.hook
-    end
-
-    def add_adapter(adapter)
-      adapter = RR::Adapters.const_get(adapter).new if adapter.is_a?(Symbol)
-      adapters << adapter
-    end
-
-    private
-
-    def adapters
-      @adapters ||= []
     end
   end
 end

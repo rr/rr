@@ -39,6 +39,4 @@ module RR
       end
     end
   end
-
-  add_adapter :RSpec1
 end

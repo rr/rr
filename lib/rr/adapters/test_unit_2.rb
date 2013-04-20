@@ -10,6 +10,4 @@ module RR
       end
     end
   end
-
-  add_adapter :TestUnit2
 end

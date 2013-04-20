@@ -15,11 +15,11 @@ module RR
         defined?(::Test::Unit) && !has_test_unit_version?
       end
 
-      def hook
+      def hook(test_case_class = ::Test::Unit::TestCase)
         RR.trim_backtrace = true
         RR.overridden_error_class = ::Test::Unit::AssertionFailedError
 
-        ::Test::Unit::TestCase.class_eval do
+        test_case_class.class_eval do
           include RRMethods
           include AdapterMethods
 
@@ -53,6 +53,4 @@ module RR
       end
     end
   end
-
-  add_adapter :TestUnit1
 end
