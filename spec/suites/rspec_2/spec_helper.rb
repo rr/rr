@@ -1,8 +1,8 @@
-require File.expand_path('../../../global_helper', __FILE__)
-
 require 'rspec/core'
 require 'rspec/expectations'
 require 'rspec/autorun'
+
+require File.expand_path('../../../global_helper', __FILE__)
 
 module ExampleMethods
   def eigen(object)
@@ -21,10 +21,9 @@ end
 RSpec.configure do |c|
   c.include ExampleMethods
   c.extend ExampleGroupMethods
-
-  #c.mock_with :nothing
-  c.mock_framework = RR::Adapters::RSpec2
 end
+
+RR.autohook
 
 Dir[ File.expand_path('../shared/*.rb', __FILE__) ].each {|fn| require fn }
 Dir[ File.expand_path('../support/**/*.rb', __FILE__) ].each {|fn| require fn }
