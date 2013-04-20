@@ -1,57 +1,13 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
+require File.expand_path('../../common/test_unit_tests', __FILE__)
 
 class MiniTestIntegrationTest < MiniTest::Unit::TestCase
-  def setup
-    super
-    @subject = Object.new
-  end
+  # Test::Unit compatibility
+  alias_method :assert_raise, :assert_raises
 
-  def teardown
-    super
-  end
+  include TestUnitTests
 
-  def test_using_a_mock
-    mock(@subject).foobar(1, 2) {:baz}
-    assert_equal :baz, @subject.foobar(1, 2)
-  end
-
-  def test_using_a_stub
-    stub(@subject).foobar {:baz}
-    assert_equal :baz, @subject.foobar("any", "thing")
-  end
-
-  def test_using_a_mock_proxy
-    def @subject.foobar
-      :baz
-    end
-
-    mock.proxy(@subject).foobar
-    assert_equal :baz, @subject.foobar
-  end
-
-  def test_using_a_stub_proxy
-    def @subject.foobar
-      :baz
-    end
-
-    stub.proxy(@subject).foobar
-    assert_equal :baz, @subject.foobar
-  end
-
-  def test_times_called_verification
-    mock(@subject).foobar(1, 2) {:baz}
-    assert_raises MiniTest::Assertion do
-      teardown
-    end
-  end
-
-  def test_using_assert_received
-    stub(@subject).foobar(1, 2)
-    @subject.foobar(1, 2)
-    assert_received(@subject) {|subject| subject.foobar(1, 2)}
-
-    assert_raises RR::Errors::SpyVerificationErrors::InvocationCountError do
-      assert_received(@subject) {|subject| subject.foobar(1, 2, 3)}
-    end
+  def test_backtrace_tweaking
+    skip "test this later"
   end
 end
