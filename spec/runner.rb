@@ -4,6 +4,7 @@ class SuitesRunner
   TEST_SUITES = [
     [:rspec_1, 'RSpec', 'RSpec 1'],
     [:rspec_2, 'RSpec', 'RSpec 2'],
+    [:test_unit_1, 'TestUnit', 'Test::Unit'],
     [:test_unit_2, 'TestUnit', 'Test::Unit'],
     [:minitest, 'Minitest', 'MiniTest']
   ]
