@@ -17,6 +17,7 @@ module RR
 
       def hook
         RR.trim_backtrace = true
+        RR.overridden_error_class = ::Test::Unit::AssertionFailedError
 
         ::Test::Unit::TestCase.class_eval do
           include RRMethods
