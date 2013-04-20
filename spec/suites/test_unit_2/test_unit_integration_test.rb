@@ -1,8 +1,8 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestUnitIntegrationTest < Test::Unit::TestCase
-  include RR::Adapters::TestUnit # Testing against double inclusion issues
-  
+  include RR::Adapters::TestUnit2 # Testing against double inclusion issues
+
   def setup
     super
     @subject = Object.new
@@ -16,7 +16,7 @@ class TestUnitIntegrationTest < Test::Unit::TestCase
     mock(@subject).foobar(1, 2) {:baz}
     assert_equal :baz, @subject.foobar(1, 2)
   end
-  
+
   def test_using_a_stub
     stub(@subject).foobar {:baz}
     assert_equal :baz, @subject.foobar("any", "thing")
@@ -50,7 +50,7 @@ class TestUnitIntegrationTest < Test::Unit::TestCase
   def test_using_assert_received
     stub(@subject).foobar(1, 2)
     @subject.foobar(1, 2)
-    assert_received(@subject) {|subject| subject.foobar(1, 2)} 
+    assert_received(@subject) {|subject| subject.foobar(1, 2)}
 
     assert_raise(RR::Errors::SpyVerificationErrors::InvocationCountError) do
       assert_received(@subject) {|subject| subject.foobar(1, 2, 3)}

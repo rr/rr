@@ -1,6 +1,6 @@
 module RR
   module Adapters
-    module TestUnit
+    module TestUnit2
       include RRMethods
 
       def self.included(mod)

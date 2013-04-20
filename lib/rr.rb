@@ -88,7 +88,7 @@ require "#{dir}/rr/spy_verification"
 
 require "#{dir}/rr/adapters/rspec"
 require "#{dir}/rr/adapters/rspec2"
-require "#{dir}/rr/adapters/test_unit"
+require "#{dir}/rr/adapters/test_unit_2"
 require "#{dir}/rr/adapters/minitest"
 
 require "#{dir}/rr/version"
