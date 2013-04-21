@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 
 gem 'rake', '~> 10.0'
 gem "session", "~> 3.0"
+gem 'cane', '~> 2.5'
+
 platforms :ruby do
   gem 'sqlite3', '~> 1.3'
 end
@@ -27,4 +29,5 @@ else
   gem 'railties', '~> 3.0'
   gem 'activesupport', '~> 3.0'
   gem 'activerecord', '~> 3.0'
+  gem 'simplecov'
 end
