@@ -16,9 +16,6 @@ module RR
       end
 
       def hook(test_case_class = ::Test::Unit::TestCase)
-        RR.trim_backtrace = true
-        RR.overridden_error_class = ::Test::Unit::AssertionFailedError
-
         test_case_class.class_eval do
           include RRMethods
           include AdapterMethods
@@ -28,6 +25,8 @@ module RR
             def setup_with_rr
               setup_without_rr
               RR.reset
+              RR.trim_backtrace = true
+              RR.overridden_error_class = ::Test::Unit::AssertionFailedError
             end
             alias_method :setup, :setup_with_rr
 

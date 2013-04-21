@@ -59,6 +59,8 @@ module RR
 
     # Resets the registered Doubles and ordered Doubles
     def reset
+      RR.trim_backtrace = false
+      RR.overridden_error_class = nil
       reset_ordered_doubles
       Injections::DoubleInjection.reset
       reset_method_missing_injections
