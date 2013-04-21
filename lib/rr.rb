@@ -98,6 +98,7 @@ module RR
       :TestUnit1,
       :TestUnit2ActiveSupport,
       :TestUnit2,
+      :MiniTestActiveSupport,
       :MiniTest
     ]
 
@@ -145,6 +146,7 @@ require "#{dir}/rr/adapters/test_unit_1"
 require "#{dir}/rr/adapters/test_unit_2"
 require "#{dir}/rr/adapters/test_unit_2_active_support"
 require "#{dir}/rr/adapters/minitest"
+require "#{dir}/rr/adapters/minitest_active_support"
 require "#{dir}/rr/adapters/none"
 
 RR.autohook
