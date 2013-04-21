@@ -30,33 +30,8 @@ custom code, so it is beyond the scope of RR.
 
 ## Using RR with your test framework
 
-### Test::Unit
-
-~~~ ruby
-class Test::Unit::TestCase
-  include RR::Adapters::TestUnit
-end
-~~~
-
-### RSpec
-
-RR actually has two adapters, one for the newest version of RSpec (2) and
-another for the older version (1). Currently RSpec targets RR's RSpec-1 adapter
-and so until this is fixed you will need to specify the RSpec-2 adapter:
-
-~~~ ruby
-RSpec.configure do |config|
-  config.mock_framework = RR::Adapters::RSpec2
-end
-~~~
-
-### MiniTest / MiniSpec
-
-~~~ ruby
-class MiniTest::Unit::TestCase
-  include RR::Adapters::MiniTest
-end
-~~~
+RR will automatically integrate into any test framework you may have available,
+assuming that you require it before you require RR.
 
 
 ## Syntax between RR and other double/mock frameworks
