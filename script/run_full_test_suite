@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rbenv only -r 1.8.7-p302,1.9.3-p392,2.0.0-p0 -c "bundle install"
+rbenv only -r 1.8.7-p302,1.9.3-p392,2.0.0-p0 -c "bundle exec rake"
