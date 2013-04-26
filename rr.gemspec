@@ -18,12 +18,11 @@ Gem::Specification.new do |gem|
     'LICENSE',
     'README.md',
     'VERSION',
-    'Gemfile',
-    'Rakefile',
-    'lib/**/*.rb'
+    'lib/**/*.rb',
+    'rr.gemspec'
   ].to_a
 
-  gem.test_files = ['spec/runner.rb']
+  gem.test_files = FileList['spec/**/*']
 
   gem.require_paths = ['lib']
 end

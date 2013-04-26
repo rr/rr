@@ -3,7 +3,11 @@ ruby18 = (RUBY_VERSION =~ /^1\.8/)
 source 'https://rubygems.org'
 
 gem 'rake', '~> 10.0'
-gem "session", "~> 3.0"
+gem 'session', '~> 3.0'
+gem 'aws-sdk', '~> 1.0'
+gem 'minitar', '~> 0.5'
+gem 'dotenv', '~> 0.7'
+
 platforms :ruby do
   gem 'sqlite3', '~> 1.3'
 end
