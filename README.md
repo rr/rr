@@ -51,11 +51,14 @@ versions:
 
 |                       | Ruby 1.8.7-p371 | Ruby 1.9.3-p392 | Ruby 2.0.0-p0 | JRuby 1.7.3 (1.9 mode) |
 |-----------------------|:---------------:|:---------------:|:-------------:|:----------------------:|
-| MiniTest >= 4.7.3     |   | ✓ | ✓ | ✓ |
-| Test::Unit (Ruby 1.8) | ✓ |   |   |   |
-| Test::Unit >= 2.5.4   | ✓ | ✓ | ✓ | ✓ |
-| RSpec 1.3.2           | ✓ |   |   |   |
-| RSpec >= 2.13.0       |   | ✓ | ✓ | ✓ |
+| MiniTest 4.x                      |   | ✓ | ✓ | ✓ |
+| Test::Unit (Ruby 1.8)             | ✓ |   |   |   |
+| Test::Unit (Ruby 1.8) + Rails 2.x | ✓ |   |   |   |
+| Test::Unit 2.x                    | ✓ | ✓ | ✓ | ✓ |
+| Test::Unit 2.x + Rails 2.x        | ✓ |   |   |   |
+| Test::Unit 2.x + Rails 3.x        |   | ✓ | ✓ | ✓ |
+| RSpec 1.x                         | ✓ |   |   |   |
+| RSpec 2.x                         |   | ✓ | ✓ | ✓ |
 
 
 ## Author/Contact
