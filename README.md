@@ -28,7 +28,7 @@ end
 ~~~ ruby
 # Stub a method to return nothing
 stub(object).foo
-stub(MyClass).foo { 'bar' }
+stub(MyClass).foo
 
 # Stub a method to always return a value
 stub(object).foo { 'bar' }
@@ -46,13 +46,12 @@ stub(MyClass).foo(1, 2) { 'bar' }
 mock(object).foo
 mock(MyClass).foo
 
-# Create an expectation on a method
-# and stub it to always return a value
+# Create an expectation on a method and stub it to always return a value
 mock(object).foo { 'bar' }
 mock(MyClass).foo { 'bar' }
 
-# Create an expectation on a method with certain arguments
-# and stub it to return a value when called that way
+# Create an expectation on a method with certain arguments and stub it to return
+# a value when called that way
 mock(object).foo(1, 2) { 'bar' }
 mock(MyClass).foo(1, 2) { 'bar' }
 ~~~
@@ -72,8 +71,8 @@ assert_received(object) {|o| o.foo }
 ### Proxies
 
 ~~~ ruby
-# Intercept a existing method without completely overriding it,
-# and create a new return value from the existing one
+# Intercept a existing method without completely overriding it, and create a
+# new return value from the existing one
 stub.proxy(object).foo {|str| str.upcase }
 stub.proxy(MyClass).foo {|str| str.upcase }
 
