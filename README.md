@@ -110,11 +110,11 @@ end
 4. [API overview](doc/04_api_overview.md)
 
 
-## Help
+## Help!
 
-RR does not have a mailing at this present time, so if you have a question
-simply [post it as an issue](http://github.com/rr/rr/issues). I'll respond as
-soon as I can.
+While I may add one later, RR does not have a mailing list at this time, so if
+you have a question simply [post it as an issue](http://github.com/rr/rr/issues)
+and I'll respond as soon as I can.
 
 
 ## Contributing
