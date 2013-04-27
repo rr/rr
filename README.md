@@ -121,14 +121,16 @@ soon as I can.
 
 Want to contribute a bugfix or new feature to RR? Great! Follow these steps:
 
-1. Clone the repo (you probably knew that already).
-2. Make a new branch off of `master` with a descriptive name.
-3. Work on your bugfix or feature.
-4. Run `bundle install`
-5. Ensure all of the tests pass by running `rake`.
-6. If you want to go the extra mile, repeat steps 4-6 on all of the Ruby
-   versions listed below.
-7. When you're done, come back to this repo and create a pull request from your
+1. If you haven't already, install Ruby 2.0.0-p0 (this is the primary Ruby
+   version that RR targets).
+2. Clone the repo (you probably knew that already).
+3. Make a new branch off of `master` with a descriptive name.
+4. Work on your bugfix or feature.
+5. Run `bundle install`.
+6. Ensure all of the tests pass by running `bundle exec rake`.
+7. If you want to go the extra mile, install the other Ruby versions listed
+   below in the compatibility table, and repeat steps 5-6.
+8. When you're done, come back to this repo and create a pull request from your
    branch. I'll respond as soon as I can.
 
 
