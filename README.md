@@ -21,7 +21,7 @@ end
 ~~~
 
 
-## A quick whirlwind
+## A whirlwind tour of RR
 
 ### Stubs
 
