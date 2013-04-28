@@ -56,7 +56,7 @@ mock(object).foo(1, 2) { 'bar' }
 mock(MyClass).foo(1, 2) { 'bar' }
 ~~~
 
-### Stubs
+### Spies
 
 ~~~ ruby
 # RSpec
