@@ -129,9 +129,31 @@ Want to contribute a bugfix or new feature to RR? Great! Follow these steps:
 5. Run `bundle install`.
 6. Ensure all of the tests pass by running `bundle exec rake`.
 7. If you want to go the extra mile, install the other Ruby versions listed
-   below in the compatibility table, and repeat steps 5-6.
+   below in the compatibility table, and repeat steps 5-6. See the "Running test
+   suites" section below for more information.
 8. When you're done, come back to this repo and create a pull request from your
    branch. I'll respond as soon as I can.
+
+### Running test suites
+
+In order to test support for multiple Ruby versions and environments, there are
+multiple test suites, and Rake tasks to run these suites. Here is the list of
+available Rake tasks under Ruby >= 1.9:
+
+    rake spec:rspec_2
+    rake spec:minitest
+    rake spec:test_unit_2
+
+Here is the list under Ruby 1.8:
+
+    rake spec:rspec_1
+    rake spec:test_unit_2
+    rake spec:test_unit_1
+
+As a shortcut, to run all the available suites under the Ruby version you are
+on, you can simply say:
+
+    rake
 
 
 ## Compatibility
