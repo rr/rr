@@ -17,6 +17,8 @@ module RR
       end
     end
 
+    private
+
     def adapters
       @adapters ||= ADAPTER_NAMES.map { |adapter_name|
         [adapter_name, RR::Adapters.const_get(adapter_name).new]
