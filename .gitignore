@@ -6,4 +6,5 @@
 !.gitignore
 !.ruby-version
 Gemfile.lock
+coverage
 pkg
