@@ -1,7 +1,5 @@
-# Make sure to run this file with `bundle exec`
-
 require 'rubygems'
-require File.expand_path('../spec_helper', __FILE__)
+require File.expand_path('../../spec_helper', __FILE__)
 require 'session'
 require 'tempfile'
 $is_java = (RUBY_PLATFORM == 'java')
@@ -12,7 +10,7 @@ else
   require 'sqlite3'
 end
 
-describe "Integration between TestUnit and Rails" do
+describe "Integration between MiniTest and Rails" do
   def debug?
     false
   end
@@ -31,26 +29,14 @@ describe "Integration between TestUnit and Rails" do
       puts stdout
       puts stderr
     end
-    success.should be_true
+    expect(success).to be_true
     stdout
   ensure
     f.unlink
   end
 
   def test_helper_path
-    File.expand_path('../../../global_helper', __FILE__)
-  end
-
-  def mocha_version
-    '~> 0.12.0'
-  end
-
-  def active_support_version
-    '~> 2.3'
-  end
-
-  def test_unit_version
-    '~> 2.4.0'
+    File.expand_path('../../../../global_helper', __FILE__)
   end
 
   def sqlite_adapter
@@ -63,13 +49,10 @@ describe "Integration between TestUnit and Rails" do
 
   def bootstrap
     <<-EOT
-      RAILS_ROOT = File.expand_path(__FILE__)
       require 'rubygems'
-      require 'rack'
-      require 'test/unit'
-      require 'active_support/all'
-      require 'action_controller'
-      require 'active_support/test_case'
+      require 'minitest/unit'
+      require 'rails'
+      require 'active_support'
     EOT
   end
 
@@ -77,7 +60,6 @@ describe "Integration between TestUnit and Rails" do
     <<-EOT
       #{bootstrap}
 
-      gem 'activerecord', '#{active_support_version}'
       require 'active_record'
 
       # This is necessary to turn on transactional tests, for some reason
@@ -87,7 +69,7 @@ describe "Integration between TestUnit and Rails" do
       }
       ActiveRecord::Base.establish_connection(config)
 
-      require 'test_help'
+      require 'rails/test_help'
     EOT
   end
 
@@ -103,12 +85,11 @@ describe "Integration between TestUnit and Rails" do
         end
       end
     EOT
-    output.should match /Failure/
-    output.should match /1 failures/
+    expect(output).to match /Failure/
+    expect(output).to match /1 failures/
   end
 
   specify "the database is properly rolled back after an RR error" do
-    gem 'activerecord', active_support_version
     require 'active_record'
     FileUtils.rm_f(sqlite_db_file_path)
     ActiveRecord::Base.establish_connection(
@@ -127,7 +108,7 @@ describe "Integration between TestUnit and Rails" do
     end
 
     count = ActiveRecord::Base.connection.select_value('SELECT COUNT(*) from people')
-    count.to_i.should be == 0
+    expect(count.to_i).to eq 0
 
     run_fixture_tests <<-EOT
       #{bootstrap_active_record}
@@ -148,11 +129,10 @@ describe "Integration between TestUnit and Rails" do
     EOT
 
     count = ActiveRecord::Base.connection.select_value('SELECT COUNT(*) from people')
-    count.to_i.should be == 0
+    expect(count.to_i).to eq 0
   end
 
   specify "throwing an error in teardown doesn't mess things up" do
-    gem 'activerecord', active_support_version
     require 'active_record'
     FileUtils.rm_f(sqlite_db_file_path)
     ActiveRecord::Base.establish_connection(

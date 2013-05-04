@@ -1,5 +1,5 @@
 require 'rubygems'
-require File.expand_path('../spec_helper', __FILE__)
+require File.expand_path('../../spec_helper', __FILE__)
 require 'session'
 require 'tempfile'
 $is_java = (RUBY_PLATFORM == 'java')
@@ -36,7 +36,7 @@ describe "Integration between TestUnit and Rails" do
   end
 
   def test_helper_path
-    File.expand_path('../../../global_helper', __FILE__)
+    File.expand_path('../../../../global_helper', __FILE__)
   end
 
   def sqlite_adapter

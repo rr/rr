@@ -1,5 +1,5 @@
-require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
-require File.expand_path('../../common/test_unit_tests', __FILE__)
+require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path('../../../common/test_unit_tests', __FILE__)
 
 class MiniTestIntegrationTest < MiniTest::Unit::TestCase
   # Test::Unit compatibility

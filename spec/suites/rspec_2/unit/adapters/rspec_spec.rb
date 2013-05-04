@@ -66,14 +66,6 @@ module RR
         end
       end
 
-      describe "backtrace tweaking" do
-        it "hides rr library from the backtrace by default" do
-          file = File.expand_path('../../../rspec_backtrace_tweaking_spec_fixture.rb', __FILE__)
-          output = `rspec -o /dev/null #{file}`
-          output.should_not include("lib/rr")
-        end
-      end
-
       describe '#have_received' do
         it "creates an invocation matcher with a method name" do
           method  = :test

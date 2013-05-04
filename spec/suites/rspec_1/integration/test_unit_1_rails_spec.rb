@@ -1,5 +1,7 @@
+# Make sure to run this file with `bundle exec`
+
 require 'rubygems'
-require File.expand_path('../spec_helper', __FILE__)
+require File.expand_path('../../spec_helper', __FILE__)
 require 'session'
 require 'tempfile'
 $is_java = (RUBY_PLATFORM == 'java')
@@ -10,7 +12,7 @@ else
   require 'sqlite3'
 end
 
-describe "Integration between MiniTest and Rails" do
+describe "Integration between TestUnit and Rails" do
   def debug?
     false
   end
@@ -29,14 +31,14 @@ describe "Integration between MiniTest and Rails" do
       puts stdout
       puts stderr
     end
-    expect(success).to be_true
+    success.should be_true
     stdout
   ensure
     f.unlink
   end
 
   def test_helper_path
-    File.expand_path('../../../global_helper', __FILE__)
+    File.expand_path('../../../../global_helper', __FILE__)
   end
 
   def sqlite_adapter
@@ -49,10 +51,14 @@ describe "Integration between MiniTest and Rails" do
 
   def bootstrap
     <<-EOT
+      RAILS_ROOT = File.expand_path(__FILE__)
+      require 'test/unit'
+
       require 'rubygems'
-      require 'minitest/unit'
-      require 'rails'
-      require 'active_support'
+      require 'rack'
+      require 'active_support/all'
+      require 'action_controller'
+      require 'active_support/test_case'
     EOT
   end
 
@@ -69,7 +75,7 @@ describe "Integration between MiniTest and Rails" do
       }
       ActiveRecord::Base.establish_connection(config)
 
-      require 'rails/test_help'
+      require 'test_help'
     EOT
   end
 
@@ -85,8 +91,8 @@ describe "Integration between MiniTest and Rails" do
         end
       end
     EOT
-    expect(output).to match /Failure/
-    expect(output).to match /1 failures/
+    output.should match /Failure/
+    output.should match /1 failures/
   end
 
   specify "the database is properly rolled back after an RR error" do
@@ -108,7 +114,7 @@ describe "Integration between MiniTest and Rails" do
     end
 
     count = ActiveRecord::Base.connection.select_value('SELECT COUNT(*) from people')
-    expect(count.to_i).to eq 0
+    count.to_i.should be == 0
 
     run_fixture_tests <<-EOT
       #{bootstrap_active_record}
@@ -129,7 +135,7 @@ describe "Integration between MiniTest and Rails" do
     EOT
 
     count = ActiveRecord::Base.connection.select_value('SELECT COUNT(*) from people')
-    expect(count.to_i).to eq 0
+    count.to_i.should be == 0
   end
 
   specify "throwing an error in teardown doesn't mess things up" do

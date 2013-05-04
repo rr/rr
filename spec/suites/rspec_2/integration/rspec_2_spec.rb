@@ -1,5 +1,5 @@
-require File.expand_path('../spec_helper', __FILE__)
-require File.expand_path('../../common/adapter_tests', __FILE__)
+require File.expand_path('../../spec_helper', __FILE__)
+require File.expand_path('../../../common/adapter_tests', __FILE__)
 
 describe 'Integration with RSpec 2' do
   include AdapterTests
