@@ -108,7 +108,7 @@ module IntegrationWithRails
         end
 
         count = ActiveRecord::Base.connection.select_value('SELECT COUNT(*) from people')
-        count.to_i.should eq 0
+        count.to_i.should be == 0
 
         run_fixture_tests <<-EOT
           #{bootstrap_active_record}
@@ -129,7 +129,7 @@ module IntegrationWithRails
         EOT
 
         count = ActiveRecord::Base.connection.select_value('SELECT COUNT(*) from people')
-        count.to_i.should eq 0
+        count.to_i.should be == 0
       end
 
       specify "throwing an error in teardown doesn't mess things up" do
