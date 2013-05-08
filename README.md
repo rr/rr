@@ -155,6 +155,17 @@ on, you can simply say:
 
     rake
 
+(Incidentally, this is also the command which Travis runs.)
+
+Finally, to aid development only, if you're using rbenv, you can run all of the
+tests on all of the Rubies easily with:
+
+    script/run_full_test_suite
+
+This requires that you have the
+[rbenv-only](https://github.com/rodreegez/rbenv-only) plugin installed, and of
+course, the necessary Rubies as well too.
+
 
 ## Compatibility
 
