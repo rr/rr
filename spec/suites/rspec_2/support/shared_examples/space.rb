@@ -1,4 +1,3 @@
-
 shared_examples_for "Swapped Space" do
   attr_reader :space, :original_space
 
