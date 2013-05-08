@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.1.0 (UNRELEASED)
+
+* Fix a line in RR::Injections::DoubleInjection to use top-level RR constant
+  [Thibaut]
+* Fix all wildcard matches so they work within hashes and arrays. This means
+  that `stub([hash_containing(:foo => 'bar')])` will match
+  `stub([{:foo => 'bar', :baz => 'qux'}])`.
+* RR now auto-hooks into whichever test framework you have loaded; there is no
+  longer a need to `include RR::Adapters::Whatever` into your test framework. If
+  you don't like the autohook and prefer the old way, simply use
+  `require 'rr/without_autohook'` instead of `require 'rr'`. (There are now
+  seven adapters; see lib/rr/adapters for the full list.)
+* Fix Test::Unit adapters to ensure that any additional teardown is completely
+  run in the event that RR's verify step produces an error. This was causing
+  weirdness when using Test::Unit alongside Rails.
+* Add an explicit Test::Unit / ActiveSupport adapter. As ActiveSupport::TestCase
+  introduces its own setup/teardown hooks, use these when autohooking in RR.
+* Upon release, the tests are now packaged up and uploaded to S3. This is for
+  Linux distros like Fedora who wrap gems in RPM packages. You can always find
+  the latest tests at: <http://s3.amazonaws.com/rubygem-rr/tests/vX.Y.Z.tar.gz>,
+  where X.Y.Z represents a version. I have retroactively packaged the tests for
+  1.0.4 and 1.0.5.
+* General cleanup and that sort of thing.
+
 ## 1.0.5 (2013-03-28)
 
 * Compatibility with RSpec-2. There are now two adapters for RSpec, one that
