@@ -9,7 +9,7 @@ else
   require 'sqlite3'
 end
 
-shared_context 'Integration with Rails' do
+module IntegrationWithRails
   def debug?
     false
   end
@@ -28,7 +28,7 @@ shared_context 'Integration with Rails' do
       puts stdout
       puts stderr
     end
-    expect(success).to be_true
+    success.should be_true
     stdout
   ensure
     f.unlink
@@ -46,6 +46,14 @@ shared_context 'Integration with Rails' do
     '/tmp/rr-test-db.sqlite3'
   end
 
+  def rails_test_helper
+    ruby_18? ? 'test_help' : 'rails/test_help'
+  end
+
+  def ruby_18?
+    RUBY_VERSION =~ /^1\.8/
+  end
+
   def bootstrap_active_record
     <<-EOT
       #{bootstrap}
@@ -59,105 +67,109 @@ shared_context 'Integration with Rails' do
       }
       ActiveRecord::Base.establish_connection(config)
 
-      require 'rails/test_help'
+      require '#{rails_test_helper}'
     EOT
   end
 
-  specify "when RR raises an error it raises a failure not an exception" do
-    output = run_fixture_tests <<-EOT
-      #{bootstrap}
-      require "#{test_helper_path}"
+  def self.included(base)
+    base.class_eval do
+      specify "when RR raises an error it raises a failure not an exception" do
+        output = run_fixture_tests <<-EOT
+          #{bootstrap}
+          require "#{test_helper_path}"
 
-      class FooTest < ActiveSupport::TestCase
-        def test_one
-          object = Object.new
-          mock(object).foo
-        end
+          class FooTest < ActiveSupport::TestCase
+            def test_one
+              object = Object.new
+              mock(object).foo
+            end
+          end
+        EOT
+        output.should  match /Failure/
+        output.should match /1 failures/
       end
-    EOT
-    expect(output).to match /Failure/
-    expect(output).to match /1 failures/
-  end
 
-  specify "the database is properly rolled back after an RR error" do
-    require 'active_record'
-    FileUtils.rm_f(sqlite_db_file_path)
-    ActiveRecord::Base.establish_connection(
-      :adapter => sqlite_adapter,
-      :database => sqlite_db_file_path
-    )
-    unless debug?
-      old_stdout = $stdout
-      $stdout = File.open('/dev/null', 'w')
-    end
-    ActiveRecord::Migration.create_table :people do |t|
-      t.string :name
-    end
-    unless debug?
-      $stdout = old_stdout
-    end
-
-    count = ActiveRecord::Base.connection.select_value('SELECT COUNT(*) from people')
-    expect(count.to_i).to eq 0
-
-    run_fixture_tests <<-EOT
-      #{bootstrap_active_record}
-
-      ActiveRecord::Base.logger = Logger.new(File.open('/tmp/tests.log', 'a+'))
-
-      class Person < ActiveRecord::Base; end
-
-      require "#{test_helper_path}"
-
-      class FooTest < ActiveRecord::TestCase
-        def test_one
-          Person.create!(:name => 'Joe Blow')
-          object = Object.new
-          mock(object).foo
+      specify "the database is properly rolled back after an RR error" do
+        require 'active_record'
+        FileUtils.rm_f(sqlite_db_file_path)
+        ActiveRecord::Base.establish_connection(
+          :adapter => sqlite_adapter,
+          :database => sqlite_db_file_path
+        )
+        unless debug?
+          old_stdout = $stdout
+          $stdout = File.open('/dev/null', 'w')
         end
+        ActiveRecord::Migration.create_table :people do |t|
+          t.string :name
+        end
+        unless debug?
+          $stdout = old_stdout
+        end
+
+        count = ActiveRecord::Base.connection.select_value('SELECT COUNT(*) from people')
+        count.to_i.should eq 0
+
+        run_fixture_tests <<-EOT
+          #{bootstrap_active_record}
+
+          ActiveRecord::Base.logger = Logger.new(File.open('/tmp/tests.log', 'a+'))
+
+          class Person < ActiveRecord::Base; end
+
+          require "#{test_helper_path}"
+
+          class FooTest < ActiveRecord::TestCase
+            def test_one
+              Person.create!(:name => 'Joe Blow')
+              object = Object.new
+              mock(object).foo
+            end
+          end
+        EOT
+
+        count = ActiveRecord::Base.connection.select_value('SELECT COUNT(*) from people')
+        count.to_i.should eq 0
       end
-    EOT
 
-    count = ActiveRecord::Base.connection.select_value('SELECT COUNT(*) from people')
-    expect(count.to_i).to eq 0
-  end
-
-  specify "throwing an error in teardown doesn't mess things up" do
-    require 'active_record'
-    FileUtils.rm_f(sqlite_db_file_path)
-    ActiveRecord::Base.establish_connection(
-      :adapter => sqlite_adapter,
-      :database => sqlite_db_file_path
-    )
-    unless debug?
-      old_stdout = $stdout
-      $stdout = File.open('/dev/null', 'w')
-    end
-    ActiveRecord::Migration.create_table :people do |t|
-      t.string :name
-    end
-    unless debug?
-      $stdout = old_stdout
-    end
-
-    output = run_fixture_tests <<-EOT
-      #{bootstrap_active_record}
-
-      ActiveRecord::Base.logger = Logger.new(File.open('/tmp/tests.log', 'a+'))
-
-      class Person < ActiveRecord::Base; end
-
-      require "#{test_helper_path}"
-
-      class FooTest < ActiveRecord::TestCase
-        teardown do
-          raise 'hell'
+      specify "throwing an error in teardown doesn't mess things up" do
+        require 'active_record'
+        FileUtils.rm_f(sqlite_db_file_path)
+        ActiveRecord::Base.establish_connection(
+          :adapter => sqlite_adapter,
+          :database => sqlite_db_file_path
+        )
+        unless debug?
+          old_stdout = $stdout
+          $stdout = File.open('/dev/null', 'w')
+        end
+        ActiveRecord::Migration.create_table :people do |t|
+          t.string :name
+        end
+        unless debug?
+          $stdout = old_stdout
         end
 
-        def test_one
-          # whatever
-        end
+        output = run_fixture_tests <<-EOT
+          #{bootstrap_active_record}
+
+          ActiveRecord::Base.logger = Logger.new(File.open('/tmp/tests.log', 'a+'))
+
+          class Person < ActiveRecord::Base; end
+
+          require "#{test_helper_path}"
+
+          class FooTest < ActiveRecord::TestCase
+            teardown do
+              raise 'hell'
+            end
+
+            def test_one
+              # whatever
+            end
+          end
+        EOT
       end
-    EOT
+    end
   end
 end

@@ -1,6 +1,8 @@
 require File.expand_path('../../../common/rails_integration_test', __FILE__)
 
 describe 'Integration between TestUnit and Rails' do
+  include IntegrationWithRails
+
   def bootstrap
     <<-EOT
       require 'rubygems'
