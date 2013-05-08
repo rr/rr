@@ -1,12 +1,6 @@
-require File.expand_path("#{File.dirname(__FILE__)}/../../spec_helper")
+require File.expand_path('../../spec_helper', __FILE__)
 
-describe "spy" do
-  include RR::Adapters::RRMethods
-
-  after(:each) do
-    RR.reset
-  end
-
+describe '#spy' do
   subject { Object.new }
 
   it "should record all method invocations" do

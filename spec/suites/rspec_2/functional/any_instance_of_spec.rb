@@ -1,8 +1,8 @@
-require File.expand_path("#{File.dirname(__FILE__)}/../../spec_helper")
+require File.expand_path('../../spec_helper', __FILE__)
 
-describe "any_instance_of" do
+describe '#any_instance_of' do
   context "when passed a block" do
-    it "applies to instances instantiated before the Double expection was created" do
+    it "applies to instances instantiated before the Double expectation was created" do
       subject_class = Class.new
       subject = subject_class.new
       class_called = false
@@ -28,7 +28,7 @@ describe "any_instance_of" do
   end
 
   context "when passed a Hash" do
-    it "stubs methods (key) with the value on instances instantiated before the Double expection was created" do
+    it "stubs methods (key) with the value on instances instantiated before the Double expectation was created" do
       subject_class = Class.new
       subject = subject_class.new
       expect(subject).to_not respond_to(:baz)

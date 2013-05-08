@@ -1,7 +1,7 @@
 require File.expand_path('../../spec_helper', __FILE__)
 require 'ostruct'
 
-describe 'Wildcard matchers' do
+describe 'wildcard matchers' do
   subject { Object.new }
 
   describe '#anything' do

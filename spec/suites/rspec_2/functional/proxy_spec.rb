@@ -1,12 +1,6 @@
-require File.expand_path("#{File.dirname(__FILE__)}/../../spec_helper")
+require File.expand_path('../../spec_helper', __FILE__)
 
-describe "proxy" do
-  include RR::Adapters::RRMethods
-
-  after(:each) do
-    RR.reset
-  end
-
+describe '#proxy' do
   subject { Object.new }
 
   it "proxies via inline call" do
@@ -14,6 +8,7 @@ describe "proxy" do
     mock.proxy(subject).to_s
     expect(subject.to_s).to eq expected_to_s_value
     expect { subject.to_s }.to raise_error
+    RR.reset
   end
 
   it "proxy allows ordering" do
@@ -27,6 +22,8 @@ describe "proxy" do
     expect(subject.to_s(:bar)).to eq "Original to_s with arg bar"
     expect(subject.to_s(:bar)).to eq "Original to_s with arg bar"
     expect { subject.to_s(:bar) }.to raise_error(RR::Errors::TimesCalledError)
+
+    RR.reset
   end
 
   it "proxy allows ordering" do
@@ -40,6 +37,8 @@ describe "proxy" do
     expect(subject.to_s(:bar)).to eq "Original to_s with arg bar"
     expect(subject.to_s(:bar)).to eq "Original to_s with arg bar"
     expect { subject.to_s(:bar) }.to raise_error(RR::Errors::TimesCalledError)
+
+    RR.reset
   end
 
   it "proxies via block with argument" do
@@ -60,6 +59,8 @@ describe "proxy" do
 
     expect(subject.foobar_2).to eq :original_value_2
     expect { subject.foobar_2(:blah) }.to raise_error
+
+    RR.reset
   end
 
   it "proxies via block without argument" do
@@ -80,13 +81,22 @@ describe "proxy" do
 
     expect(subject.foobar_2).to eq :original_value_2
     expect { subject.foobar_2(:blah) }.to raise_error
+
+    RR.reset
   end
 
   # bug #44
   describe 'when wrapped in an array that is then flattened' do
+    subject {
+      Object.new.tap do |o|
+        def o.foo; end
+      end
+    }
+
     context 'when the method being mocked is not defined' do
       it "does not raise an error" do
         mock.proxy(subject).foo
+        subject.foo
         expect([subject].flatten).to eq [subject]
       end
 
@@ -95,6 +105,7 @@ describe "proxy" do
           def to_ary; []; end
         end
         mock.proxy(subject).foo
+        subject.foo
         expect([subject].flatten).to eq []
       end
     end
@@ -108,6 +119,7 @@ describe "proxy" do
 
       it "does not raise an error" do
         mock.proxy(subject).foo
+        subject.foo
         expect([subject].flatten).to eq [subject]
       end
 
@@ -116,6 +128,7 @@ describe "proxy" do
           def to_ary; []; end
         end
         mock.proxy(subject).foo
+        subject.foo
         expect([subject].flatten).to eq []
       end
     end

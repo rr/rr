@@ -1,4 +1,4 @@
-require File.expand_path("#{File.dirname(__FILE__)}/../../spec_helper")
+require File.expand_path('../../spec_helper', __FILE__)
 
 class StrongSpecFixture
   def method_with_no_arguments
@@ -17,13 +17,7 @@ class StrongSpecFixture
   end
 end
 
-describe "strong" do
-  include RR::Adapters::RRMethods
-
-  after(:each) do
-    RR.reset
-  end
-
+describe '#strong' do
   subject { Object.new }
 
   context "when the method does not exist" do
