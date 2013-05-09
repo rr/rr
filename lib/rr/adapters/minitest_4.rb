@@ -1,6 +1,6 @@
 module RR
   module Adapters
-    class MiniTest
+    class MiniTest4
       module AdapterMethods
         def assert_received(subject, &block)
           block.call(received(subject)).call

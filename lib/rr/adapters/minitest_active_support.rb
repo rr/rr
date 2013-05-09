@@ -2,7 +2,7 @@ module RR
   module Adapters
     class MiniTestActiveSupport
       def initialize
-        @mt_adapter = MiniTest.new
+        @mt_adapter = MiniTest4.new
       end
 
       def name
@@ -16,7 +16,7 @@ module RR
       def hook
         ::ActiveSupport::TestCase.class_eval do
           include RRMethods
-          include MiniTest::AdapterMethods
+          include MiniTest4::AdapterMethods
 
           setup do
             RR.reset

@@ -92,7 +92,7 @@ require 'rr/adapters/rspec_2'
 require 'rr/adapters/test_unit_1'
 require 'rr/adapters/test_unit_2'
 require 'rr/adapters/test_unit_2_active_support'
-require 'rr/adapters/minitest'
+require 'rr/adapters/minitest_4'
 require 'rr/adapters/minitest_active_support'
 require 'rr/adapters/none'
 
