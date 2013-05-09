@@ -85,6 +85,7 @@ require 'rr/times_called_matchers/at_most_matcher'
 require 'rr/spy_verification_proxy'
 require 'rr/spy_verification'
 
+require 'rr/adapters'
 require 'rr/adapters/rspec/invocation_matcher'
 require 'rr/adapters/rspec_1'
 require 'rr/adapters/rspec_2'

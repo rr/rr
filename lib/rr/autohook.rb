@@ -11,7 +11,7 @@ module RR
     ]
 
     def autohook
-      find_applicable_adapters.each do |adapter|
+      applicable_adapters.each do |adapter|
         #puts "Using adapter: #{adapter.name}"
         adapter.hook
       end
@@ -21,21 +21,14 @@ module RR
 
     def adapters
       @adapters ||= ADAPTER_NAMES.map { |adapter_name|
-        [adapter_name, RR::Adapters.const_get(adapter_name).new]
+        [adapter_name, RR::Adapters.build(adapter_name)]
       }
     end
 
-    def find_applicable_adapters
-      @applicable_adapters ||= begin
-        applicable_adapters = adapters.inject([]) { |arr, (_, adapter)|
-          arr << adapter if adapter.applies?
-          arr
-        }
-        if applicable_adapters.empty?
-          applicable_adapters << adapters.index(:None)
-        end
-        applicable_adapters
-      end
+    def applicable_adapters
+      @applicable_adapters ||= adapters.
+        map { |_, adapter| adapter }.
+        select { |adapter| adapter.applies? }
     end
   end
 end
