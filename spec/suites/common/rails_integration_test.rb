@@ -1,6 +1,3 @@
-require 'rubygems'
-require 'session'
-require 'tempfile'
 $is_java = (RUBY_PLATFORM == 'java')
 if $is_java
   require 'arjdbc'
@@ -10,34 +7,6 @@ else
 end
 
 module IntegrationWithRails
-  def debug?
-    false
-  end
-
-  def run_fixture_tests(content)
-    output = nil
-    f = Tempfile.new('rr_test_fixture')
-    f.write(content)
-    f.close
-    bash = Session::Bash.new
-    cmd = "ruby #{f.path} 2>&1"
-    puts cmd if debug?
-    stdout, stderr = bash.execute(cmd)
-    success = !!(bash.exit_status == 0 || stdout =~ /Finished/)
-    if debug? or !success
-      puts stdout
-      puts stderr
-    end
-    success.should be_true
-    stdout
-  ensure
-    f.unlink
-  end
-
-  def test_helper_path
-    File.expand_path('../../../global_helper', __FILE__)
-  end
-
   def sqlite_adapter
     $is_java ? 'jdbcsqlite3' : 'sqlite3'
   end
@@ -48,10 +17,6 @@ module IntegrationWithRails
 
   def rails_test_helper
     ruby_18? ? 'test_help' : 'rails/test_help'
-  end
-
-  def ruby_18?
-    RUBY_VERSION =~ /^1\.8/
   end
 
   def bootstrap_active_record
@@ -73,22 +38,6 @@ module IntegrationWithRails
 
   def self.included(base)
     base.class_eval do
-      specify "when RR raises an error it raises a failure not an exception" do
-        output = run_fixture_tests <<-EOT
-          #{bootstrap}
-          require "#{test_helper_path}"
-
-          class FooTest < ActiveSupport::TestCase
-            def test_one
-              object = Object.new
-              mock(object).foo
-            end
-          end
-        EOT
-        output.should  match /Failure/
-        output.should match /1 failures/
-      end
-
       specify "the database is properly rolled back after an RR error" do
         require 'active_record'
         FileUtils.rm_f(sqlite_db_file_path)

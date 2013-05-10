@@ -1,27 +1,22 @@
 require File.expand_path('../../spec_helper', __FILE__)
 require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
-require File.expand_path('../../../common/rails_integration_test', __FILE__)
 
-describe 'Integration between TestUnit and Rails' do
+describe 'Test::Unit 1 integration' do
   include AdapterIntegrationTests
-  include IntegrationWithRails
 
-  def additional_bootstrap
+  def bootstrap
     <<-EOT
-      require 'rails'
-      require 'active_support'
+      require 'test/unit'
+      require 'rubygems'
+      require 'rr'
     EOT
-  end
-
-  def test_framework_path
-    'test/unit'
   end
 
   def error_test
     <<-EOT
       #{bootstrap}
 
-      class FooTest < ActiveSupport::TestCase
+      class FooTest < Test::Unit::TestCase
         def test_foo
           object = Object.new
           mock(object).foo
@@ -34,11 +29,11 @@ describe 'Integration between TestUnit and Rails' do
     <<-EOT
       #{bootstrap}
 
-      class ActiveSupport::TestCase
+      class Test::Unit::TestCase
         include RR::Adapters::TestUnit
       end
 
-      class FooTest < ActiveSupport::TestCase
+      class FooTest < Test::Unit::TestCase
         def test_foo
           object = Object.new
           mock(object).foo
