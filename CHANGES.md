@@ -3,10 +3,10 @@
 ## 1.1.0 (UNRELEASED)
 
 * Fix a line in RR::Injections::DoubleInjection to use top-level RR constant
-  [Thibaut]
+  ([#3][i3]) [[@Thibaut][Thibaut]]
 * Fix all wildcard matches so they work within hashes and arrays. This means
   that `stub([hash_containing(:foo => 'bar')])` will match
-  `stub([{:foo => 'bar', :baz => 'qux'}])`.
+  `stub([{:foo => 'bar', :baz => 'qux'}])`. ([#4][i4])
 * RR now auto-hooks into whichever test framework you have loaded; there is no
   longer a need to `include RR::Adapters::Whatever` into your test framework. If
   you don't like the autohook and prefer the old way, simply use
@@ -30,12 +30,12 @@
   works with RSpec-1 and a new one that works with RSpec-2. Currently, saying
   `RSpec.configure {|c| c.mock_with(:rr) }` still uses RSpec-1; to use the new
   one, you say `RSpec.configure {|c| c.mock_framework = RR::Adapters::RSpec2 }`.
-  (#66, #68, #80) [njay, james2m]
+  ([#66][xi66], [#68][xi68], [#80][xi80]) [[@njay][njay], [@james2m][james2m]]
 * Fix MethodMissingInjection so that `[stub].flatten` works without throwing a
-  NoMethodError (undefined method #to_ary) error under Ruby 1.9 (#44)
+  NoMethodError (undefined method #to_ary) error under Ruby 1.9 ([#44][xi44])
 * Raise a MiniTest::Assertion error in the MiniTest adapter so that mock
   failures appear in the output as failures rather than uncaught exceptions
-  (#69) [jayferd]
+  ([#69][xi69]) [[@jayferd][jayferd]]
 * Completely remove leftover #new_instance_of method, and also remove
   mention of #new_instance_of from the README
 * Fix tests so they all work and pass again
@@ -414,3 +414,15 @@
 ## 0.1.0 (2007-07-07)
 
 * Initial Release
+
+[i3]: http://github.com/rr/rr/issues/3
+[Thibaut]: http://github.com/Thibaut
+[i4]: http://github.com/rr/rr/issues/4
+[xi66]: http://github.com/btakita/rr/issues/66
+[xi68]: http://github.com/btakita/rr/issues/68
+[xi80]: http://github.com/btakita/rr/issues/80
+[njay]: http://github.com/njay
+[james2m]: http://github.com/james2m
+[xi44]: http://github.com/btakita/rr/issues/44
+[xi69]: http://github.com/btakita/rr/issues/69
+[jayferd]: http://github.com/jayferd
