@@ -56,6 +56,15 @@ module AdapterIntegrationTests
     ""
   end
 
+  def all_tests_should_pass(output)
+    if output =~ /(\d+) failure/
+      $1.should be == '0'
+    end
+    if output =~ /(\d+) error/
+      $1.should be == '0'
+    end
+  end
+
   def self.included(base)
     base.class_eval do
       specify "when RR raises an error it raises a failure not an exception" do
@@ -65,23 +74,13 @@ module AdapterIntegrationTests
 
       specify "it is still possible to include the adapter into the test framework manually" do
         output = run_fixture_tests(include_adapter_test)
-        if output =~ /(\d+) failure/
-          $1.should be == '0'
-        end
-        if output =~ /(\d+) error/
-          $1.should be == '0'
-        end
+        all_tests_should_pass(output)
       end
 
       if method_defined?(:include_adapter_where_rr_included_before_test_framework_test)
         specify "it is still possible to include the adapter into the test framework manually when RR is included before the test framework" do
           output = run_fixture_tests(include_adapter_where_rr_included_before_test_framework_test)
-          if output =~ /(\d+) failure/
-            $1.should be == '0'
-          end
-          if output =~ /(\d+) error/
-            $1.should be == '0'
-          end
+          all_tests_should_pass(output)
         end
       end
     end

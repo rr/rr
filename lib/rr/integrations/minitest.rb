@@ -1,7 +1,7 @@
 module RR
-  module Adapters
-    class MiniTest4
-      module AdapterMethods
+  module Integrations
+    class MiniTest
+      module Mixin
         def assert_received(subject, &block)
           block.call(received(subject)).call
         end
@@ -17,8 +17,8 @@ module RR
 
       def hook
         ::MiniTest::Unit::TestCase.class_eval do
-          include RRMethods
-          include AdapterMethods
+          include RR::Adapters::RRMethods
+          include Mixin
 
           unless instance_methods.any? { |method_name| method_name.to_sym == :setup_with_rr }
             alias_method :setup_without_rr, :setup

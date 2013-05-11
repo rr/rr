@@ -1,5 +1,5 @@
 module RR
-  module Adapters
+  module Integrations
     class RSpec2 < RSpec1
       def name
         'RSpec 2'
@@ -11,8 +11,8 @@ module RR
 
       def hook
         ::RSpec.configure do |config|
-          config.mock_with AdapterMethods
-          config.include RRMethods
+          config.mock_with Mixin
+          config.include RR::Adapters::RRMethods
         end
         patterns = ::RSpec.configuration.backtrace_clean_patterns
         unless patterns.include?(RR::Errors::BACKTRACE_IDENTIFIER)

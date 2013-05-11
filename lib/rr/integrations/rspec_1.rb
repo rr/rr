@@ -1,7 +1,7 @@
 module RR
-  module Adapters
+  module Integrations
     class RSpec1
-      module AdapterMethods
+      module Mixin
         def setup_mocks_for_rspec
           RR.reset
         end
@@ -29,8 +29,8 @@ module RR
 
       def hook
         ::Spec::Runner.configure do |config|
-          config.mock_with AdapterMethods
-          config.include RRMethods
+          config.mock_with Mixin
+          config.include RR::Adapters::RRMethods
         end
         patterns = ::Spec::Runner::QuietBacktraceTweaker::IGNORE_PATTERNS
         unless patterns.include?(RR::Errors::BACKTRACE_IDENTIFIER)

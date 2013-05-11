@@ -1,7 +1,7 @@
 require File.expand_path("#{File.dirname(__FILE__)}/../../spec_helper")
 
 module RR
-  module Adapters
+  module Integrations
     describe RSpec1 do
       attr_reader :fixture, :method_name
 
@@ -10,7 +10,7 @@ module RR
 
         before do
           @fixture = Object.new
-          fixture.extend RSpec1::AdapterMethods
+          fixture.extend RSpec1::Mixin
           @method_name = :foobar
         end
 
@@ -28,7 +28,7 @@ module RR
 
         before do
           @fixture = Object.new
-          fixture.extend RSpec1::AdapterMethods
+          fixture.extend RSpec1::Mixin
           @method_name = :foobar
         end
 
@@ -47,7 +47,7 @@ module RR
 
         before do
           @fixture = Object.new
-          fixture.extend RSpec1::AdapterMethods
+          fixture.extend RSpec1::Mixin
           @method_name = :foobar
         end
 
@@ -70,13 +70,13 @@ module RR
         it "creates an invocation matcher with a method name" do
           method  = :test
           matcher = 'fake'
-          mock(RR::Adapters::RSpec::InvocationMatcher).new(method) { matcher }
+          mock(RR::Integrations::RSpec::InvocationMatcher).new(method) { matcher }
           expect(have_received(method)).to eq matcher
         end
 
         it "creates an invocation matcher without a method name" do
           matcher = 'fake'
-          mock(RR::Adapters::RSpec::InvocationMatcher).new(nil) { matcher }
+          mock(RR::Integrations::RSpec::InvocationMatcher).new(nil) { matcher }
           expect(have_received).to eq matcher
         end
       end

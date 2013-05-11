@@ -72,4 +72,54 @@ describe 'Integration with RSpec 2' do
       end
     EOT
   end
+
+  specify "it is still possible to use a custom RSpec-2 adapter" do
+    output = run_fixture_tests <<-EOT
+      #{bootstrap}
+
+      module RR
+        module Adapters
+          module RSpec2
+            include RRMethods
+
+            def setup_mocks_for_rspec
+              RR.reset
+            end
+
+            def verify_mocks_for_rspec
+              RR.verify
+            end
+
+            def teardown_mocks_for_rspec
+              RR.reset
+            end
+
+            def have_received(method = nil)
+              RR::Adapters::Rspec::InvocationMatcher.new(method)
+            end
+          end
+        end
+      end
+
+      RSpec.configure do |c|
+        c.mock_with RR::Adapters::RSpec2
+      end
+
+      describe 'RR' do
+        specify 'mocks work' do
+          object = Object.new
+          mock(object).foo
+          object.foo
+        end
+
+        specify 'have_received works' do
+          object = Object.new
+          stub(object).foo
+          object.foo
+          object.should have_received.foo
+        end
+      end
+    EOT
+    all_tests_should_pass(output)
+  end
 end

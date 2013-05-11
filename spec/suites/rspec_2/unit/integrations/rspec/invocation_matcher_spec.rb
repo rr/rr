@@ -1,7 +1,7 @@
 require File.expand_path("#{File.dirname(__FILE__)}/../../../spec_helper")
 
 module RR
-  module Adapters
+  module Integrations
     module RSpec
       describe InvocationMatcher do
         describe "matching against a method with no doubles" do

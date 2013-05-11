@@ -7,7 +7,7 @@ module RR
       :TestUnit2ActiveSupport,
       :TestUnit2,
       :MiniTestActiveSupport,
-      :MiniTest4
+      :MiniTest
     ]
 
     def autohook
@@ -21,7 +21,7 @@ module RR
 
     def adapters
       @adapters ||= ADAPTER_NAMES.map { |adapter_name|
-        [adapter_name, RR::Adapters.build(adapter_name)]
+        [adapter_name, RR::Integrations.build(adapter_name)]
       }
     end
 

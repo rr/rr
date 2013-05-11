@@ -19,14 +19,10 @@ module RR
             when :TestUnit
               find_applicable_adapter(:TestUnit1, :TestUnit2ActiveSupport, :TestUnit2)
             when :MiniTest
-              find_applicable_adapter(:MiniTestActiveSupport, :MiniTest4)
+              find_applicable_adapter(:MiniTestActiveSupport, :MiniTest)
           end
 
         adapter
-      end
-
-      def build(adapter_const_name)
-        const_get(adapter_const_name).new
       end
 
       private
@@ -37,7 +33,7 @@ module RR
 
       def find_applicable_adapter(*adapter_const_names)
         adapter = adapter_const_names.
-          map { |adapter_const_name| RR::Adapters.build(adapter_const_name) }.
+          map { |adapter_const_name| RR::Integrations.build(adapter_const_name) }.
           find { |adapter| adapter.applies? }
         if adapter
           mod = Module.new

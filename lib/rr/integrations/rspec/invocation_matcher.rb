@@ -1,5 +1,5 @@
 module RR
-  module Adapters
+  module Integrations
     module RSpec
       class InvocationMatcher < SpyVerificationProxy
         attr_reader :failure_message, :spy_verification_proxy
@@ -34,6 +34,14 @@ module RR
           self
         end
       end
+    end
+  end
+end
+
+module RR
+  module Adapters
+    module Rspec
+      InvocationMatcher = RR::Integrations::RSpec::InvocationMatcher
     end
   end
 end

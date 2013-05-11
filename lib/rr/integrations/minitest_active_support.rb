@@ -1,12 +1,12 @@
 module RR
-  module Adapters
+  module Integrations
     class MiniTestActiveSupport
       def initialize
-        @mt_adapter = MiniTest4.new
+        @mt_adapter = MiniTest.new
       end
 
       def name
-        'MiniTest w/ ActiveSupport'
+        'MiniTest + ActiveSupport'
       end
 
       def applies?
@@ -15,8 +15,8 @@ module RR
 
       def hook
         ::ActiveSupport::TestCase.class_eval do
-          include RRMethods
-          include MiniTest4::AdapterMethods
+          include RR::Adapters::RRMethods
+          include MiniTest::Mixin
 
           setup do
             RR.reset

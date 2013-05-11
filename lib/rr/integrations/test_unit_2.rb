@@ -1,5 +1,5 @@
 module RR
-  module Adapters
+  module Integrations
     class TestUnit2 < TestUnit1
       def name
         'Test::Unit 2'

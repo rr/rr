@@ -1,5 +1,5 @@
 module RR
-  module Adapters
+  module Integrations
     class None
       def name
         'No adapter'

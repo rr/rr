@@ -1,7 +1,7 @@
 module RR
-  module Adapters
+  module Integrations
     class TestUnit1
-      module AdapterMethods
+      module Mixin
         def assert_received(subject, &block)
           block.call(received(subject)).call
         end
@@ -17,8 +17,8 @@ module RR
 
       def hook(test_case_class = ::Test::Unit::TestCase)
         test_case_class.class_eval do
-          include RRMethods
-          include AdapterMethods
+          include RR::Adapters::RRMethods
+          include Mixin
 
           unless instance_methods.detect {|method_name| method_name.to_sym == :setup_with_rr }
             alias_method :setup_without_rr, :setup
