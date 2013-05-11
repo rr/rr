@@ -47,4 +47,22 @@ describe 'Integration between TestUnit and Rails' do
       end
     EOT
   end
+
+  def include_adapter_where_rr_included_before_test_framework_test
+    <<-EOT
+      #{bootstrap :include_rr_before => true}
+
+      class ActiveSupport::TestCase
+        include RR::Adapters::TestUnit
+      end
+
+      class FooTest < ActiveSupport::TestCase
+        def test_foo
+          object = Object.new
+          mock(object).foo
+          object.foo
+        end
+      end
+    EOT
+  end
 end

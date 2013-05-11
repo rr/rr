@@ -38,4 +38,22 @@ describe 'MiniTest integration' do
       end
     EOT
   end
+
+  def include_adapter_where_rr_included_before_test_framework_test
+    <<-EOT
+      #{bootstrap :include_rr_before => true}
+
+      class MiniTest::Unit::TestCase
+        include RR::Adapters::MiniTest
+      end
+
+      class FooTest < MiniTest::Unit::TestCase
+        def test_foo
+          object = Object.new
+          mock(object).foo
+          object.foo
+        end
+      end
+    EOT
+  end
 end

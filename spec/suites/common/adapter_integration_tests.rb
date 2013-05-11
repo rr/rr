@@ -4,7 +4,7 @@ require 'tempfile'
 
 module AdapterIntegrationTests
   def debug?
-    false
+    ENV['RR_DEBUG'] == '1'
   end
 
   def run_fixture_tests(content)
@@ -40,13 +40,16 @@ module AdapterIntegrationTests
     RUBY_VERSION =~ /^1\.8/
   end
 
-  def bootstrap
-    <<-EOT
-      require 'rubygems'
+  def bootstrap(opts={})
+    str = ""
+    str << "require 'rubygems'\n"
+    str << "require 'rr'\n" if opts[:include_rr_before]
+    str << <<-EOT
       require '#{test_framework_path}'
       #{additional_bootstrap}
-      require 'rr'
     EOT
+    str << "require 'rr'\n" unless opts[:include_rr_before]
+    str
   end
 
   def additional_bootstrap
@@ -61,7 +64,25 @@ module AdapterIntegrationTests
       end
 
       specify "it is still possible to include the adapter into the test framework manually" do
-        run_fixture_tests(include_adapter_test)
+        output = run_fixture_tests(include_adapter_test)
+        if output =~ /(\d+) failure/
+          $1.should be == '0'
+        end
+        if output =~ /(\d+) error/
+          $1.should be == '0'
+        end
+      end
+
+      if method_defined?(:include_adapter_where_rr_included_before_test_framework_test)
+        specify "it is still possible to include the adapter into the test framework manually when RR is included before the test framework" do
+          output = run_fixture_tests(include_adapter_where_rr_included_before_test_framework_test)
+          if output =~ /(\d+) failure/
+            $1.should be == '0'
+          end
+          if output =~ /(\d+) error/
+            $1.should be == '0'
+          end
+        end
       end
     end
   end

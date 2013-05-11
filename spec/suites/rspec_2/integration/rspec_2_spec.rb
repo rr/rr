@@ -29,7 +29,7 @@ describe 'Integration with RSpec 2' do
       #{bootstrap}
 
       describe 'A test' do
-        it do
+        it 'is a test' do
           object = Object.new
           mock(object).foo
         end
@@ -46,7 +46,25 @@ describe 'Integration with RSpec 2' do
       end
 
       describe 'A test' do
-        it do
+        it 'is a test' do
+          object = Object.new
+          mock(object).foo
+          object.foo
+        end
+      end
+    EOT
+  end
+
+  def include_adapter_where_rr_included_before_test_framework_test
+    <<-EOT
+      #{bootstrap :include_rr_before => true}
+
+      RSpec.configure do |c|
+        c.mock_with :rr
+      end
+
+      describe 'A test' do
+        it 'is a test' do
           object = Object.new
           mock(object).foo
           object.foo

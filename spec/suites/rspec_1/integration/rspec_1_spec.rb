@@ -54,4 +54,22 @@ describe 'Integration with RSpec 1' do
       end
     EOT
   end
+
+  def include_adapter_where_rr_included_before_test_framework_test
+    <<-EOT
+      #{bootstrap :include_rr_before => true}
+
+      Spec::Runner.configure do |c|
+        c.mock_with :rr
+      end
+
+      describe 'A test' do
+        it 'is a test' do
+          object = Object.new
+          mock(object).foo
+          object.foo
+        end
+      end
+    EOT
+  end
 end

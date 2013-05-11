@@ -38,4 +38,22 @@ describe 'TestUnit integration' do
       end
     EOT
   end
+
+  def include_adapter_where_rr_included_before_test_framework_test
+    <<-EOT
+      #{bootstrap :include_rr_before => true}
+
+      class Test::Unit::TestCase
+        include RR::Adapters::TestUnit
+      end
+
+      class FooTest < Test::Unit::TestCase
+        def test_foo
+          object = Object.new
+          mock(object).foo
+          object.foo
+        end
+      end
+    EOT
+  end
 end
