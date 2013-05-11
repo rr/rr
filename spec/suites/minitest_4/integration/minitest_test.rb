@@ -6,8 +6,4 @@ class MiniTestIntegrationTest < MiniTest::Unit::TestCase
   alias_method :assert_raise, :assert_raises
 
   include TestUnitTests
-
-  def test_backtrace_tweaking
-    skip "test this later"
-  end
 end

@@ -18,8 +18,4 @@ module TestUnitTests
       assert_received(subject) {|s| s.foobar(1, 2, 3) }
     end
   end
-
-  def test_trim_backtrace_is_set
-    assert RR.trim_backtrace
-  end
 end
