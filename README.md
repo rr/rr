@@ -4,20 +4,48 @@ RR is a test double framework for Ruby that features a rich selection of double
 techniques and a terse syntax.
 
 
-## Getting started
+## Installing RR into your project
 
-Simply add the following to your Gemfile:
+For minimal setup, RR looks for an existing test framework and then hooks itself
+into it. Hence, RR works best when loaded *after* the test framework that you
+are using is loaded.
+
+If you are using Bundler, you can achieve this by specifying the dependency on
+RR with `require: false`; then, require RR directly following your test
+framework.
+
+Here's what this looks like for different kinds of projects:
+
+### Ruby project (without Bundler)
 
 ~~~ ruby
-gem 'rr', '~> 1.0.5'
+require 'your/test/framework'
+require 'rr'
 ~~~
 
-If you're on Rails, make sure to add it to the "test" group:
+### Ruby project (with Bundler)
 
 ~~~ ruby
+# Gemfile
+gem 'rr', require: false
+
+# test helper
+require 'your/test/framework'
+require 'rr'
+~~~
+
+### Rails project
+
+~~~ ruby
+# Gemfile
 group :test do
-  gem 'rr', '~> 1.0.5'
+  gem 'rr', require: false
 end
+
+# test helper
+require File.expand_path('../../config/environment', __FILE__)
+require 'your/test/framework'  # if you are using something other than MiniTest / Test::Unit
+require 'rr'
 ~~~
 
 
