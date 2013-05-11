@@ -40,10 +40,7 @@ module RR
           (class << mod; self; end).class_eval do
             define_method(:included) do |base|
               # Note: This assumes that the thing that is including this module
-              # is the same that the adapter detected and will hook into. In
-              # most cases this will be true; in cases such as
-              # ActiveSupport::TestCase, well, either stop doing this, or
-              # require 'rr/without_autohook'.
+              # is the same that the adapter detected and will hook into.
               adapter.hook
             end
           end
