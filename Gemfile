@@ -28,7 +28,11 @@ if ruby18
 else
   gem "rspec", "~> 2.13"
   gem "test-unit", '~> 2.5'
-  gem "minitest", "~> 4.7"
+  if ENV['ADAPTER'] == 'minitest_4'
+    gem "minitest", "~> 4.7"
+  else
+    gem "minitest", "~> 5.0"
+  end
   gem 'railties', '~> 3.0'
   gem 'activesupport', '~> 3.0'
   gem 'activerecord', '~> 3.0'

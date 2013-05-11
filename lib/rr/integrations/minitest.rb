@@ -1,44 +1,26 @@
 module RR
   module Integrations
-    class MiniTest
-      module Mixin
-        def assert_received(subject, &block)
-          block.call(received(subject)).call
-        end
-      end
-
+    class Minitest < MiniTest4
       def name
-        'MiniTest'
+        'Minitest'
       end
 
       def applies?
-        defined?(::MiniTest)
+        mt_version >= 5
+      rescue NameError
+        false
       end
 
-      def hook
-        ::MiniTest::Unit::TestCase.class_eval do
-          include RR::Adapters::RRMethods
-          include Mixin
+      def test_case_class
+        ::Minitest::Test
+      end
 
-          unless instance_methods.any? { |method_name| method_name.to_sym == :setup_with_rr }
-            alias_method :setup_without_rr, :setup
-            def setup_with_rr
-              setup_without_rr
-              RR.reset
-              RR.trim_backtrace = true
-              RR.overridden_error_class = ::MiniTest::Assertion
-            end
-            alias_method :setup, :setup_with_rr
+      def assertion_error_class
+        ::Minitest::Assertion
+      end
 
-            alias_method :teardown_without_rr, :teardown
-            def teardown_with_rr
-              RR.verify
-            ensure
-              teardown_without_rr
-            end
-            alias_method :teardown, :teardown_with_rr
-          end
-        end
+      def version_constant
+        ::Minitest::VERSION
       end
     end
   end

@@ -42,7 +42,14 @@ module AdapterIntegrationTests
 
   def bootstrap(opts={})
     str = ""
-    str << "require 'rubygems'\n"
+    if respond_to?(:adapter_name)
+      str << "ENV['ADAPTER'] = '#{adapter_name}'\n"
+    end
+    str << <<-EOT
+      require 'rubygems'
+      require 'bundler'
+      Bundler.setup(:default)
+    EOT
     str << "require 'rr'\n" if opts[:include_rr_before]
     str << <<-EOT
       require '#{test_framework_path}'
@@ -72,9 +79,11 @@ module AdapterIntegrationTests
         output.should match /1 failure/
       end
 
-      specify "it is still possible to include the adapter into the test framework manually" do
-        output = run_fixture_tests(include_adapter_test)
-        all_tests_should_pass(output)
+      if method_defined?(:include_adapter_test)
+        specify "it is still possible to include the adapter into the test framework manually" do
+          output = run_fixture_tests(include_adapter_test)
+          all_tests_should_pass(output)
+        end
       end
 
       if method_defined?(:include_adapter_where_rr_included_before_test_framework_test)

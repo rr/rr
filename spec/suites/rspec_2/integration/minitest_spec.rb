@@ -2,8 +2,6 @@ require File.expand_path('../../spec_helper', __FILE__)
 require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
 
 describe 'MiniTest integration' do
-  include AdapterIntegrationTests
-
   def test_framework_path
     'minitest/autorun'
   end
@@ -12,7 +10,7 @@ describe 'MiniTest integration' do
     <<-EOT
       #{bootstrap}
 
-      class FooTest < MiniTest::Unit::TestCase
+      class FooTest < Minitest::Test
         def test_foo
           object = Object.new
           mock(object).foo
@@ -56,4 +54,6 @@ describe 'MiniTest integration' do
       end
     EOT
   end
+
+  include AdapterIntegrationTests
 end

@@ -6,8 +6,10 @@ module RR
       :TestUnit1,
       :TestUnit2ActiveSupport,
       :TestUnit2,
-      :MiniTestActiveSupport,
-      :MiniTest
+      :MiniTest4ActiveSupport,
+      :MiniTest4,
+      :MinitestActiveSupport,
+      :Minitest
     ]
 
     def autohook

@@ -56,7 +56,11 @@ class SpecSuite
   end
 
   unless ruby_18?
-    def_runner :minitest, 'MiniTest' do
+    def_runner :minitest_4, 'MiniTest 4' do
+      run_command(build_command('ruby', 'minitest_4', 'test'))
+    end
+
+    def_runner :minitest, 'Minitest' do
       run_command(build_command('ruby', 'minitest', 'test'))
     end
   end

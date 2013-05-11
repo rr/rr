@@ -19,7 +19,7 @@ module RR
             when :TestUnit
               find_applicable_adapter(:TestUnit1, :TestUnit2ActiveSupport, :TestUnit2)
             when :MiniTest
-              find_applicable_adapter(:MiniTestActiveSupport, :MiniTest)
+              find_applicable_adapter(:MinitestActiveSupport, :Minitest, :MiniTest4ActiveSupport, :MiniTest4)
           end
 
         adapter

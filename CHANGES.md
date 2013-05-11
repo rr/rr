@@ -17,12 +17,12 @@
   weirdness when using Test::Unit alongside Rails.
 * Add an explicit Test::Unit / ActiveSupport adapter. As ActiveSupport::TestCase
   introduces its own setup/teardown hooks, use these when autohooking in RR.
+* Add support for Minitest 5
 * Upon release, the tests are now packaged up and uploaded to S3. This is for
   Linux distros like Fedora who wrap gems in RPM packages. You can always find
   the latest tests at: <http://s3.amazonaws.com/rubygem-rr/tests/vX.Y.Z.tar.gz>,
   where X.Y.Z represents a version. I have retroactively packaged the tests for
   1.0.4 and 1.0.5.
-* General cleanup and that sort of thing.
 
 ## 1.0.5 (2013-03-28)
 
