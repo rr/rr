@@ -3,9 +3,7 @@ module RR
     class << self
       DEPRECATED_ADAPTERS = [
         :MiniTest,
-        :TestUnit,
-        :Rspec,
-        :RSpec
+        :TestUnit
       ]
 
       def const_missing(adapter_const_name)
@@ -20,8 +18,6 @@ module RR
           case adapter_const_name
             when :TestUnit
               find_applicable_adapter(:TestUnit1, :TestUnit2ActiveSupport, :TestUnit2)
-            when :Rspec, :RSpec
-              find_applicable_adapter(:RSpec1, :RSpec2)
             when :MiniTest
               find_applicable_adapter(:MiniTestActiveSupport, :MiniTest4)
           end
