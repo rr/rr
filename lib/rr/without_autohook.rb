@@ -112,5 +112,10 @@ module RR
         end
       METHOD
     end
+
+    attr_accessor :debug
+    alias_method :debug?, :debug
   end
 end
+
+RR.debug = (ENV['RR_DEBUG'] == '1')

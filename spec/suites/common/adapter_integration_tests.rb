@@ -4,7 +4,7 @@ require 'tempfile'
 
 module AdapterIntegrationTests
   def debug?
-    ENV['RR_DEBUG'] == '1'
+    RR.debug?
   end
 
   def run_fixture_tests(content)

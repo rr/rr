@@ -14,7 +14,7 @@ module RR
 
     def autohook
       applicable_adapters.each do |adapter|
-        #puts "Using adapter: #{adapter.name}"
+        puts "Using adapter: #{adapter.name}" if RR.debug?
         adapter.hook
       end
     end
