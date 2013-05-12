@@ -1,9 +1,14 @@
 require 'session'
 
 class SpecSuite
-  def self.def_runner(runner_name, runner_desc, &block)
+  def self.def_runner(runner_name, runner_desc, program_name, suffix, opts={}, &block)
+    adapter_name = opts[:adapter] || runner_name
+    path = opts[:path] || runner_name
+    env = opts[:env] || {}
     runner_method = "run_#{runner_name}"
-    define_method(runner_method, &block)
+    define_method(runner_method) do
+      run_command(build_command(program_name, adapter_name, path, suffix, env))
+    end
     runners << [runner_name, runner_desc]
   end
 
@@ -46,34 +51,22 @@ class SpecSuite
   end
 
   if ruby_18?
-    def_runner :test_unit_1, 'Test::Unit 1' do
-      run_command(build_command('ruby', 'test_unit_1', 'test'))
-    end
+    def_runner :test_unit_1, 'Test::Unit 1', 'ruby', 'test'
   end
 
-  def_runner :test_unit_2, 'Test::Unit 2' do
-    run_command(build_command('ruby', 'test_unit_2', 'test'))
-  end
+  def_runner :test_unit_2, 'Test::Unit 2', 'ruby', 'test'
 
   unless ruby_18?
-    def_runner :minitest_4, 'MiniTest 4' do
-      run_command(build_command('ruby', 'minitest_4', 'test'))
-    end
+    def_runner :minitest_4, 'MiniTest 4', 'ruby', 'test', :path => :minitest
 
-    def_runner :minitest, 'Minitest' do
-      run_command(build_command('ruby', 'minitest', 'test'))
-    end
+    def_runner :minitest, 'Minitest', 'ruby', 'test'
   end
 
   if ruby_18?
-    def_runner :rspec_1, 'RSpec 1' do
-      run_command(build_command('spec', 'rspec_1', 'spec'))
-    end
+    def_runner :rspec_1, 'RSpec 1', 'spec', 'spec'
   else
-    def_runner :rspec_2, 'RSpec 2' do
-      ENV['SPEC_OPTS'] = '--format progress'
-      run_command(build_command('rspec', 'rspec_2', 'spec'))
-    end
+    def_runner :rspec_2, 'RSpec 2', 'rspec', 'spec',
+      :env => {'SPEC_OPTS' => '--format progress'}
   end
 
   private
@@ -85,9 +78,10 @@ class SpecSuite
     session
   end
 
-  def build_command(program_name, adapter_name, suffix)
-    ENV['ADAPTER'] = adapter_name
-    file_list = build_file_list(adapter_name, suffix)
+  def build_command(program_name, adapter_name, path, suffix, env)
+    env = env.merge('ADAPTER' => adapter_name)
+    env.each {|k,v| ENV[k.to_s] = v.to_s }
+    file_list = build_file_list(path, suffix)
     ['bundle', 'exec', program_name, *file_list]
   end
 
