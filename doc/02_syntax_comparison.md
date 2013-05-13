@@ -9,11 +9,9 @@ possible. Here is RR compared to other mock frameworks:
 ~~~ ruby
 # Flexmock
 flexmock(User).should_receive(:find).with('42').and_return(jane)
-# RSpec
-User.should_receive(:find).with('42').and_return(jane)
 # Mocha
 User.expects(:find).with('42').returns { jane }
-# rspec-mocks (using return value blocks)
+# rspec-mocks
 User.should_receive(:find).with('42') { jane }
 # RR
 mock(User).find('42') { jane }
