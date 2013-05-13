@@ -133,9 +133,8 @@ end
 ## Learning more
 
 1. [What is a test double?](doc/01_test_double.md)
-2. [Using RR with your test framework](doc/02_test_framework_integration.md)
-3. [Syntax between RR and other double/mock frameworks](doc/03_syntax_comparison.md)
-4. [API overview](doc/04_api_overview.md)
+2. [Syntax between RR and other double/mock frameworks](doc/02_syntax_comparison.md)
+3. [API overview](doc/03_api_overview.md)
 
 
 ## Help!
