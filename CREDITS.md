@@ -2,41 +2,41 @@
 
 ## Authors
 
-* Brian Takita (@btakita)
-* Elliot Winkler (@mcmire)
+* Brian Takita ([@btakita](http://github.com/btakita))
+* Elliot Winkler ([@mcmire](http://github.com/mcmire))
 
 
 ## Contributors
 
-* Andreas Haller (@ahx)
-* Bryan Helmkamp (@brynary)
-* @bonkydog
-* Caleb Spare (@cespare)
-* Christopher Redinger (@redinger)
-* David Chelimsky (@dchelimsky)
-* David Padilla (@dabit)
-* Dmitry Ratnikov (@ratnikov)
-* Eugene Pimenov (@libc)
-* Evan Phoenix (@evanphx)
-* Gabriel Horner (@cldwalker)
-* Gavin Miller (@gavingmiller)
-* James McCarthy (@james2m)
+* Andreas Haller ([@ahx](http://github.com/ahx))
+* Bryan Helmkamp ([@brynary](http://github.com/brynary))
+* [@bonkydog](http://github.com/bonkydog)
+* Caleb Spare ([@cespare](http://github.com/cespare))
+* Christopher Redinger ([@redinger](http://github.com/redinger))
+* David Chelimsky ([@dchelimsky](http://github.com/dchelimsky))
+* David Padilla ([@dabit](http://github.com/dabit))
+* Dmitry Ratnikov ([@ratnikov](http://github.com/ratnikov))
+* Eugene Pimenov ([@libc](http://github.com/libc))
+* Evan Phoenix ([@evanphx](http://github.com/evanphx))
+* Gabriel Horner ([@cldwalker](http://github.com/cldwalker))
+* Gavin Miller ([@gavingmiller](http://github.com/gavingmiller))
+* James McCarthy ([@james2m](http://github.com/james2m))
 * Jan Nelson
-* Jay Adkisson (@jayferd)
-* Joe Ferris (@jferris)
-* Matt Buck (@techpeace)
+* Jay Adkisson ([@jayferd](http://github.com/jayferd))
+* Joe Ferris ([@jferris](http://github.com/jferris))
+* Matt Buck ([@techpeace](http://github.com/techpeace))
 * Matthew O'Connor
-* Michael Niessner (@niessner)
-* Mike Mangino (@mmangino)
-* Nathan Sobo (@nathansobo)
-* Nick Kallen (@nkallen)
-* Nick Novitski (@nicknovitski)
-* Phil Darnowsky (@phildarnowsky)
-* Steven R. Baker (@srbaker)
-* Tatsuya Ono (@ono)
-* Thibaut Corouble (@thibaut)
-* Wincent Colaiuta (@wincent)
-* @wynst
+* Michael Niessner ([@niessner](http://github.com/niessner))
+* Mike Mangino ([@mmangino](http://github.com/mmangino))
+* Nathan Sobo ([@nathansobo](http://github.com/nathansobo))
+* Nick Kallen ([@nkallen](http://github.com/nkallen))
+* Nick Novitski ([@nicknovitski](http://github.com/nicknovitski))
+* Phil Darnowsky ([@phildarnowsky](http://github.com/phildarnowsky))
+* Steven R. Baker ([@srbaker](http://github.com/srbaker))
+* Tatsuya Ono ([@ono](http://github.com/ono))
+* Thibaut Corouble ([@thibaut](http://github.com/thibaut))
+* Wincent Colaiuta ([@wincent](http://github.com/wincent))
+* [@wynst](http://github.com/wynst)
 
 
 ## Honorable mentions
