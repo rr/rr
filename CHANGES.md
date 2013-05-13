@@ -14,9 +14,10 @@
   seven adapters; see lib/rr/adapters for the full list.)
 * Fix Test::Unit adapters to ensure that any additional teardown is completely
   run in the event that RR's verify step produces an error. This was causing
-  weirdness when using Test::Unit alongside Rails.
+  weirdness when using Test::Unit alongside Rails. ([#2][i2])
 * Add an explicit Test::Unit / ActiveSupport adapter. As ActiveSupport::TestCase
   introduces its own setup/teardown hooks, use these when autohooking in RR.
+  ([#2][i2])
 * Add support for Minitest 5
 * Upon release, the tests are now packaged up and uploaded to S3. This is for
   Linux distros like Fedora who wrap gems in RPM packages. You can always find
@@ -415,6 +416,7 @@
 
 * Initial Release
 
+[i2]: http://github.com/rr/rr/issues/2
 [i3]: http://github.com/rr/rr/issues/3
 [Thibaut]: http://github.com/Thibaut
 [i4]: http://github.com/rr/rr/issues/4
