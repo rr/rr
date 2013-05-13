@@ -23,11 +23,11 @@ describe 'MiniTest integration' do
     <<-EOT
       #{bootstrap}
 
-      class MiniTest::Unit::TestCase
+      class Minitest::Test
         include RR::Adapters::MiniTest
       end
 
-      class FooTest < MiniTest::Unit::TestCase
+      class FooTest < Minitest::Test
         def test_foo
           object = Object.new
           mock(object).foo
@@ -41,11 +41,11 @@ describe 'MiniTest integration' do
     <<-EOT
       #{bootstrap :include_rr_before => true}
 
-      class MiniTest::Unit::TestCase
+      class Minitest::Test
         include RR::Adapters::MiniTest
       end
 
-      class FooTest < MiniTest::Unit::TestCase
+      class FooTest < Minitest::Test
         def test_foo
           object = Object.new
           mock(object).foo
