@@ -11,7 +11,7 @@
   longer a need to `include RR::Adapters::Whatever` into your test framework. If
   you don't like the autohook and prefer the old way, simply use
   `require 'rr/without_autohook'` instead of `require 'rr'`. (There are now
-  seven adapters; see lib/rr/adapters for the full list.)
+  nine adapters; see [lib/rr/autohook.rb][autohook] for the full list.)
 * Fix Test::Unit adapters to ensure that any additional teardown is completely
   run in the event that RR's verify step produces an error. This was causing
   weirdness when using Test::Unit alongside Rails. ([#2][i2])
@@ -21,7 +21,7 @@
 * Add support for Minitest 5
 * Upon release, the tests are now packaged up and uploaded to S3. This is for
   Linux distros like Fedora who wrap gems in RPM packages. You can always find
-  the latest tests at: <http://s3.amazonaws.com/rubygem-rr/tests/vX.Y.Z.tar.gz>,
+  the latest tests at <http://s3.amazonaws.com/rubygem-rr/tests/vX.Y.Z.tar.gz>,
   where X.Y.Z represents a version. I have retroactively packaged the tests for
   1.0.4 and 1.0.5.
 
@@ -428,3 +428,4 @@
 [xi44]: http://github.com/btakita/rr/issues/44
 [xi69]: http://github.com/btakita/rr/issues/69
 [jayferd]: http://github.com/jayferd
+[autohook]: https://github.com/rr/rr/blob/master/lib/rr/autohook.rb
