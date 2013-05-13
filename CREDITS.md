@@ -41,26 +41,21 @@
 
 ## Honorable mentions
 
+* Aslak Hellesoy for developing RSpec
 * Dan North for syntax ideas
 * Dave Astels for some BDD inspiration
 * Dave Myron for a bug report
+* David Chelimsky for encouragement to make the RR framework, for developing the
+  RSpec mock framework, syntax ideas, and patches
 * Daniel Sudol for identifing performance issues with RR
+* Gerard Meszaros for his excellent book "xUnit Test Patterns"
 * Felix Morio for pairing
+* James Mead for developing Mocha
 * Jeff Whitmire for documentation suggestions
+* Jim Weirich for developing Flexmock, the first terse ruby mock framework in
+  Ruby
 * Myron Marston for bug reports
 * Parker Thompson for pairing
 * Pivotal Labs for sponsoring RR development
 * Steven Baker for developing RSpec
 * Tuomas Kareinen for a bug report
-
-
-## Inspiration
-
-* Aslak Hellesoy for developing RSpec
-* David Chelimsky for encouragement to make the RR framework, for developing the
-  RSpec mock framework, syntax ideas, and patches
-* Gerard Meszaros for his excellent book "xUnit Test Patterns"
-* James Mead for developing Mocha
-* Jim Weirich for developing Flexmock, the first terse ruby mock framework in
-  Ruby
-
