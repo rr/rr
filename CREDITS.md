@@ -24,6 +24,7 @@
 * Jan Nelson
 * Jay Adkisson (@jayferd)
 * Joe Ferris (@jferris)
+* Matt Buck (@techpeace)
 * Matthew O'Connor
 * Michael Niessner (@niessner)
 * Mike Mangino (@mmangino)
