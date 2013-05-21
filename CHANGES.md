@@ -1,6 +1,9 @@
 # Changelog
 
-## 1.1.0 (2013-05-20)
+## 1.1.0 (May 20, 2013)
+
+NOTE: RR development moved from [btakita/rr][btakita-rr] to [rr/rr][rr-rr].
+Issues are re-numbered beginning from 1 from this point on.
 
 * Fix a line in RR::Injections::DoubleInjection to use top-level RR constant
   ([#3][i3]) [[@Thibaut][Thibaut]]
@@ -25,7 +28,7 @@
   where X.Y.Z represents a version. I have retroactively packaged the tests for
   1.0.4 and 1.0.5.
 
-## 1.0.5 (2013-03-28)
+## 1.0.5 (March 28, 2013)
 
 * Compatibility with RSpec-2. There are now two adapters for RSpec, one that
   works with RSpec-1 and a new one that works with RSpec-2. Currently, saying
@@ -33,7 +36,7 @@
   one, you say `RSpec.configure {|c| c.mock_framework = RR::Adapters::RSpec2 }`.
   ([#66][xi66], [#68][xi68], [#80][xi80]) [[@njay][njay], [@james2m][james2m]]
 * Fix MethodMissingInjection so that `[stub].flatten` works without throwing a
-  NoMethodError (undefined method #to_ary) error under Ruby 1.9 ([#44][xi44])
+  NoMethodError (`undefined method `to_ary'`) error under Ruby 1.9 ([#44][xi44])
 * Raise a MiniTest::Assertion error in the MiniTest adapter so that mock
   failures appear in the output as failures rather than uncaught exceptions
   ([#69][xi69]) [[@jayferd][jayferd]]
@@ -41,130 +44,123 @@
   mention of #new_instance_of from the README
 * Fix tests so they all work and pass again
 
-## 1.0.4 (2011-06-11)
+## 1.0.4 (June 11, 2011)
 
 * Fixed bug using workaround with leftover MethodMissingInjections
 
-## 1.0.3 (2011-06-11)
+## 1.0.3 (June 11, 2011)
 
-* Eliminate usage of ObjectSpace._id2ref (Patch Evan Phoenix)
-* Added minitest adapter (Patch Caleb Spare)
-* Added instructions on installing the gem (Patch Gavin Miller)
-* delete missing scratch.rb file from gemspec (Patch bonkydog)
+* Eliminate usage of ObjectSpace._id2ref ([#63][xi63]) [[@evanphx][evanphx]]
+* Added minitest adapter ([#62][xi62]) [[@cespare][cespare]]
+* Added instructions on installing the gem ([#57][xi57])
+  [[@gavingmiller][gavingmiller]]
+* delete missing scratch.rb file from gemspec [#60][xi60]
+  [[@bonkydog][bonkydog]]
 
-## 1.0.2 (2010-11-01)
+## 1.0.2 (November 1, 2010)
 
 * Fixed Two calls recorded to a mock expecting only one call when called via
-  another mock's yield block
-  (http://github.com/btakita/rr/issues/closed#issue/42). Patch by Eugene Pimenov
-  (http://github.com/libc).
+  another mock's yield block ([#42][xi42]) [[@libc][libc]]
 
-## 1.0.1 (2010-10-30)
+## 1.0.1 (October 30, 2010)
 
 * Removed new_instance_of for Ruby 1.9.2 compatibility. instance_of is now an
   alias for any_instance_of.
 * Compatible with Ruby 1.9.2
 
-## 1.0.0 (2010-08-23)
+## 1.0.0 (August 23, 2010)
 
 * Added any_instance_of (aliased by all_instances_of), which binds methods
   directly to the class (instead of the eigenclass).
 * Subclasses of a injected class do not have their methods overridden.
 * any_instance_of and new_instance_of now have a block syntax
 
-## 0.10.11 (2010-03-22)
+## 0.10.11 (March 22, 2010)
 
 * Added RR.blank_slate_whitelist
 * Fixed class_eval method redefinition warning in jruby
 
-## 0.10.10 (2010-02-25)
+## 0.10.10 (February 25, 2010)
 
 * Suite passes for Ruby 1.9.1
 
-## 0.10.9 (2010-02-17)
+## 0.10.9 (February 17, 2010)
 
 * Fixed 1.8.6 bug for real
 
-## 0.10.8 (2010-02-16)
+## 0.10.8 (February 17, 2010)
 
 * Fixed 1.8.6 bug
 
-## 0.10.7 (2010-02-15)
+## 0.10.7 (February 15, 2010)
 
 * Fixed issue with DoubleInjections binding to objects overriding the method
   method.
 
-## 0.10.6 (2010-02-15)
+## 0.10.6 (February 15, 2010)
 
 * Added MIT license
-* Fixed Bug - dont_allow doesn't work when it follows stub
-  (http://github.com/btakita/rr/issues#issue/20)
-* Fixed exception with DoubleInjections on proxy objects
-  (http://github.com/btakita/rr/issues#issue/24)
+* Fixed Bug - dont_allow doesn't work when it follows stub ([#20][xi20])
+* Fixed exception with DoubleInjections on proxy objects ([#24][xi24])
 * Fixed Bug - Can't stub attribute methods on a BelongsToAssociation
-  (http://github.com/btakita/rr/issues#issue/24)
+  ([#24][xi24])
 
-## 0.10.5 (2009-12-20)
+## 0.10.5 (December 20, 2009)
 
 * Fixed stack overflow caused by double include in Test::Unit adapter
-  [http://github.com/btakita/rr/issues#issue/16]. Identified by Dave Myron
-  (http://github.com/contentfree)
-* Fixed warnings (Patch by Bryan Helmkamp)
+  ([#16][xi16])
+* Fixed warnings [[@brynary][brynary]]
 
-## 0.10.4 (2009-09-26)
+## 0.10.4 (September 26, 2009)
 
 * Handle lazily defined methods (where respond_to? returns true yet the method
   is not yet defined and the first call to method_missing defines the method).
   This pattern is used in ActiveRecord and ActionMailer.
 * Fixed warning about aliasing #instance_exec in jruby.
-  http://github.com/btakita/rr/issues#issue/9 (Patch by Nathan Sobo)
+  ([#9][xi9]) [[@nathansobo][nathansobo]]
 
-## 0.10.2 (2009-08-30)
+## 0.10.2 (August 30, 2009)
 
-* RR properly proxies subjects with private methods
-  [http://github.com/btakita/rr/issues/#issue/7]. Identified by Matthew
-  O'Connor.
+* RR properly proxies subjects with private methods ([#7][xi7])
 
 ## 0.10.1 (???)
 
 * Fixed issue with DoubleInjection not invoking methods that are lazily created
-  [http://github.com/btakita/rr/issues/#issue/4]. Identified by davidlee
-  (http://github.com/davidlee)
-* Fixed issue with mock.proxy and returns
-  [http://github.com/btakita/rr/issues/#issue/2]. Identified by trogdoro
-  (http://github.com/trogdoro)
+  ([#4][xi4])
+* Fixed issue with mock.proxy and returns ([#2][xi2])
 
-## 0.10.0 (2009-06-01)
+## 0.10.0 (June 1, 2009)
 
 * Method is no longer invoked if respond_to? returns false. This was in place to
   support ActiveRecord association proxies, and is no longer needed.
 
-## 0.9.0 (2009-04-25)
+## 0.9.0 (April 25, 2009)
 
 * instance_of Doubles now apply to methods invoked in the subject's #initialize
   method.
 
-## 0.8.1 (2009-03-29)
+## 0.8.1 (March 29, 2009)
 
 * Fixed exception where the Subject uses method delegation via method_missing
   (e.g. certain ActiveRecord AssociationProxy methods)
 
-##  0.8.0 (2009-03-29)
+##  0.8.0 (March 29, 2009)
 
-* Fixed compatability issues with Ruby 1.9
+* Fixed compatibility issues with Ruby 1.9
 * Aliased any_number_of_times with any_times
-* Better error messages for have_received and assert_received matchers (Patch by
-  Joe Ferris)
-* Better documentation on RR wilcard matchers (Patch by Phil Arnowsky)
+* Better error messages for have_received and assert_received matchers
+  [[@jferris][jferris]]
+* Better documentation on RR wilcard matchers [[@phildarnowsky][phildarnowsky]]
 
-## 0.7.1 (2009-01-16)
+## 0.7.1 (January 16, 2009)
 
 * Performance improvements
 
-## 0.7.0 (2008-12-14)
+## 0.7.0 (December 14, 2008)
 
-* Added spies (Patchs by Joe Ferris, Michael Niessner & Mike Mangino)
-* Added strongly typed reimplementation doubles (Patch by Michael Niessner)
+* Added spies [[@jferris][jferris], [@niessner][niessner],
+  [@mmangino][mmangino]]
+* Added strongly typed reimplementation doubles [[@niessner][niessner]]
 
 ## 0.6.2 (???)
 
@@ -176,128 +172,128 @@
   arity is not 1. When the arity is 1, the block is yielded with the
   DoubleDefinitionCreatorProxy passed in.
 
-## 0.6.0 (2008-10-13)
+## 0.6.0 (October 13, 2008)
 
 * Friendlier DoubleNotFound error message
 * Implemented Double strategy creation methods (#mock, #stub, #proxy,
   #instance_of, and ! equivalents) on DoubleDefinition
-* Implemented hash_including matcher (Patch by Matthew O'Conner)
-* Implemented satisfy matcher (Patch by Matthew O'Conner)
+* Implemented hash_including matcher [Matthew O'Connor]
+* Implemented satisfy matcher [Matthew O'Connor]
 * Implemented DoubleDefinitionCreator#mock!, #stub!, and #dont_allow!
 * Modified api to method chain Doubles
 * Fix conflict with Mocha overriding Object#verify
 
 ## 0.5.0 (???)
 
-* Method chaining Doubles (Patch by Nick Kallen)
-* Chained ordered expectations (Patch by Nick Kallen)
+* Method chaining Doubles [[@nkallen][nkallen]]
+* Chained ordered expectations [[@nkallen][nkallen]]
 * Space#verify_doubles can take one or more objects with DoubleInjections to be
   verified
 
-## 0.4.10 (2008-07-06)
+## 0.4.10 (July 6, 2008)
 
 * DoubleDefinitionCreatorProxy does not undef #object_id
 * Fixed rdoc pointer to README
 
-## 0.4.9 (2008-06-18)
+## 0.4.9 (June 18, 2008)
 
 * Proxying from RR module to RR::Space.instance
 
-## 0.4.8 (2008-01-23)
+## 0.4.8 (January 23, 2008)
 
 * Fixed issue with Hash arguments
 
-## 0.4.7 (2008-01-23)
+## 0.4.7 (January 23, 2008)
 
 * Improved error message
 
-## 0.4.6 (2008-01-23)
+## 0.4.6 (January 23, 2008)
 
 * Added Double#verbose and Double#verbose?
 
-## 0.4.5 (2008-01-15)
+## 0.4.5 (January 15, 2008)
 
 * Fixed doubles for == and #eql? methods
 
-## 0.4.4 (2008-01-15)
+## 0.4.4 (January 15, 2008)
 
 * Doc improvements
 * Methods that are not alphabetic, such as ==, can be doubles
 
-## 0.4.3 (2008-01-07)
+## 0.4.3 (January 7, 2008)
 
 * Doc improvements
 * Cleanup
 * Finished renaming scenario to double
 
-## 0.4.2 (2007-12-31)
+## 0.4.2 (December 31, 2007)
 
 * Renamed DoubleInsertion to DoubleInjection to be consistent with Mocha
   terminology
 
-## 0.4.1 (2007-12-31)
+## 0.4.1 (December 31, 2007)
 
 * Fixed backward compatability issues with rspec
 * Renamed Space#verify_double_insertions to #verify_doubles
 
-## 0.4.0 (2007-12-30)
+## 0.4.0 (December 30, 2007)
 
 * Documentation improvements
 * Renamed Double to DoubleInsertion
 * Renamed Scenario to Double
 
-## 0.3.11 (2007-09-06)
+## 0.3.11 (September 6, 2007)
 
 * Fixed [#13724] Mock Proxy on Active Record Association proxies causes error
 
-## 0.3.10 (2007-08-18)
+## 0.3.10 (August 18, 2007)
 
 * Fixed [#13139] Blocks added to proxy sets the return_value and not the
   after_call callback
 
-## 0.3.9 (2007-08-14)
+## 0.3.9 (August 14, 2007)
 
 * Alias probe to proxy
 
-## 0.3.8 (2007-08-12)
+## 0.3.8 (August 12, 2007)
 
 * Implemented [#13009] Better error mesage from TimesCalledMatcher
 
-## 0.3.7 (2007-08-09)
+## 0.3.7 (August 9, 2007)
 
 * Fixed [#12928] Reset doubles fails on Rails association proxies
 
-## 0.3.6 (2007-08-01)
+## 0.3.6 (August 1, 2007)
 
 * Fixed [#12765] Issues with ObjectSpace._id2ref
 
-## 0.3.5 (2007-07-29)
+## 0.3.5 (July 29, 2007)
 
 * trim_backtrace is only set for Test::Unit
 
-## 0.3.4 (2007-07-22)
+## 0.3.4 (July 22, 2007)
 
 * Implemented instance_of
 
-## 0.3.3 (2007-07-22)
+## 0.3.3 (July 22, 2007)
 
 * Fixed [#12495] Error Probing method_missing interaction
 
-## 0.3.2 (2007-07-22)
+## 0.3.2 (July 22, 2007)
 
 * Fixed [#12486] ScenarioMethodProxy when Kernel passed into instance methods
 
-## 0.3.1 (2007-07-22)
+## 0.3.1 (July 22, 2007)
 
 * Automatically require Test::Unit and Rspec adapters
 
-## 0.3.0 (2007-07-22)
+## 0.3.0 (July 22, 2007)
 
 * ScenarioCreator strategy method chaining
 * Removed mock_probe
 * Removed stub_probe
 
-## 0.2.5 (2007-07-21)
+## 0.2.5 (July 21, 2007)
 
 * mock takes method_name argument
 * stub takes method_name argument
@@ -307,22 +303,22 @@
 * dont_allow takes method_name argument
 * do_not_allow takes method_name argument
 
-## 0.2.4 (2007-07-19)
+## 0.2.4 (July 19, 2007)
 
 * Space#doubles key is now the object id
 * Fixed [#12402] Stubbing return value of probes fails after calling the stubbed
   method two times
 
-## 0.2.3 (2007-07-18)
+## 0.2.3 (July 18, 2007)
 
 * Added RRMethods#rr_verify and RRMethods#rr_reset
 
-## 0.2.2 (2007-07-17)
+## 0.2.2 (July 17, 2007)
 
 * Fixed "singleton method bound for a different object"
 * Doing Method aliasing again to store original method
 
-## 0.2.1 (2007-07-17)
+## 0.2.1 (July 17, 2007)
 
 * Added mock_probe
 * Added stub_probe
@@ -333,11 +329,11 @@
 * Renamed DoubleMethods to RRMethods
 * Added RRMethods#mock_probe
 
-## 0.1.15 (2007-07-17)
+## 0.1.15 (July 17, 2007)
 
 * Fixed [#12333] Rebinding original_methods causes blocks not to work
 
-## 0.1.14 (2007-07-16)
+## 0.1.14 (July 16, 2007)
 
 * Introduced concept of Terminal and NonTerminal TimesCalledMatchers
 * Doubles that can be called many times can be replaced
@@ -345,36 +341,36 @@
 * Error message tweaking
 * Raise error when making a Scenarios with NonTerminal TimesMatcher Ordered
 
-## 0.1.13 (2007-07-14)
+## 0.1.13 (July 14, 2007)
 
 * Fixed [#12290] Scenario#returns with false causes a return value of nil
 
-## 0.1.12 (2007-07-14)
+## 0.1.12 (July 14, 2007)
 
 * Fixed bug where Creators methods are not removed when methods are defined on
   Object
 * Fixed [#12289] Creators methods are not removed in Rails environment
 
-## 0.1.11 (2007-07-14)
+## 0.1.11 (July 14, 2007)
 
 * Fixed [#12287] AtLeastMatcher does not cause Scenario to be called
 
-## 0.1.10 (2007-07-14)
+## 0.1.10 (July 14, 2007)
 
 * Fixed [#12286] AnyArgumentExpectation#expected_arguments not implemented
 
-## 0.1.9 (2007-07-14)
+## 0.1.9 (July 14, 2007)
 
 * Added DoubleMethods#any_times
 * Added Scenario#any_number_of_times
 
-## 0.1.8 (2007-07-14)
+## 0.1.8 (July 14, 2007)
 
 * TimesCalledError Message Formatted to be on multiple lines
 * ScenarioNotFoundError Message includes all Scenarios for the Double
 * ScenarioOrderError shows list of remaining ordered scenarios
 
-## 0.1.7 (2007-07-14)
+## 0.1.7 (July 14, 2007)
 
 * Fixed [#12194] Double#reset_doubles are not clearing Ordered Scenarios bug
 * Added Space#reset
@@ -382,40 +378,42 @@
 * Added Scenario#at_least
 * Added Scenario#at_most
 
-## 0.1.6 (2007-07-10)
+## 0.1.6 (July 10, 2007)
 
 * [#12120] probe allows a the return value to be intercepted
 
-## 0.1.5 (2007-07-09)
+## 0.1.5 (July 9, 2007)
 
 * TimesCalledExpectation says how many times were called and how many times
   called were expected on error
 
-## 0.1.4 (2007-07-09)
+## 0.1.4 (July 9, 2007)
 
 * TimesCalledError prints the backtrace to where the Scenario was defined when
   being verified
 * Error message includes method name when Scenario is not found
 
-## 0.1.3 (2007-07-09)
+## 0.1.3 (July 9, 2007)
 
 * Fixed issue where Double#placeholder_name issues when Double method name has a
   ! or ?
 
-## 0.1.2 (2007-07-08)
+## 0.1.2 (July 8, 2007)
 
 * Scenario#returns also accepts an argument
 * Implemented Scenario#yields
 
-## 0.1.1 (2007-07-08)
+## 0.1.1 (July 8, 2007)
 
 * Trim the backtrace for Rspec and Test::Unit
 * Rspec and Test::Unit integration fixes
 
-## 0.1.0 (2007-07-07)
+## 0.1.0 (July 7, 2007)
 
 * Initial Release
 
+[btakita-rr]: http://github.com/btakita/rr
+[rr-rr]: http://github.com/rr/rr
 [i2]: http://github.com/rr/rr/issues/2
 [i3]: http://github.com/rr/rr/issues/3
 [Thibaut]: http://github.com/Thibaut
@@ -429,3 +427,25 @@
 [xi69]: http://github.com/btakita/rr/issues/69
 [jayferd]: http://github.com/jayferd
 [autohook]: https://github.com/rr/rr/blob/master/lib/rr/autohook.rb
+[evanphx]: http://github.com/evanphx
+[xi63]: http://github.com/btakita/rr/issues/63
+[xi63]: http://github.com/btakita/rr/issues/62
+[cespare]: http://github.com/cespare
+[gavingmiller]: http://github.com/gavingmiller
+[bonkydog]: http://github.com/bonkydog
+[xi42]: http://github.com/btakita/rr/issues/42
+[libc]: http://github.com/libc
+[brynary]: http://github.com/brynary
+[xi9]: http://github.com/btakita/rr/issues/9
+[nathansobo]: http://github.com/nathansobo
+[xi7]: http://github.com/btakita/rr/issues/7
+[xi4]: http://github.com/btakita/rr/issues/4
+[xi2]: http://github.com/btakita/rr/issues/2
+[nkallen]: http://github.com/nkallen
+[jferris]: http://github.com/jferris
+[phildarnowsky]: http://github.com/phildarnowsky
+[niessner]: http://github.com/niessner
+[mmangino]: http://github.com/mmangino
+[xi20]: http://github.com/btakita/rr/issues/20
+[xi24]: http://github.com/btakita/rr/issues/24
+[xi16]: http://github.com/btakita/rr/issues/16
