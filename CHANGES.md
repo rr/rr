@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.0 (UNRELEASED)
+## 1.1.0 (2013-05-20)
 
 * Fix a line in RR::Injections::DoubleInjection to use top-level RR constant
   ([#3][i3]) [[@Thibaut][Thibaut]]
