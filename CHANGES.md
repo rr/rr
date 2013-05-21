@@ -54,7 +54,7 @@ Issues are re-numbered beginning from 1 from this point on.
 * Added minitest adapter ([#62][xi62]) [[@cespare][cespare]]
 * Added instructions on installing the gem ([#57][xi57])
   [[@gavingmiller][gavingmiller]]
-* delete missing scratch.rb file from gemspec [#60][xi60]
+* delete missing scratch.rb file from gemspec ([#60][xi60])
   [[@bonkydog][bonkydog]]
 
 ## 1.0.2 (November 1, 2010)
