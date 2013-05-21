@@ -449,3 +449,7 @@ Issues are re-numbered beginning from 1 from this point on.
 [xi20]: http://github.com/btakita/rr/issues/20
 [xi24]: http://github.com/btakita/rr/issues/24
 [xi16]: http://github.com/btakita/rr/issues/16
+[xi62]: http://github.com/btakita/rr/issues/62
+[xi57]: http://github.com/btakita/rr/issues/57
+[xi60]: http://github.com/btakita/rr/issues/60
+
