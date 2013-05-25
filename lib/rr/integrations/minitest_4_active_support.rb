@@ -20,7 +20,7 @@ module RR
       def hook
         parent_adapter_class = self.parent_adapter_class
         ::ActiveSupport::TestCase.class_eval do
-          include RR::Adapters::RRMethods
+          include RR::DSL
           include parent_adapter_class::Mixin
 
           setup do

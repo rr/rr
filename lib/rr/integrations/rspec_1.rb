@@ -32,7 +32,7 @@ module RR
       def hook
         ::Spec::Runner.configure do |config|
           config.mock_with Mixin
-          config.include RR::Adapters::RRMethods
+          config.include RR::DSL
         end
         patterns = ::Spec::Runner::QuietBacktraceTweaker::IGNORE_PATTERNS
         unless patterns.include?(RR::Errors::BACKTRACE_IDENTIFIER)

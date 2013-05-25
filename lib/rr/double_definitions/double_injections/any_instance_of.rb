@@ -3,7 +3,7 @@ module RR
     module DoubleInjections
       class AnyInstanceOf
         extend(Module.new do
-          include RR::Adapters::RRMethods
+          include RR::DSL
 
           def call(subject_class, stubbed_methods=nil, &block)
             strategy_lambda = lambda do |double_definition_create|

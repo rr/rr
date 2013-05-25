@@ -12,7 +12,7 @@ describe RR::SpyVerification do
 
   include_examples "Swapped Space"
 
-  include RR::Adapters::RRMethods
+  include RR::DSL
 
   before(:each) do
     stub(subject).foobar

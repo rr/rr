@@ -36,7 +36,7 @@ module RR
       def hook
         assertion_error_class = self.assertion_error_class
         test_case_class.class_eval do
-          include RR::Adapters::RRMethods
+          include RR::DSL
           include Mixin
 
           unless instance_methods.any? { |method_name| method_name.to_sym == :setup_with_rr }

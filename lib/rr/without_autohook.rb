@@ -36,7 +36,7 @@ require 'rr/double_definitions/strategies/implementation/proxy'
 require 'rr/double_definitions/strategies/double_injection/double_injection_strategy'
 require 'rr/double_definitions/strategies/double_injection/instance'
 require 'rr/double_definitions/strategies/double_injection/any_instance_of'
-require 'rr/adapters/rr_methods'
+require 'rr/dsl'
 require 'rr/double_definitions/double_injections/instance'
 require 'rr/double_definitions/double_injections/any_instance_of'
 require 'rr/double_definitions/double_definition'
@@ -99,7 +99,6 @@ require 'rr/integrations/test_unit_200'
 require 'rr/integrations/test_unit_200_active_support'
 require 'rr/integrations/test_unit_2'
 require 'rr/integrations/test_unit_2_active_support'
-require 'rr/adapters'
 
 require 'rr/deprecations'
 
@@ -107,7 +106,7 @@ require 'rr/version'
 
 module RR
   class << self
-    include Adapters::RRMethods
+    include DSL
 
     (RR::Space.instance_methods - Object.instance_methods).each do |method_name|
       class_eval((<<-METHOD), __FILE__, __LINE__ + 1)

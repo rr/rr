@@ -12,7 +12,7 @@ divisible by a certain integer.  In use, it might look like this:
 
   mock(BananaGrabber).bunch_bananas(divisible_by(5))
 
-To implement this, we need a class RR::WildcardMatchers::DivisibleBy with 
+To implement this, we need a class RR::WildcardMatchers::DivisibleBy with
 these instance methods:
 
 * ==(other)
@@ -38,7 +38,7 @@ might look like this:
 DivisibleBy#==(other) should return true if other is a wildcard matcher that
 matches the same things as self, so a natural way to write DivisibleBy#== is:
 
-  
+
   class RR::WildcardMatchers::DivisibleBy
     def ==(other)
       # Ensure that other is actually a DivisibleBy
@@ -86,7 +86,7 @@ false otherwise.  In the case of DivisibleBy, wildcard_matches? reads:
       # If other isn't a number, how can it be divisible by anything?
       return false unless other.is_a?(Numeric)
 
-      # If other is in fact divisible by expected_divisor, then 
+      # If other is in fact divisible by expected_divisor, then
       # other modulo expected_divisor should be 0.
 
       other % expected_divisor == 0
@@ -105,10 +105,10 @@ But that's less expressive than the original:
   mock(BananaGrabber).bunch_bananas(divisible_by(5))
 
 To be able to use the convenient divisible_by matcher rather than the uglier
-DivisibleBy.new version, re-open the module RR::Adapters::RRMethods and
-define divisible_by there as a simple wrapper around DivisibleBy.new:
+DivisibleBy.new version, re-open the module RR::DSL and define divisible_by
+there as a simple wrapper around DivisibleBy.new:
 
-  module RR::Adapters::RRMethods
+  module RR::DSL
     def divisible_by(expected_divisor)
       RR::WildcardMatchers::DivisibleBy.new(expected_divisor)
     end
@@ -134,19 +134,19 @@ Here's all the code for DivisibleBy in one place for easy reference:
     def inspect
       "integer divisible by #{expected.divisor}"
     end
-  
+
     def wildcard_matches?(other)
       # If other isn't a number, how can it be divisible by anything?
       return false unless other.is_a?(Numeric)
 
-      # If other is in fact divisible by expected_divisor, then 
+      # If other is in fact divisible by expected_divisor, then
       # other modulo expected_divisor should be 0.
 
       other % expected_divisor == 0
     end
   end
-  
-  module RR::Adapters::RRMethods
+
+  module RR::DSL
     def divisible_by(expected_divisor)
       RR::WildcardMatchers::DivisibleBy.new(expected_divisor)
     end

@@ -39,6 +39,30 @@ module RR
         end
       end
     end
+
+    module RRMethods
+      include RR::DSL
+
+      def self.included(base)
+        # This was once here but is now deprecated
+        RR::Deprecations.constant_deprecated_in_favor_of(
+          'RR::Adapters::RRMethods',
+          'RR::DSL'
+        )
+      end
+    end
+  end
+
+  # This is here because RSpec-2's RR adapter uses it
+  module Extensions
+    include RR::DSL
+
+    def self.included(base)
+      RR::Deprecations.constant_deprecated_in_favor_of(
+        'RR::Extensions::InstanceMethods',
+        'RR::DSL'
+      )
+    end
   end
 
   module Deprecations

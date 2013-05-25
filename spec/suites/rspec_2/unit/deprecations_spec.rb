@@ -16,4 +16,12 @@ describe 'Deprecations' do
   specify 'RR::Adapters::Rspec::InvocationMatcher still works' do
     expect { RR::Adapters::Rspec::InvocationMatcher }.not_to raise_error
   end
+
+  specify 'RR::Adapters::RRMethods should still work' do
+    expect { RR::Adapters::RRMethods }.not_to raise_error
+  end
+
+  specify 'RR::Extensions::InstanceMethods should still work' do
+    expect { RR::Extensions::InstanceMethods }.not_to raise_error
+  end
 end

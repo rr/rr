@@ -3,7 +3,7 @@ module RR
     module DoubleInjections
       class Instance
         extend(Module.new do
-          include ::RR::Adapters::RRMethods
+          include ::RR::DSL
 
           def call(double_method_name, *args, &definition_eval_block)
             double_definition_create = DoubleDefinitions::DoubleDefinitionCreate.new

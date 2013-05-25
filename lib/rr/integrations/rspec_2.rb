@@ -14,7 +14,7 @@ module RR
       def hook
         ::RSpec.configure do |config|
           config.mock_with Mixin
-          config.include RR::Adapters::RRMethods
+          config.include RR::DSL
         end
 
         patterns =

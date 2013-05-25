@@ -19,7 +19,7 @@ module RR
         RR.overridden_error_class = ::Test::Unit::AssertionFailedError
 
         ::ActiveSupport::TestCase.class_eval do
-          include RR::Adapters::RRMethods
+          include RR::DSL
           include TestUnit1::Mixin
 
           setup do
