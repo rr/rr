@@ -6,6 +6,10 @@ describe 'MiniTest 4 integration' do
     'minitest_4'
   end
 
+  def test_framework_path
+    'minitest/autorun'
+  end
+
   def error_test
     <<-EOT
       #{bootstrap}
@@ -56,12 +60,4 @@ describe 'MiniTest 4 integration' do
   end
 
   include AdapterIntegrationTests
-
-  def adapter_name
-    'minitest_4'
-  end
-
-  def test_framework_path
-    'minitest/autorun'
-  end
 end

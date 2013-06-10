@@ -2,8 +2,6 @@ require File.expand_path('../../spec_helper', __FILE__)
 require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
 
 describe 'Test::Unit 1 integration' do
-  include AdapterIntegrationTests
-
   def bootstrap
     <<-EOT
       require 'test/unit'
@@ -42,4 +40,6 @@ describe 'Test::Unit 1 integration' do
       end
     EOT
   end
+
+  include AdapterIntegrationTests
 end

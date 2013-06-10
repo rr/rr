@@ -3,15 +3,6 @@ require File.expand_path('../../../common/adapter_tests', __FILE__)
 require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
 
 describe 'Integration with RSpec 2' do
-  include AdapterTests
-  instance_methods.each do |method_name|
-    if method_name =~ /^test_(.+)$/
-      it(method_name) { __send__(method_name) }
-    end
-  end
-
-  include AdapterIntegrationTests
-
   def assert_equal(expected, actual)
     expect(actual).to eq actual
   end
@@ -122,4 +113,13 @@ describe 'Integration with RSpec 2' do
     EOT
     all_tests_should_pass(output)
   end
+
+  include AdapterTests
+  instance_methods.each do |method_name|
+    if method_name =~ /^test_(.+)$/
+      it(method_name) { __send__(method_name) }
+    end
+  end
+
+  include AdapterIntegrationTests
 end

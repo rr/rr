@@ -3,9 +3,6 @@ require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
 require File.expand_path('../../../common/rails_integration_test', __FILE__)
 
 describe 'Integration between TestUnit and Rails' do
-  include AdapterIntegrationTests
-  include IntegrationWithRails
-
   def additional_bootstrap
     <<-EOT
       require 'rails'
@@ -65,4 +62,7 @@ describe 'Integration between TestUnit and Rails' do
       end
     EOT
   end
+
+  include AdapterIntegrationTests
+  include IntegrationWithRails
 end

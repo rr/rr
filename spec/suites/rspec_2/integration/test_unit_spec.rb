@@ -2,8 +2,6 @@ require File.expand_path('../../spec_helper', __FILE__)
 require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
 
 describe 'TestUnit integration' do
-  include AdapterIntegrationTests
-
   def test_framework_path
     'test/unit'
   end
@@ -56,4 +54,6 @@ describe 'TestUnit integration' do
       end
     EOT
   end
+
+  include AdapterIntegrationTests
 end
