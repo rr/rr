@@ -1,5 +1,6 @@
 $is_java = (RUBY_PLATFORM == 'java')
 if $is_java
+  require 'active_record'
   require 'arjdbc'
   require 'arjdbc/sqlite3'
 else
@@ -21,7 +22,7 @@ module IntegrationWithRails
 
   def bootstrap_active_record
     <<-EOT
-      #{bootstrap}
+      #{full_bootstrap}
 
       require 'active_record'
 

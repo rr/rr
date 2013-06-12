@@ -1,7 +1,7 @@
 require File.expand_path('../../spec_helper', __FILE__)
 require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
 
-describe 'MiniTest 4 integration' do
+describe 'Integration with MiniTest 4' do
   def adapter_name
     'minitest_4'
   end
@@ -11,9 +11,7 @@ describe 'MiniTest 4 integration' do
   end
 
   def error_test
-    <<-EOT
-      #{bootstrap}
-
+    with_bootstrap <<-EOT
       class FooTest < MiniTest::Unit::TestCase
         def test_foo
           object = Object.new
@@ -24,9 +22,7 @@ describe 'MiniTest 4 integration' do
   end
 
   def include_adapter_test
-    <<-EOT
-      #{bootstrap}
-
+    with_bootstrap <<-EOT
       class MiniTest::Unit::TestCase
         include RR::Adapters::MiniTest
       end
@@ -42,9 +38,7 @@ describe 'MiniTest 4 integration' do
   end
 
   def include_adapter_where_rr_included_before_test_framework_test
-    <<-EOT
-      #{bootstrap :include_rr_before => true}
-
+    with_bootstrap <<-EOT, :include_rr_before_test_framework => true
       class MiniTest::Unit::TestCase
         include RR::Adapters::MiniTest
       end

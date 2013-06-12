@@ -2,26 +2,24 @@ require File.expand_path('../../spec_helper', __FILE__)
 require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
 require File.expand_path('../../../common/rails_integration_test', __FILE__)
 
-describe 'Integration between MiniTest 4 and Rails' do
+describe 'Integration with Test::Unit >= 2.3 and Rails' do
   def adapter_name
-    'minitest_4'
+    'test_unit_2_active_support'
   end
 
-  def additional_bootstrap
+  def test_framework_path
+    'test/unit'
+  end
+
+  def before_require_test_framework
     <<-EOT
       require 'rails'
       require 'active_support'
     EOT
   end
 
-  def test_framework_path
-    'minitest/autorun'
-  end
-
   def error_test
-    <<-EOT
-      #{bootstrap}
-
+    with_bootstrap <<-EOT
       class FooTest < ActiveSupport::TestCase
         def test_foo
           object = Object.new
@@ -32,11 +30,9 @@ describe 'Integration between MiniTest 4 and Rails' do
   end
 
   def include_adapter_test
-    <<-EOT
-      #{bootstrap}
-
+    with_bootstrap <<-EOT
       class ActiveSupport::TestCase
-        include RR::Adapters::MiniTest
+        include RR::Adapters::TestUnit
       end
 
       class FooTest < ActiveSupport::TestCase
@@ -50,11 +46,9 @@ describe 'Integration between MiniTest 4 and Rails' do
   end
 
   def include_adapter_where_rr_included_before_test_framework_test
-    <<-EOT
-      #{bootstrap :include_rr_before => true}
-
+    with_bootstrap <<-EOT, :include_rr_before => true
       class ActiveSupport::TestCase
-        include RR::Adapters::MiniTest
+        include RR::Adapters::TestUnit
       end
 
       class FooTest < ActiveSupport::TestCase

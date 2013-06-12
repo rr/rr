@@ -2,6 +2,9 @@ require 'rubygems'
 require 'bundler'
 require 'rake'
 
+# appraisal
+require 'appraisal'
+
 # build, install, release
 require 'bundler/gem_tasks'
 

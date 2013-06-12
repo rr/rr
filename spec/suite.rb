@@ -57,15 +57,17 @@ class SpecSuite
   def_runner :test_unit_2, 'Test::Unit 2', 'ruby', 'test'
 
   unless ruby_18?
-    def_runner :minitest_4, 'MiniTest 4', 'ruby', 'test', :path => :minitest
-
+    def_runner :minitest_4, 'MiniTest 4', 'ruby', 'test'
     def_runner :minitest, 'Minitest', 'ruby', 'test'
   end
 
   if ruby_18?
     def_runner :rspec_1, 'RSpec 1', 'spec', 'spec'
+    def_runner :rspec_1_active_support, 'RSpec 1 + ActiveSupport', 'spec', 'spec'
   else
     def_runner :rspec_2, 'RSpec 2', 'rspec', 'spec',
+      :env => {'SPEC_OPTS' => '--format progress'}
+    def_runner :rspec_2_active_support, 'RSpec 2 + ActiveSupport', 'rspec', 'spec',
       :env => {'SPEC_OPTS' => '--format progress'}
   end
 
@@ -82,7 +84,7 @@ class SpecSuite
     env = env.merge('ADAPTER' => adapter_name)
     env.each {|k,v| ENV[k.to_s] = v.to_s }
     file_list = build_file_list(path, suffix)
-    ['bundle', 'exec', program_name, *file_list]
+    ['ruby', *file_list]
   end
 
   def build_file_list(adapter_name, suffix)

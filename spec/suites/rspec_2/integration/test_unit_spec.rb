@@ -1,15 +1,17 @@
 require File.expand_path('../../spec_helper', __FILE__)
 require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
 
-describe 'TestUnit integration' do
+describe 'Integration with Test::Unit >= 2.5' do
+  def adapter_name
+    'test_unit_2'
+  end
+
   def test_framework_path
     'test/unit'
   end
 
   def error_test
-    <<-EOT
-      #{bootstrap}
-
+    with_bootstrap <<-EOT
       class FooTest < Test::Unit::TestCase
         def test_foo
           object = Object.new
@@ -20,9 +22,7 @@ describe 'TestUnit integration' do
   end
 
   def include_adapter_test
-    <<-EOT
-      #{bootstrap}
-
+    with_bootstrap <<-EOT
       class Test::Unit::TestCase
         include RR::Adapters::TestUnit
       end
@@ -38,9 +38,7 @@ describe 'TestUnit integration' do
   end
 
   def include_adapter_where_rr_included_before_test_framework_test
-    <<-EOT
-      #{bootstrap :include_rr_before => true}
-
+    with_bootstrap <<-EOT, :include_rr_before_test_framework => true
       class Test::Unit::TestCase
         include RR::Adapters::TestUnit
       end

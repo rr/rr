@@ -11,14 +11,16 @@ describe 'Integration with RSpec 2' do
     expect(&block).to raise_error(error, message)
   end
 
+  def adapter_name
+    'rspec_2'
+  end
+
   def test_framework_path
     'rspec/autorun'
   end
 
   def error_test
-    <<-EOT
-      #{bootstrap}
-
+    with_bootstrap <<-EOT
       describe 'A test' do
         it 'is a test' do
           object = Object.new
@@ -29,9 +31,7 @@ describe 'Integration with RSpec 2' do
   end
 
   def include_adapter_test
-    <<-EOT
-      #{bootstrap}
-
+    with_bootstrap <<-EOT
       RSpec.configure do |c|
         c.mock_with :rr
       end
@@ -47,9 +47,7 @@ describe 'Integration with RSpec 2' do
   end
 
   def include_adapter_where_rr_included_before_test_framework_test
-    <<-EOT
-      #{bootstrap :include_rr_before => true}
-
+    with_bootstrap <<-EOT, :include_rr_before_test_framework => true
       RSpec.configure do |c|
         c.mock_with :rr
       end
@@ -65,9 +63,7 @@ describe 'Integration with RSpec 2' do
   end
 
   specify "it is still possible to use a custom RSpec-2 adapter" do
-    output = run_fixture_tests <<-EOT
-      #{bootstrap}
-
+    suite = with_bootstrap <<-EOT
       module RR
         module Adapters
           module RSpec2
@@ -111,6 +107,7 @@ describe 'Integration with RSpec 2' do
         end
       end
     EOT
+    output = run_fixture_tests(suite)
     all_tests_should_pass(output)
   end
 
