@@ -65,6 +65,13 @@ ruby_19_stuff = proc do
     gem "rspec", "~> 2.13"
   end
 
+  appraise 'ruby_19_test_unit_200' do
+  end
+
+  appraise 'ruby_19_test_unit_200_active_support' do
+    instance_eval &ruby_19_active_support
+  end
+
   appraise 'ruby_19_test_unit_2' do
     instance_eval &ruby_19_test_unit_2
   end

@@ -6,11 +6,12 @@ module RR
       end
 
       def name
-        'Test::Unit 2 w/ ActiveSupport'
+        "#{@tu2_adapter.name} + ActiveSupport"
       end
 
       def applies?
-        @tu2_adapter.applies? && defined?(::ActiveSupport::TestCase)
+        @tu2_adapter.applies? &&
+          defined?(::ActiveSupport::TestCase)
       end
 
       def hook

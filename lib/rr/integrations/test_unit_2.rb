@@ -2,7 +2,7 @@ module RR
   module Integrations
     class TestUnit2 < TestUnit1
       def name
-        'Test::Unit 2'
+        RR.ruby_18? ? 'Test::Unit 2.4.x' : 'Test::Unit >= 2.5'
       end
 
       def applies?

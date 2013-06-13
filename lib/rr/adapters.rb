@@ -17,9 +17,9 @@ module RR
         adapter = shim_adapters[adapter_const_name] ||=
           case adapter_const_name
             when :TestUnit
-              find_applicable_adapter(:TestUnit1, :TestUnit2ActiveSupport, :TestUnit2)
+              find_applicable_adapter_matching(/^TestUnit/)
             when :MiniTest
-              find_applicable_adapter(:MinitestActiveSupport, :Minitest, :MiniTest4ActiveSupport, :MiniTest4)
+              find_applicable_adapter_matching(/^minitest/i)
           end
 
         adapter
@@ -31,10 +31,11 @@ module RR
         @shim_adapters ||= {}
       end
 
-      def find_applicable_adapter(*adapter_const_names)
-        adapter = adapter_const_names.
-          map { |adapter_const_name| RR::Integrations.build(adapter_const_name) }.
-          find { |adapter| adapter.applies? }
+      def find_applicable_adapter_matching(pattern)
+        adapter = RR::Integrations.constants.
+          select { |adapter_name| adapter_name.to_s =~ pattern }.
+          map    { |adapter_name| RR::Integrations.build(adapter_name) }.
+          find   { |adapter| adapter.applies? }
         if adapter
           mod = Module.new
           (class << mod; self; end).class_eval do

@@ -12,7 +12,9 @@ module RR
       end
 
       def applies?
-        defined?(::Test::Unit) && !has_test_unit_version?
+        defined?(::Test::Unit) &&
+        !has_test_unit_version? &&
+        !test_unit_just_wraps_minitest?
       end
 
       def hook(test_case_class = ::Test::Unit::TestCase)
@@ -41,7 +43,10 @@ module RR
         end
       end
 
-      private
+      def test_unit_just_wraps_minitest?
+        defined?(::MiniTest) &&
+        ::Test::Unit::TestCase < ::MiniTest::Unit::TestCase
+      end
 
       def has_test_unit_version?
         require 'test/unit/version'

@@ -2,7 +2,7 @@ require File.expand_path('../../spec_helper', __FILE__)
 require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
 require File.expand_path('../../../common/rails_integration_test', __FILE__)
 
-describe 'Integration with Test::Unit >= 2.3 and Rails' do
+describe 'Integration with Test::Unit 2.0.0 and Rails' do
   def adapter_name
     'test_unit_2_active_support'
   end

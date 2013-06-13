@@ -4,6 +4,8 @@ module RR
       :RSpec1,
       :RSpec2,
       :TestUnit1,
+      :TestUnit200ActiveSupport,
+      :TestUnit200,
       :TestUnit2ActiveSupport,
       :TestUnit2,
       :MiniTest4ActiveSupport,
@@ -23,6 +25,9 @@ module RR
           end
           raise e
         end
+      end
+      if RR.debug? && applicable_adapters.empty?
+        puts "No adapters matched!"
       end
     end
 

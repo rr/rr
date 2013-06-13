@@ -90,13 +90,15 @@ require 'rr/integrations'
 require 'rr/integrations/rspec/invocation_matcher'
 require 'rr/integrations/rspec_1'
 require 'rr/integrations/rspec_2'
-require 'rr/integrations/test_unit_1'
-require 'rr/integrations/test_unit_2'
-require 'rr/integrations/test_unit_2_active_support'
 require 'rr/integrations/minitest_4'
 require 'rr/integrations/minitest_4_active_support'
 require 'rr/integrations/minitest'
 require 'rr/integrations/minitest_active_support'
+require 'rr/integrations/test_unit_1'
+require 'rr/integrations/test_unit_200'
+require 'rr/integrations/test_unit_200_active_support'
+require 'rr/integrations/test_unit_2'
+require 'rr/integrations/test_unit_2_active_support'
 require 'rr/integrations/none'
 
 require 'rr/version'
@@ -115,6 +117,10 @@ module RR
 
     attr_accessor :debug
     alias_method :debug?, :debug
+
+    def ruby_18?
+      RUBY_VERSION =~ /^1\.8/
+    end
   end
 end
 

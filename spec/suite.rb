@@ -55,7 +55,12 @@ class SpecSuite
     def_runner :test_unit_1, 'Test::Unit 1', 'ruby', 'test'
   end
 
-  def_runner :test_unit_2, 'Test::Unit 2', 'ruby', 'test'
+  if ruby_18?
+    def_runner :test_unit_2, 'Test::Unit 2.4.x', 'ruby', 'test'
+  else
+    def_runner :test_unit_200, 'Test::Unit 2.0.0', 'ruby', 'test'
+    def_runner :test_unit_2, 'Test::Unit >= 2.5', 'ruby', 'test'
+  end
 
   unless ruby_18?
     def_runner :minitest_4, 'MiniTest 4', 'ruby', 'test'
