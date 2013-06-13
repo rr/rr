@@ -15,7 +15,14 @@ module RR
     def autohook
       applicable_adapters.each do |adapter|
         puts "Using adapter: #{adapter.name}" if RR.debug?
-        adapter.hook
+        begin
+          adapter.hook
+        rescue => e
+          if RR.debug?
+            puts "Couldn't load adapter #{adapter.name}: #{e.class} (#{e.message})"
+          end
+          raise e
+        end
       end
     end
 
