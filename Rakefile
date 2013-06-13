@@ -11,7 +11,7 @@ require 'bundler/gem_tasks'
 # spec
 require File.expand_path('../spec/suite', __FILE__)
 SpecSuite.new.define_tasks(self)
-task :default => :spec
+task :default => ['appraisal:install', :spec]
 
 task :package_tests do
   require File.expand_path('../lib/rr/version', __FILE__)
