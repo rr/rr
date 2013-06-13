@@ -57,9 +57,12 @@ class SpecSuite
 
   if ruby_18?
     def_runner :test_unit_2, 'Test::Unit 2.4.x', 'ruby', 'test'
+    def_runner :test_unit_2_active_support, 'Test::Unit 2.4.x + ActiveSupport', 'ruby', 'test'
   else
     def_runner :test_unit_200, 'Test::Unit 2.0.0', 'ruby', 'test'
+    def_runner :test_unit_200_active_support, 'Test::Unit 2.0.0 + ActiveSupport', 'ruby', 'test'
     def_runner :test_unit_2, 'Test::Unit >= 2.5', 'ruby', 'test'
+    def_runner :test_unit_2_active_support, 'Test::Unit >= 2.5 + ActiveSupport', 'ruby', 'test'
   end
 
   unless ruby_18?
