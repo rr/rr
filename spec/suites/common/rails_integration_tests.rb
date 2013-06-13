@@ -7,7 +7,7 @@ else
   require 'sqlite3'
 end
 
-module IntegrationWithRails
+module RailsIntegrationTests
   def sqlite_adapter
     $is_java ? 'jdbcsqlite3' : 'sqlite3'
   end

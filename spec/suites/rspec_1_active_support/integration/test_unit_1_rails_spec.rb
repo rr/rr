@@ -1,6 +1,6 @@
 require File.expand_path('../../spec_helper', __FILE__)
 require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
-require File.expand_path('../../../common/rails_integration_test', __FILE__)
+require File.expand_path('../../../common/rails_integration_tests', __FILE__)
 
 describe 'Integration with Test::Unit 1 and Rails' do
   def adapter_name
@@ -49,5 +49,5 @@ describe 'Integration with Test::Unit 1 and Rails' do
   end
 
   include AdapterIntegrationTests
-  include IntegrationWithRails
+  include RailsIntegrationTests
 end
