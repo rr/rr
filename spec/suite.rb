@@ -5,9 +5,10 @@ class SpecSuite
     adapter_name = opts[:adapter] || runner_name
     path = opts[:path] || runner_name
     env = opts[:env] || {}
+    args = opts[:args] || ""
     runner_method = "run_#{runner_name}"
     define_method(runner_method) do
-      run_command(build_command(program_name, adapter_name, path, suffix, env))
+      run_command(build_command(program_name, adapter_name, path, suffix, env, args))
     end
     runners << [runner_name, runner_desc]
   end
@@ -62,8 +63,10 @@ class SpecSuite
   end
 
   if ruby_18?
-    def_runner :rspec_1, 'RSpec 1', 'spec', 'spec'
-    def_runner :rspec_1_active_support, 'RSpec 1 + ActiveSupport', 'spec', 'spec'
+    def_runner :rspec_1, 'RSpec 1', 'spec', 'spec',
+      :args => '--format progress'
+    def_runner :rspec_1_active_support, 'RSpec 1 + ActiveSupport', 'spec', 'spec',
+      :args => '--format progress'
   else
     def_runner :rspec_2, 'RSpec 2', 'rspec', 'spec',
       :env => {'SPEC_OPTS' => '--format progress'}
@@ -80,11 +83,11 @@ class SpecSuite
     session
   end
 
-  def build_command(program_name, adapter_name, path, suffix, env)
+  def build_command(program_name, adapter_name, path, suffix, env, args)
     env = env.merge('ADAPTER' => adapter_name)
     env.each {|k,v| ENV[k.to_s] = v.to_s }
     file_list = build_file_list(path, suffix)
-    ['ruby', *file_list]
+    ['ruby'] + file_list + [args]
   end
 
   def build_file_list(adapter_name, suffix)
