@@ -1,7 +1,7 @@
 require File.expand_path('../../spec_helper', __FILE__)
 require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
 
-describe 'Test::Unit 1 integration' do
+describe 'Integration with Test::Unit 1' do
   def adapter_name
     'test_unit_1'
   end
