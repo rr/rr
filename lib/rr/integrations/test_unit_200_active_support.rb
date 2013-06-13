@@ -2,8 +2,8 @@ module RR
   module Integrations
     class TestUnit200ActiveSupport
       def initialize
-        @mt4as_adapter = MiniTest4ActiveSupport.new
-        @tu200_adapter = TestUnit200.new
+        @mt4as_adapter = RR.adapters_by_name[:MiniTest4ActiveSupport]
+        @tu200_adapter = RR.adapters_by_name[:TestUnit200]
       end
 
       def name
@@ -18,5 +18,8 @@ module RR
         @mt4as_adapter.hook
       end
     end
+
+    RR.register_adapter TestUnit200ActiveSupport
   end
 end
+

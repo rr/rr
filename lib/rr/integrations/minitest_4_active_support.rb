@@ -35,5 +35,7 @@ module RR
         end
       end
     end
+
+    RR.register_adapter MiniTest4ActiveSupport
   end
 end

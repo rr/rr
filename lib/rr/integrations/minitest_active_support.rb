@@ -9,5 +9,7 @@ module RR
         'Minitest + ActiveSupport'
       end
     end
+
+    RR.register_adapter MinitestActiveSupport
   end
 end

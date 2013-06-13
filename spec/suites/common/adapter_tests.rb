@@ -1,4 +1,10 @@
+require 'set'
+
 module AdapterTests
+  def test_the_correct_adapters_are_loaded
+    assert_equal Set.new(applicable_adapter_names), Set.new(RR.loaded_adapter_names)
+  end
+
   def test_using_a_mock
     subject = Object.new
     mock(subject).foobar(1, 2) { :baz }

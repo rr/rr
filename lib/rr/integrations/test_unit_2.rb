@@ -9,5 +9,7 @@ module RR
         defined?(::Test::Unit) && has_test_unit_version?
       end
     end
+
+    RR.register_adapter TestUnit2
   end
 end

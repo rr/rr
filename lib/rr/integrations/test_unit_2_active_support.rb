@@ -2,7 +2,7 @@ module RR
   module Integrations
     class TestUnit2ActiveSupport
       def initialize
-        @tu2_adapter = TestUnit2.new
+        @tu2_adapter = RR.adapters_by_name[:TestUnit2]
       end
 
       def name
@@ -32,5 +32,7 @@ module RR
         end
       end
     end
+
+    RR.register_adapter TestUnit2ActiveSupport
   end
 end

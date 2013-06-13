@@ -5,5 +5,9 @@ class MiniTestIntegrationTest < MiniTest::Unit::TestCase
   # Test::Unit compatibility
   alias_method :assert_raise, :assert_raises
 
+  def applicable_adapter_names
+    [:MiniTest4]
+  end
+
   include TestUnitTests
 end

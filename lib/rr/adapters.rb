@@ -17,9 +17,9 @@ module RR
         adapter = shim_adapters[adapter_const_name] ||=
           case adapter_const_name
             when :TestUnit
-              find_applicable_adapter_matching(/^TestUnit/)
+              RR.find_applicable_adapter_matching(/^TestUnit/)
             when :MiniTest
-              find_applicable_adapter_matching(/^minitest/i)
+              RR.find_applicable_adapter_matching(/^minitest/i)
           end
 
         adapter
@@ -29,24 +29,6 @@ module RR
 
       def shim_adapters
         @shim_adapters ||= {}
-      end
-
-      def find_applicable_adapter_matching(pattern)
-        adapter = RR::Integrations.constants.
-          select { |adapter_name| adapter_name.to_s =~ pattern }.
-          map    { |adapter_name| RR::Integrations.build(adapter_name) }.
-          find   { |adapter| adapter.applies? }
-        if adapter
-          mod = Module.new
-          (class << mod; self; end).class_eval do
-            define_method(:included) do |base|
-              # Note: This assumes that the thing that is including this module
-              # is the same that the adapter detected and will hook into.
-              adapter.hook
-            end
-          end
-          mod
-        end
       end
 
       def show_warning_for(adapter_const_name)

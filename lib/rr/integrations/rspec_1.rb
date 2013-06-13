@@ -38,5 +38,7 @@ module RR
         end
       end
     end
+
+    RR.register_adapter RSpec1
   end
 end

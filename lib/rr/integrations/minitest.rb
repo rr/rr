@@ -23,5 +23,7 @@ module RR
         ::Minitest::VERSION
       end
     end
+
+    RR.register_adapter Minitest
   end
 end

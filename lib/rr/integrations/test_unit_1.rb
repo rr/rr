@@ -55,5 +55,7 @@ module RR
         false
       end
     end
+
+    RR.register_adapter TestUnit1
   end
 end

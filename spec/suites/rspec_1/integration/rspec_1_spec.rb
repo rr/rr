@@ -15,6 +15,10 @@ describe 'Integration with RSpec 1' do
     'rspec_1'
   end
 
+  def applicable_adapter_names
+    [:RSpec1]
+  end
+
   def test_framework_path
     'spec/autorun'
   end

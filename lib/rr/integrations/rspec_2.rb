@@ -20,5 +20,7 @@ module RR
         end
       end
     end
+
+    RR.register_adapter RSpec2
   end
 end
