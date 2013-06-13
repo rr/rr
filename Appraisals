@@ -8,6 +8,8 @@ ruby_18_stuff = proc do
     gem 'activesupport', '~> 2.3'
     gem 'activerecord', '~> 2.3'
     gem 'mocha', '~> 0.12.0'
+    gem 'sqlite3', '~> 1.3', :platforms => :ruby
+    gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
   end
 
   ruby_18_rspec_1 = proc do
@@ -59,6 +61,8 @@ ruby_19_stuff = proc do
     gem 'railties', '~> 3.0'
     gem 'activesupport', '~> 3.0'
     gem 'activerecord', '~> 3.0'
+    gem 'sqlite3', '~> 1.3', :platforms => :ruby
+    gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
   end
 
   ruby_19_rspec_2 = proc do
