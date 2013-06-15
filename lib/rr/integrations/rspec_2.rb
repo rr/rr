@@ -6,7 +6,9 @@ module RR
       end
 
       def applies?
-        defined?(::RSpec)
+        defined?(::RSpec) &&
+        defined?(::RSpec::Core::Version::STRING) &&
+        ::RSpec::Core::Version::STRING =~ /^2/
       end
 
       def hook

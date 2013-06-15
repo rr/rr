@@ -24,7 +24,9 @@ module RR
       end
 
       def applies?
-        defined?(::Spec)
+        defined?(::Spec) &&
+        defined?(::Spec::VERSION::STRING) &&
+        ::Spec::VERSION::STRING =~ /^1/
       end
 
       def hook

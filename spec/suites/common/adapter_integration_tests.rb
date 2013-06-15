@@ -4,6 +4,14 @@ require 'tempfile'
 require 'appraisal'
 
 module AdapterIntegrationTests
+  ROOT_DIR = File.expand_path('../../../..', __FILE__)
+  LIB_DIR = File.join(ROOT_DIR, 'lib')
+  TEMP_DIR = '/tmp/rr_integration_tests'
+
+  def create_link(filename)
+    FileUtils.ln_s(File.join(ROOT_DIR, filename), File.join(TEMP_DIR, filename))
+  end
+
   def debug?
     RR.debug?
   end
@@ -13,7 +21,9 @@ module AdapterIntegrationTests
   end
 
   def run_fixture_tests(content)
-    f = Tempfile.new('rr_test_fixture')
+    fixture_path = File.join(TEMP_DIR, 'rr_test_fixture_spec.rb')
+    FileUtils.rm_f(fixture_path)
+    f = File.open(fixture_path, 'w')
     puts content if debug?
     f.write(content)
     f.close
@@ -22,7 +32,7 @@ module AdapterIntegrationTests
     # This is unfortunate as it causes Bundler to be loaded before we
     # load Bundler in RR::Test.setup_test_suite, thereby rendering our
     # second Bundler.setup a no-op.
-    command = "env RUBYOPT='' ruby -I #{lib_path} #{f.path} 2>&1"
+    command = "env RUBYOPT='' ruby -I #{LIB_DIR} #{f.path} 2>&1"
     puts command if debug?
     stdout, _ = bash.execute(command)
     exit_status = bash.exit_status
@@ -33,23 +43,23 @@ module AdapterIntegrationTests
     success.should be_true
     stdout
   ensure
-    f.unlink
-  end
-
-  def lib_path
-    File.expand_path('../../../../lib', __FILE__)
+    FileUtils.rm_f(fixture_path) if fixture_path
   end
 
   def test_helper_path
-    File.expand_path('../../../global_helper', __FILE__)
+    File.join(ROOT_DIR, 'spec/global_helper.rb')
   end
 
   def full_bootstrap(opts={})
     str = ""
     str << <<-EOT
+      require 'fileutils'
+      temp_dir = '#{TEMP_DIR}'
+      Dir.chdir(temp_dir)
       require '#{test_helper_path}'
       RR::Test.setup_test_suite('#{adapter_name}')
     EOT
+    str << opts[:before_require_rr] if opts[:before_require_rr]
     str << require_rr if opts[:include_rr_before_test_framework]
     str << require_test_framework
     str << require_rr unless opts[:include_rr_before_test_framework]
@@ -76,7 +86,9 @@ module AdapterIntegrationTests
     ""
   end
 
-  def with_bootstrap(str, opts={})
+  def with_bootstrap(*args)
+    opts = args.last.is_a?(Hash) ? args.pop : {}
+    str = args.first || ""
     [full_bootstrap(opts), str].join("\n")
   end
 
@@ -91,6 +103,18 @@ module AdapterIntegrationTests
 
   def self.included(base)
     base.class_eval do
+      before :all do
+        FileUtils.rm_rf(TEMP_DIR)
+        FileUtils.mkdir(TEMP_DIR)
+        create_link('Gemfile')
+        create_link('Appraisals')
+        create_link('gemfiles')
+      end
+
+      after :all do
+        FileUtils.rm_rf(TEMP_DIR)
+      end
+
       specify "when RR raises an error it raises a failure not an exception" do
         output = run_fixture_tests(error_test)
         output.should match /1 failure/
@@ -108,6 +132,22 @@ module AdapterIntegrationTests
           output = run_fixture_tests(include_adapter_where_rr_included_before_test_framework_test)
           all_tests_should_pass(output)
         end
+      end
+
+      # issue #29
+      specify "loading Cucumber doesn't mess up RR's autohook mechanism" do
+        FileUtils.mkdir(File.join(TEMP_DIR, 'features'))
+        loading_cucumber_test = <<-EOT
+          require 'fileutils'
+          temp_dir = '#{TEMP_DIR}'
+          Dir.chdir(temp_dir)
+          require '#{test_helper_path}'
+          RR::Test.setup_test_suite('#{adapter_name}')
+          # This is what gets loaded within the `cucumber` executable
+          require 'cucumber/rspec/disable_option_parser'
+          require 'rr'
+        EOT
+        run_fixture_tests(loading_cucumber_test)
       end
     end
   end
