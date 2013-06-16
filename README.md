@@ -195,7 +195,7 @@ Ruby/Rails versions:
 |-----------------------|:---------------:|:---------------:|:-------------:|:----------------------:|
 | MiniTest 4.x                        |   | ✓ | ✓ | ✓ |
 | MiniTest 4.x + Rails 3              |   | ✓ | ✓ | ✓ |
-| MiniTest 4.x + Rails 4              |   | ✓ | ✓ | ✓ |
+| MiniTest 4.x + Rails 4.0.0.rc1      |   | ✓ | ✓ | ✓ |
 | Minitest 5.x                        |   | ✓ | ✓ | ✓ |
 | Minitest 5.x + Rails 3              |   | ✓ | ✓ | ✓ |
 | Test::Unit 1                        | ✓ |   |   |   |
