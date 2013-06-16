@@ -3,7 +3,7 @@ ruby_18_stuff = proc do
     gem 'test-unit', '~> 2.4.0'
   end
 
-  ruby_18_active_support = proc do
+  ruby_18_rails_2 = proc do
     gem 'rails', '~> 2.3'
     gem 'activesupport', '~> 2.3'
     gem 'activerecord', '~> 2.3'
@@ -16,29 +16,31 @@ ruby_18_stuff = proc do
     gem 'rspec', '~> 1.3'
   end
 
+  #---
+
   appraise 'ruby_18_test_unit_1' do
   end
 
-  appraise 'ruby_18_test_unit_1_active_support' do
-    instance_eval &ruby_18_active_support
+  appraise 'ruby_18_test_unit_1_rails_2' do
+    instance_eval &ruby_18_rails_2
   end
 
   appraise 'ruby_18_test_unit_2' do
     instance_eval &ruby_18_test_unit_2
   end
 
-  appraise 'ruby_18_test_unit_2_active_support' do
+  appraise 'ruby_18_test_unit_2_rails_2' do
     instance_eval &ruby_18_test_unit_2
-    instance_eval &ruby_18_active_support
+    instance_eval &ruby_18_rails_2
   end
 
   appraise 'ruby_18_rspec_1' do
     instance_eval &ruby_18_rspec_1
   end
 
-  appraise 'ruby_18_rspec_1_active_support' do
+  appraise 'ruby_18_rspec_1_rails_2' do
     instance_eval &ruby_18_rspec_1
-    instance_eval &ruby_18_active_support
+    instance_eval &ruby_18_rails_2
   end
 end
 
@@ -57,7 +59,7 @@ ruby_19_stuff = proc do
 
   #---
 
-  ruby_19_active_support = proc do
+  ruby_19_rails_3 = proc do
     gem 'railties', '~> 3.0'
     gem 'activesupport', '~> 3.0'
     gem 'activerecord', '~> 3.0'
@@ -72,44 +74,44 @@ ruby_19_stuff = proc do
   appraise 'ruby_19_test_unit_200' do
   end
 
-  appraise 'ruby_19_test_unit_200_active_support' do
-    instance_eval &ruby_19_active_support
+  appraise 'ruby_19_test_unit_200_rails_3' do
+    instance_eval &ruby_19_rails_3
   end
 
   appraise 'ruby_19_test_unit_2' do
     instance_eval &ruby_19_test_unit_2
   end
 
-  appraise 'ruby_19_test_unit_2_active_support' do
+  appraise 'ruby_19_test_unit_2_rails_3' do
     instance_eval &ruby_19_test_unit_2
-    instance_eval &ruby_19_active_support
+    instance_eval &ruby_19_rails_3
   end
 
   appraise 'ruby_19_minitest_4' do
     instance_eval &ruby_19_minitest_4
   end
 
-  appraise 'ruby_19_minitest_4_active_support' do
+  appraise 'ruby_19_minitest_4_rails_3' do
     instance_eval &ruby_19_minitest_4
-    instance_eval &ruby_19_active_support
+    instance_eval &ruby_19_rails_3
   end
 
   appraise 'ruby_19_minitest' do
     instance_eval &ruby_19_minitest
   end
 
-  appraise 'ruby_19_minitest_active_support' do
+  appraise 'ruby_19_minitest_rails_3' do
     instance_eval &ruby_19_minitest
-    instance_eval &ruby_19_active_support
+    instance_eval &ruby_19_rails_3
   end
 
   appraise 'ruby_19_rspec_2' do
     instance_eval &ruby_19_rspec_2
   end
 
-  appraise 'ruby_19_rspec_2_active_support' do
+  appraise 'ruby_19_rspec_2_rails_3' do
     instance_eval &ruby_19_rspec_2
-    instance_eval &ruby_19_active_support
+    instance_eval &ruby_19_rails_3
   end
 end
 

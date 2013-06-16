@@ -34,7 +34,7 @@ GEM
     minitar (0.5.4)
     mocha (0.12.10)
       metaclass (~> 0.0.1)
-    multi_json (1.7.3)
+    multi_json (1.7.7)
     nokogiri (1.5.9)
     rack (1.1.6)
     rails (2.3.18)

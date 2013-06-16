@@ -57,12 +57,12 @@ class SpecSuite
 
   if ruby_18?
     def_runner :test_unit_2, 'Test::Unit 2.4.x', 'ruby', 'test'
-    def_runner :test_unit_2_active_support, 'Test::Unit 2.4.x + ActiveSupport', 'ruby', 'test'
+    def_runner :test_unit_2_rails_2, 'Test::Unit 2.4.x + Rails 2', 'ruby', 'test'
   else
     def_runner :test_unit_200, 'Test::Unit 2.0.0', 'ruby', 'test'
-    def_runner :test_unit_200_active_support, 'Test::Unit 2.0.0 + ActiveSupport', 'ruby', 'test'
+    def_runner :test_unit_200_rails_3, 'Test::Unit 2.0.0 + Rails 3', 'ruby', 'test'
     def_runner :test_unit_2, 'Test::Unit >= 2.5', 'ruby', 'test'
-    def_runner :test_unit_2_active_support, 'Test::Unit >= 2.5 + ActiveSupport', 'ruby', 'test'
+    def_runner :test_unit_2_rails_3, 'Test::Unit >= 2.5 + Rails 3', 'ruby', 'test'
   end
 
   unless ruby_18?
@@ -73,12 +73,12 @@ class SpecSuite
   if ruby_18?
     def_runner :rspec_1, 'RSpec 1', 'spec', 'spec',
       :args => '--format progress'
-    def_runner :rspec_1_active_support, 'RSpec 1 + ActiveSupport', 'spec', 'spec',
+    def_runner :rspec_1_rails_2, 'RSpec 1 + Rails 2', 'spec', 'spec',
       :args => '--format progress'
   else
     def_runner :rspec_2, 'RSpec 2', 'rspec', 'spec',
       :env => {'SPEC_OPTS' => '--format progress'}
-    def_runner :rspec_2_active_support, 'RSpec 2 + ActiveSupport', 'rspec', 'spec',
+    def_runner :rspec_2_rails_3, 'RSpec 2 + Rails 3', 'rspec', 'spec',
       :env => {'SPEC_OPTS' => '--format progress'}
   end
 
