@@ -12,6 +12,15 @@ module RR
         __getobj__.class.to_s.split('::').last.to_sym
       end
 
+      def applies?
+        __getobj__.applies?
+      rescue => e
+        if RR.debug?
+          puts "#{__getobj__.class}#applies? failed: #{e.class} (#{e.message})"
+          puts e.backtrace.map {|x| "  " + x }.join("\n")
+        end
+      end
+
       def load
         hook
         @loaded = true
