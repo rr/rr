@@ -2,11 +2,12 @@
 
 ## 1.1.1 (UNRELEASED)
 
-* Fix incompatibility issues with Rails 4 [#26][i26] and Cucumber [#29][i29].
+* Fix incompatibility issues with Rails 4 ([#26][i26]) and Cucumber
+  ([#29][i29]).
 * Add missing adapter for Test::Unit 2.0.0 (version which is built into Ruby
-  1.9/2.0). This should make Jekyll work with RR again.
+  1.9/2.0). The tests for Jekyll were failing because of this ([#27][i27]).
 * If an error occurs while checking to see whether an adapter applies or when
-  loading the adapter itself, swallow it so that the user can move on.
+  loading the adapter itself, it is now swallowed so that the user can move on.
 
 ## 1.1.0 (May 20, 2013)
 
@@ -462,4 +463,5 @@ Issues are re-numbered beginning from 1 from this point on.
 [xi60]: http://github.com/btakita/rr/issues/60
 [i26]: http://github.com/rr/rr/issues/26
 [i29]: http://github.com/rr/rr/issues/29
+[i27]: http://github.com/rr/rr/issues/27
 
