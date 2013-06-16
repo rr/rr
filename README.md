@@ -164,21 +164,13 @@ Want to contribute a bugfix or new feature to RR? Great! Follow these steps:
 ### Running test suites
 
 In order to test support for multiple Ruby versions and environments, there are
-multiple test suites, and Rake tasks to run these suites. Here is the list of
-available Rake tasks under Ruby >= 1.9:
+multiple test suites, and Rake tasks to run these suites. The list of available
+Rake tasks depends on which version of Ruby you are under, but you can get the
+full list with:
 
-    rake spec:rspec_2
-    rake spec:minitest
-    rake spec:test_unit_2
+    rake -D
 
-Here is the list under Ruby 1.8:
-
-    rake spec:rspec_1
-    rake spec:test_unit_2
-    rake spec:test_unit_1
-
-As a shortcut, to run all the available suites under the Ruby version you are
-on, you can simply say:
+To run all the suites, simply say:
 
     rake
 
@@ -201,14 +193,26 @@ versions:
 
 |                       | Ruby 1.8.7-p371 | Ruby 1.9.3-p392 | Ruby 2.0.0-p0 | JRuby 1.7.3 (1.9 mode) |
 |-----------------------|:---------------:|:---------------:|:-------------:|:----------------------:|
-| MiniTest 4.x                      |   | ✓ | ✓ | ✓ |
-| Test::Unit (Ruby 1.8)             | ✓ |   |   |   |
-| Test::Unit (Ruby 1.8) + Rails 2.x | ✓ |   |   |   |
-| Test::Unit 2.x                    | ✓ | ✓ | ✓ | ✓ |
-| Test::Unit 2.x + Rails 2.x        | ✓ |   |   |   |
-| Test::Unit 2.x + Rails 3.x        |   | ✓ | ✓ | ✓ |
-| RSpec 1.x                         | ✓ |   |   |   |
-| RSpec 2.x                         |   | ✓ | ✓ | ✓ |
+| MiniTest 4.x                        |   | ✓ | ✓ | ✓ |
+| MiniTest 4.x + Rails 3              |   | ✓ | ✓ | ✓ |
+| MiniTest 4.x + Rails 4              |   | ✓ | ✓ | ✓ |
+| Minitest 5.x                        |   | ✓ | ✓ | ✓ |
+| Minitest 5.x + Rails 3              |   | ✓ | ✓ | ✓ |
+| Test::Unit 1                        | ✓ |   |   |   |
+| Test::Unit 1 + Rails 2.x            | ✓ |   |   |   |
+| Test::Unit 2.0.0                    |   | ✓ | ✓ | ✓ |
+| Test::Unit 2.0.0 + Rails 3.x        |   | ✓ | ✓ | ✓ |
+| Test::Unit 2.0.0 + Rails 4.0.0.rc1  |   | ✓ | ✓ | ✓ |
+| Test::Unit 2.4.x                    | ✓ |   |   |   |
+| Test::Unit 2.4.x + Rails 2.x        | ✓ |   |   |   |
+| Test::Unit ~> 2.5                   |   | ✓ | ✓ | ✓ |
+| Test::Unit ~> 2.5 + Rails 3.x       |   | ✓ | ✓ | ✓ |
+| Test::Unit ~> 2.5 + Rails 4.0.0.rc1 |   | ✓ | ✓ | ✓ |
+| RSpec 1.x                           | ✓ |   |   |   |
+| RSpec 1.x + Rails 2.x               | ✓ |   |   |   |
+| RSpec 2.x                           |   | ✓ | ✓ | ✓ |
+| RSpec 2.x + Rails 3.x               |   | ✓ | ✓ | ✓ |
+| RSpec 2.x + Rails 4.x               |   | ✓ | ✓ | ✓ |
 
 
 ## Author/Contact
