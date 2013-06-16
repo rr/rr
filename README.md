@@ -168,7 +168,7 @@ multiple test suites, and Rake tasks to run these suites. The list of available
 Rake tasks depends on which version of Ruby you are under, but you can get the
 full list with:
 
-    rake -D
+    rake -D spec:
 
 To run all the suites, simply say:
 
@@ -188,8 +188,8 @@ course, the necessary Rubies as well too.
 
 ## Compatibility
 
-RR is designed and tested to work against the following test frameworks and Ruby
-versions:
+RR is designed and tested to work against the following test frameworks and
+Ruby/Rails versions:
 
 |                       | Ruby 1.8.7-p371 | Ruby 1.9.3-p392 | Ruby 2.0.0-p0 | JRuby 1.7.3 (1.9 mode) |
 |-----------------------|:---------------:|:---------------:|:-------------:|:----------------------:|
@@ -212,7 +212,7 @@ versions:
 | RSpec 1.x + Rails 2.x               | ✓ |   |   |   |
 | RSpec 2.x                           |   | ✓ | ✓ | ✓ |
 | RSpec 2.x + Rails 3.x               |   | ✓ | ✓ | ✓ |
-| RSpec 2.x + Rails 4.x               |   | ✓ | ✓ | ✓ |
+| RSpec 2.x + Rails 4.0.0.rc1         |   | ✓ | ✓ | ✓ |
 
 
 ## Author/Contact
