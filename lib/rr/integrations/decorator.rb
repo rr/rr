@@ -28,8 +28,8 @@ module RR
       rescue => e
         if RR.debug?
           puts "Couldn't load adapter #{name}: #{e.class} (#{e.message})"
+          puts e.backtrace.map {|x| "  " + x }.join("\n")
         end
-        raise e
       end
 
       def loaded?
