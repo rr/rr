@@ -61,7 +61,7 @@ module AdapterIntegrationTests
     EOT
     str << opts[:before_require_rr] if opts[:before_require_rr]
     str << require_rr if opts[:include_rr_before_test_framework]
-    str << require_test_framework
+    str << require_test_framework(opts)
     str << require_rr unless opts[:include_rr_before_test_framework]
     str
   end
@@ -74,12 +74,18 @@ module AdapterIntegrationTests
     ""
   end
 
-  def require_test_framework
-    [
+  def require_test_framework(opts={})
+    parts = [
       before_require_test_framework,
-      "require '#{test_framework_path}'",
-      after_require_test_framework
-    ].join("\n")
+      opts[:before_require_test_framework] || "",
+    ]
+    paths = test_framework_path
+    paths = [paths] unless paths.is_a?(Array)
+    paths.each do |path|
+      parts << "require '#{path}'"
+    end
+    parts << after_require_test_framework
+    parts.join("\n")
   end
 
   def after_require_test_framework

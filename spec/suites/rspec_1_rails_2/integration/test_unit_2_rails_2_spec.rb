@@ -15,12 +15,6 @@ describe 'Integration with Test::Unit 2.4.x and Rails 2' do
     <<-EOT
       RAILS_ROOT = File.expand_path(__FILE__)
       require 'rack'
-    EOT
-  end
-
-  def after_require_test_framework
-    <<-EOT
-      require 'test/unit'
       require 'active_support/all'
       require 'action_controller'
       require 'active_support/test_case'
