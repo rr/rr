@@ -13,6 +13,7 @@ module RR
 
       def applies?
         defined?(::Test::Unit) &&
+        defined?(::Test::Unit::TestCase) &&
         !has_test_unit_version? &&
         !test_unit_just_wraps_minitest?
       end
@@ -44,7 +45,8 @@ module RR
       end
 
       def test_unit_just_wraps_minitest?
-        defined?(::MiniTest) &&
+        defined?(::Test::Unit::TestCase) &&
+        defined?(::MiniTest::Unit::TestCase) &&
         ::Test::Unit::TestCase < ::MiniTest::Unit::TestCase
       end
 
