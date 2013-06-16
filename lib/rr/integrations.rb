@@ -6,8 +6,10 @@ module RR
 
   def self.register_adapter(klass)
     adapter = Integrations::Decorator.new(klass.new)
-    adapters << adapter
-    adapters_by_name[adapter.name] = adapter
+    unless adapters_by_name.key?(adapter.name)
+      adapters << adapter
+      adapters_by_name[adapter.name] = adapter
+    end
   end
 
   def self.adapters
