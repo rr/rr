@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+require 'pp'
+require 'time'
+
+require 'gems'
+require 'octokit'
+
+gems = {}
+gem_names = Gems.reverse_dependencies('rr')
+gem_names.each_with_index do |gem_name, i|
+  puts "== #{gem_name}"
+  gem_info = Gems.info(gem_name)
+  num_downloads = gem_info['downloads']
+  source_code_url = gem_info['source_code_uri'] || gem_info['homepage_uri']
+  next unless source_code_url
+  uri = URI.parse(source_code_url)
+  next unless uri.host == 'github.com'
+  repo_name = uri.path[1..-1]
+  begin
+    repo_info = Octokit.repo(repo_name)
+    num_stars = repo_info['watchers']
+    num_forks = repo_info['forks']
+    pushed_at = Time.parse(repo_info['pushed_at'])
+  rescue Octokit::NotFound
+    next
+  end
+  gems[gem_name] = {
+    num_downloads: num_downloads,
+    num_stars: num_stars,
+    num_forks: num_forks,
+    pushed_at: pushed_at
+  }
+  break if i == 9
+end
+
+sorted_gems = gems.entries.sort_by do |gem_name, info|
+  pushed_at_since = (Date.today - info[:pushed_at].to_date)
+  score = 1
+  score *= (info[:num_downloads].to_f / 100) if info[:num_downloads] > 0
+  score *= info[:num_stars] if info[:num_stars] > 0
+  score *= info[:num_forks] if info[:num_forks] > 0
+  score /= (pushed_at_since.to_f / 10) if pushed_at_since > 0
+  info[:score] = score
+  score
+end.reverse
+pp sorted_gems
