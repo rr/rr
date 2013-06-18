@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.1 (UNRELEASED)
+## 1.1.1 (June 17, 2013)
 
 * Fix incompatibility issues with Rails 4 ([#26][i26]) and Cucumber
   ([#29][i29]).
