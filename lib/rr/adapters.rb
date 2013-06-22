@@ -43,5 +43,10 @@ RR deprecation warning: RR now has an autohook system. You don't need to
 EOT
       end
     end
+
+    module RSpec2
+      include RR::Integrations::RSpec2::Mixin
+      include RR::Adapters::RRMethods
+    end
   end
 end

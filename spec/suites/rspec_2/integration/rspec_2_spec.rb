@@ -115,6 +115,25 @@ describe 'Integration with RSpec 2' do
     all_tests_should_pass(output)
   end
 
+  specify "it is still possible to use RR::Adapters::RSpec2 even though it's deprecated" do
+    suite = with_bootstrap <<-EOT
+      RSpec.configure do |c|
+        c.mock_with RR::Adapters::RSpec2
+      end
+
+      describe 'A test' do
+        it 'is a test' do
+          object = Object.new
+          puts 'ok cool'
+          mock(object).foo
+          object.foo
+        end
+      end
+    EOT
+    output = run_fixture_tests(suite)
+    all_tests_should_pass(output)
+  end
+
   include AdapterTests
   instance_methods.each do |method_name|
     if method_name =~ /^test_(.+)$/

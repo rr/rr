@@ -85,7 +85,6 @@ require 'rr/times_called_matchers/at_most_matcher'
 require 'rr/spy_verification_proxy'
 require 'rr/spy_verification'
 
-require 'rr/adapters'
 require 'rr/integrations'
 require 'rr/integrations/decorator'
 require 'rr/integrations/rspec/invocation_matcher'
@@ -100,6 +99,7 @@ require 'rr/integrations/test_unit_200'
 require 'rr/integrations/test_unit_200_active_support'
 require 'rr/integrations/test_unit_2'
 require 'rr/integrations/test_unit_2_active_support'
+require 'rr/adapters'
 
 require 'rr/version'
 
