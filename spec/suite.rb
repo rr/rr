@@ -27,8 +27,11 @@ class SpecSuite
     SpecSuite.runners.each do |runner_name, runner_desc|
       runner_method = "run_#{runner_name}"
 
+      appraisal_name = self.class.ruby_18? ? 'ruby_18_' : 'ruby_19_'
+      appraisal_name << runner_name.to_s
+
       ctx.__send__ :desc, "Run #{runner_desc} tests"
-      ctx.__send__ :task, :"spec:#{runner_name}" do
+      ctx.__send__ :task, :"spec:#{runner_name}" => :"appraisal:#{appraisal_name}:install" do
         session = suite.__send__(runner_method)
         if session.exit_status != 0
           raise "#{runner_desc} suite failed"
