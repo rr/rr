@@ -42,7 +42,7 @@ module RR
       define_method(:included) do |base|
         # Note: This assumes that the thing that is including this module
         # is the same that the adapter detected and will hook into.
-        adapter.hook
+        adapter.load
       end
     end
     mod
