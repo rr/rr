@@ -6,7 +6,7 @@ require 'appraisal'
 module AdapterIntegrationTests
   ROOT_DIR = File.expand_path('../../../..', __FILE__)
   LIB_DIR = File.join(ROOT_DIR, 'lib')
-  TEMP_DIR = '/tmp/rr_integration_tests'
+  TEMP_DIR = File.join(ROOT_DIR, 'tmp/rr_integration_tests')
 
   def create_link(filename)
     FileUtils.ln_s(File.join(ROOT_DIR, filename), File.join(TEMP_DIR, filename))
