@@ -1,5 +1,4 @@
-
 module RR
-  VERSION = File.read(File.expand_path('../../../VERSION', __FILE__)).strip
+  VERSION = '1.1.1'
   def self.version; VERSION; end
 end

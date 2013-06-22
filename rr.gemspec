@@ -18,7 +18,6 @@ Gem::Specification.new do |gem|
     'CREDITS.md',
     'LICENSE',
     'README.md',
-    'VERSION',
     'doc/*.md',
     'lib/**/*.rb',
     'rr.gemspec'

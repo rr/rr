@@ -111,10 +111,11 @@ module AdapterIntegrationTests
     base.class_eval do
       before :all do
         FileUtils.rm_rf(TEMP_DIR)
-        FileUtils.mkdir(TEMP_DIR)
+        FileUtils.mkdir_p File.join(TEMP_DIR, 'lib', 'rr')
         create_link('Gemfile')
         create_link('Appraisals')
         create_link('gemfiles')
+        create_link('lib/rr/version.rb')
       end
 
       after :all do
