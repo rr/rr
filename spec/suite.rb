@@ -66,7 +66,7 @@ class SpecSuite
     def_runner :test_unit_200_rails_3, 'Test::Unit 2.0.0 + Rails 3', 'ruby', 'test'
     def_runner :test_unit_2, 'Test::Unit >= 2.5', 'ruby', 'test'
     def_runner :test_unit_2_rails_3, 'Test::Unit >= 2.5 + Rails 3', 'ruby', 'test'
-    def_runner :test_unit_2_rails_4, 'Test::Unit >= 2.5 + Rails 4', 'ruby', 'test'
+    def_runner :test_unit_2_rails_4, 'Test::Unit >= 2.5 + Rails 4.0.0.rc1', 'ruby', 'test'
   end
 
   unless ruby_18?
@@ -84,7 +84,7 @@ class SpecSuite
       :env => {'SPEC_OPTS' => '--format progress'}
     def_runner :rspec_2_rails_3, 'RSpec 2 + Rails 3', 'rspec', 'spec',
       :env => {'SPEC_OPTS' => '--format progress'}
-    def_runner :rspec_2_rails_4, 'RSpec 2 + Rails 4', 'rspec', 'spec',
+    def_runner :rspec_2_rails_4, 'RSpec 2 + Rails 4.0.0.rc1', 'rspec', 'spec',
       :env => {'SPEC_OPTS' => '--format progress'}
   end
 
