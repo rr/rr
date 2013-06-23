@@ -1,0 +1,11 @@
+#!/bin/bash
+
+rm -rf pkg && \
+  rbenv gemset delete $(rbenv version | cut -f 1 -d " ") rr && \
+  rake build && \
+  pushd pkg && \
+  gem unpack *.gem && \
+  rm *.gem && \
+  mv rr-* rr && \
+  pushd rr && \
+  echo rr > .rbenv-gemsets
