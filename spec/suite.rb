@@ -98,10 +98,17 @@ class SpecSuite
   end
 
   def build_command(program_name, adapter_name, path, suffix, env, args)
-    env = env.merge('ADAPTER' => adapter_name)
-    env.each {|k,v| ENV[k.to_s] = v.to_s }
+    env = env.dup
+    # If `bundle exec rake` is run instead of just `rake`, Bundler will set
+    # RUBYOPT to "-I <path to bundler> -r bundler/setup". This is unfortunate as
+    # it causes Bundler to be loaded before we load Bundler in
+    # RR::Test.setup_test_suite, thereby rendering our second Bundler.setup a
+    # no-op.
+    env['RUBYOPT'] = ""
+    env['ADAPTER'] = adapter_name
+    env_pairs = env.map {|k,v| "#{k}=\"#{v}\"" }
     file_list = build_file_list(path, suffix)
-    ['ruby'] + file_list + [args]
+    ['env'] + env_pairs + ['ruby'] + file_list + [args]
   end
 
   def build_file_list(adapter_name, suffix)
