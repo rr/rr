@@ -14,15 +14,17 @@ module RR
 
         show_warning_for(adapter_const_name)
 
-        adapter = case adapter_const_name
-          when :TestUnit
-            RR.find_applicable_adapter(/^TestUnit/)
-          when :MiniTest
-            RR.find_applicable_adapter(/^minitest/i)
+        module_shim = shim_adapters[adapter_const_name]
+        if module_shim
+          return module_shim
         end
 
+        adapter = case adapter_const_name
+          when :TestUnit then RR.find_applicable_adapter(/^TestUnit/)
+          when :MiniTest then RR.find_applicable_adapter(/^minitest/i)
+        end
         if adapter
-          shim_adapters[adapter_const_name] ||= RR.module_shim_for_adapter(adapter)
+          shim_adapters[adapter_const_name] = RR.module_shim_for_adapter(adapter)
         else
           super
         end
