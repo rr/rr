@@ -5,5 +5,3 @@ rvm:
   - "2.0.0"
   - jruby-19mode
 script: rake
-env:
-  - RR_DEBUG=1
