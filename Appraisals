@@ -69,13 +69,13 @@ ruby_19_stuff = proc do
     gem 'railties', '4.0.0.rc1'
     gem 'activesupport', '4.0.0.rc1'
     gem 'activerecord', '4.0.0.rc1'
-    gem 'rspec-rails', '~> 2.0'
+    gem 'rspec-rails', '~> 2.14'
     gem 'sqlite3', '~> 1.3', :platforms => :ruby
     gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
   end
 
   ruby_19_rspec_2 = proc do
-    gem "rspec", "~> 2.13"
+    gem "rspec", "~> 2.14"
   end
 
   #---

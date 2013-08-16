@@ -10,5 +10,5 @@ gem "dotenv", "~> 0.7"
 gem "simplecov", "~> 0.7"
 gem "appraisal", "~> 0.5"
 gem "cucumber"
-gem "rspec", "~> 2.13"
+gem "rspec", "~> 2.14"
 
