@@ -1,4 +1,4 @@
-# RR [![Gem Version](https://badge.fury.io/rb/rr.png)](http://badge.fury.io/rb/rr) [![Build Status](https://secure.travis-ci.org/rr/rr.png)](http://travis-ci.org/rr/rr) [![Code Climate GPA](https://codeclimate.com/github/rr/rr.png)](https://codeclimate.com/github/rr/rr)
+# RR [![Gem Version](https://badge.fury.io/rb/rr.png)](http://badge.fury.io/rb/rr) [![Build Status](http://travis-ci.org/rr/rr.png?branch=master)](http://travis-ci.org/rr/rr) [![Code Climate GPA](https://codeclimate.com/github/rr/rr.png)](https://codeclimate.com/github/rr/rr)
 
 RR is a test double framework for Ruby that features a rich selection of double
 techniques and a terse syntax.
