@@ -22,9 +22,12 @@ module RR
       end
 
       def load
+        return if @loaded
         hook
+        if RR.debug?
+          puts "Loaded adapter: #{name}"
+        end
         @loaded = true
-        puts "Loaded adapter: #{name}" if RR.debug?
       rescue => e
         if RR.debug?
           puts "Couldn't load adapter #{name}: #{e.class} (#{e.message})"
