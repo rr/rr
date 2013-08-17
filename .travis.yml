@@ -1,7 +1,70 @@
+---
 language: ruby
-rvm:
-  - "1.8.7"
-  - "1.9.3"
-  - "2.0.0"
-  - jruby-19mode
-script: rake
+script: rake spec:${SUITE}
+rvm: 1.9.3
+matrix:
+  exclude:
+  - rvm: 1.9.3
+  include:
+  - rvm: 1.8.7
+    env:
+    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec --format CustomFormatterForRSpec
+      --backtrace"
+    - SUITE="rspec_1"
+  - rvm: 1.8.7
+    env:
+    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec --format CustomFormatterForRSpec
+      --backtrace"
+    - SUITE="rspec_1_rails_2"
+  - rvm: 1.9.3
+    env:
+    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
+      --backtrace"
+    - SUITE="rspec_2"
+  - rvm: 1.9.3
+    env:
+    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
+      --backtrace"
+    - SUITE="rspec_2_rails_3"
+  - rvm: 1.9.3
+    env:
+    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
+      --backtrace"
+    - SUITE="rspec_2_rails_4"
+  - rvm: 2.0.0
+    env:
+    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
+      --backtrace"
+    - SUITE="rspec_2"
+  - rvm: 2.0.0
+    env:
+    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
+      --backtrace"
+    - SUITE="rspec_2_rails_3"
+  - rvm: 2.0.0
+    env:
+    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
+      --backtrace"
+    - SUITE="rspec_2_rails_4"
+  - &1
+    rvm: jruby-19mode
+    env:
+    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
+      --backtrace"
+    - SUITE="rspec_2"
+  - &2
+    rvm: jruby-19mode
+    env:
+    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
+      --backtrace"
+    - SUITE="rspec_2_rails_3"
+  - &3
+    rvm: jruby-19mode
+    env:
+    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
+      --backtrace"
+    - SUITE="rspec_2_rails_4"
+  allow_failures:
+  - *1
+  - *2
+  - *3
