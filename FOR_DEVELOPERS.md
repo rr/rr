@@ -2,7 +2,22 @@
 
 ## Running tests
 
-In addition to the instructions in the README, you can run all of the tests with
+In addition to the instructions in the README, you can run all of the tests for
+all rubies with:
+
+    script/run_full_test_suite
+
+You can also install all appraisals for all rubies with:
+
+    script/regenerate_appraisals
+
+
+## Updating .travis.yml
+
+If you ever need to regenerate .travis.yml for some reason, don't edit it
+directly -- instead, edit spec/suites.yml, then run
+`rake travis:regenerate_config`, and commit both files.
+
 
 ## Releasing a new version
 
@@ -15,7 +30,8 @@ then run `rake release` to push to RubyGems.
 Keep in mind that Debian and Fedora both have wrapper packages for RR. We want
 to make sure to stay on good terms with them.
 
-Although it is usually not necessary we include the Rakefile and tests in the gem itself specifically for these package maintainers.
+Although it is usually not necessary we include the Rakefile and tests in the
+gem itself specifically for these package maintainers.
 
 ### Debian
 
