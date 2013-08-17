@@ -5,6 +5,7 @@
 !.rspec
 !.gitignore
 !.ruby-version
+Gemfile.lock
 coverage
 pkg
 spec/tmp
