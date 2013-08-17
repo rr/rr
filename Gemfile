@@ -15,5 +15,5 @@ gem 'open4', :platforms => :mri
 if RUBY_VERSION =~ /^1\.8/
   gem 'rspec', '~> 1.3'
 else
-  gem 'rspec', '~> 2.13'
+  gem 'rspec', '~> 2.14'
 end
