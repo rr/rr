@@ -139,31 +139,29 @@ require 'rr'
 
 ## Compatibility
 
-RR is designed and tested to work against the following test frameworks and
-Ruby/Rails versions:
+RR is designed and tested to work against the following Ruby versions:
 
-|                       | Ruby 1.8.7-p371 | Ruby 1.9.3-p392 | Ruby 2.0.0-p195 | JRuby 1.7.3 (1.9 mode) |
-|-----------------------|:---------------:|:---------------:|:-------------:|:----------------------:|
-| MiniTest 4.x                        |   | ✓ | ✓ | ✓ |
-| MiniTest 4.x + Rails 3              |   | ✓ | ✓ | ✓ |
-| MiniTest 4.x + Rails 4.0.0.rc1      |   | ✓ | ✓ | ✓ |
-| Minitest 5.x                        |   | ✓ | ✓ | ✓ |
-| Minitest 5.x + Rails 3              |   | ✓ | ✓ | ✓ |
-| Test::Unit 1                        | ✓ |   |   |   |
-| Test::Unit 1 + Rails 2.x            | ✓ |   |   |   |
-| Test::Unit 2.0.0                    |   | ✓ | ✓ | ✓ |
-| Test::Unit 2.0.0 + Rails 3.x        |   | ✓ | ✓ | ✓ |
-| Test::Unit 2.0.0 + Rails 4.0.0.rc1  |   | ✓ | ✓ | ✓ |
-| Test::Unit 2.4.x                    | ✓ |   |   |   |
-| Test::Unit 2.4.x + Rails 2.x        | ✓ |   |   |   |
-| Test::Unit ~> 2.5                   |   | ✓ | ✓ | ✓ |
-| Test::Unit ~> 2.5 + Rails 3.x       |   | ✓ | ✓ | ✓ |
-| Test::Unit ~> 2.5 + Rails 4.0.0.rc1 |   | ✓ | ✓ | ✓ |
-| RSpec 1.x                           | ✓ |   |   |   |
-| RSpec 1.x + Rails 2.x               | ✓ |   |   |   |
-| RSpec 2.x                           |   | ✓ | ✓ | ✓ |
-| RSpec 2.x + Rails 3.x               |   | ✓ | ✓ | ✓ |
-| RSpec 2.x + Rails 4.0.0.rc1         |   | ✓ | ✓ | ✓ |
+* 1.8.7-p374
+* 1.9.3-p392
+* 2.0.0-p195
+* JRuby 1.7.4
+
+as well as the following test frameworks:
+
+* RSpec 1 (Ruby 1.8.7)
+* RSpec 2 (Ruby 1.9+)
+* Test::Unit 1 (Ruby 1.8.7)
+* Test::Unit 2.4.x (Ruby 1.8.7)
+* Test::Unit 2.0.0 (Ruby 1.9+)
+* Test::Unit 2.5.x (Ruby 1.9+)
+* MiniTest 4 (Ruby 1.9+)
+* Minitest 5 (Ruby 1.9+)
+
+and the following Rails versions:
+
+* Rails 2.3.x (Ruby 1.8.7)
+* Rails 3.2.x (Ruby 1.9+)
+* Rails 4.0.x (Ruby 1.9+)
 
 
 ## Help!
@@ -189,12 +187,12 @@ Want to contribute a bug fix or new feature to RR? Great! Follow these steps:
 8. When you're done, push your branch and create a pull request from it.
    I'll respond as soon as I can.
 
-### Running test suites
+### Running tests
 
-As indicated by the compatibility table, in order to test support for multiple
-Ruby versions and environments, there are multiple test suites, and Rake tasks
-to run these suites. The list of available Rake tasks depends on which version
-of Ruby you are under, but you can get the full list with:
+As indicated by the compatibility list above, in order to test support for
+multiple Ruby versions and environments, there are multiple test suites, and
+Rake tasks to run these suites. The list of available Rake tasks depends on
+which version of Ruby you are under, but you can get the full list with:
 
     bundle exec rake -D spec:
 
@@ -203,12 +201,6 @@ To run all the suites, simply say:
     bundle exec rake
 
 (Incidentally, this is also the command which Travis runs.)
-
-Finally, to aid development only, if you're using rbenv, you can run all of the
-tests on all of the Rubies easily with this command, provided you have them
-installed:
-
-    script/run_full_test_suite
 
 
 ## Author/Contact

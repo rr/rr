@@ -1,5 +1,9 @@
 # Instructions for developers
 
+## Running tests
+
+In addition to the instructions in the README, you can run all of the tests with
+
 ## Releasing a new version
 
 To release a new version of RR, update the version in VERSION and update
