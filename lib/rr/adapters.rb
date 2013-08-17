@@ -3,7 +3,8 @@ module RR
     class << self
       DEPRECATED_ADAPTERS = [
         :MiniTest,
-        :TestUnit
+        :TestUnit,
+        :RSpec2
       ]
 
       def const_missing(adapter_const_name)
@@ -13,28 +14,12 @@ module RR
         end
 
         show_warning_for(adapter_const_name)
+        RR.autohook
 
-        module_shim = shim_adapters[adapter_const_name]
-        if module_shim
-          return module_shim
-        end
-
-        adapter = case adapter_const_name
-          when :TestUnit then RR.find_applicable_adapter(/^TestUnit/)
-          when :MiniTest then RR.find_applicable_adapter(/^minitest/i)
-        end
-        if adapter
-          shim_adapters[adapter_const_name] = RR.module_shim_for_adapter(adapter)
-        else
-          super
-        end
+        Module.new
       end
 
       private
-
-      def shim_adapters
-        @shim_adapters ||= {}
-      end
 
       def show_warning_for(adapter_const_name)
         warn <<EOT
@@ -44,11 +29,6 @@ RR deprecation warning: RR now has an autohook system. You don't need to
 --------------------------------------------------------------------------------
 EOT
       end
-    end
-
-    module RSpec2
-      include RR::Integrations::RSpec2::Mixin
-      include RR::Adapters::RRMethods
     end
   end
 end
