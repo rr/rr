@@ -21,6 +21,7 @@ end
 RSpec.configure do |c|
   c.include ExampleMethods
   c.extend ExampleGroupMethods
+  c.order = :random
 end
 
 Dir[ File.expand_path('../shared/*.rb', __FILE__) ].each {|fn| require fn }

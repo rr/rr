@@ -1,6 +1,5 @@
 require 'pp'
 require 'rubygems'
-require 'appraisal/file'
 require 'bundler'
 
 if ENV['COVERAGE']
@@ -10,27 +9,6 @@ end
 
 module RR
   module Test
-    class Adapter
-      attr_reader :name
-
-      def initialize(name)
-        @name = name
-      end
-
-      def appraisal_name
-        parts = []
-        parts << (RUBY_VERSION =~ /^1\.8/ ? 'ruby_18' : 'ruby_19')
-        parts << name
-        parts.join('_')
-      end
-
-      def appraisal
-        @appraisal ||= Appraisal::File.new.appraisals.find do |appraisal|
-          appraisal.name == appraisal_name
-        end
-      end
-    end
-
     def self.setup_test_suite(adapter_name)
       puts "Setting up test suite for #{adapter_name}" if ENV['RR_DEBUG']
       unset_bundler_vars
@@ -51,3 +29,5 @@ module RR
     end
   end
 end
+
+Dir[ File.expand_path('../support/**/*.rb', __FILE__) ].each { |fn| require fn }

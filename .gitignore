@@ -7,3 +7,5 @@
 !.ruby-version
 coverage
 pkg
+spec/tmp
+tmp

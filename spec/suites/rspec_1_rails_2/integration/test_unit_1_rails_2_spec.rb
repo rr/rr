@@ -1,53 +1,141 @@
 require File.expand_path('../../spec_helper', __FILE__)
-require File.expand_path('../../../common/adapter_integration_tests', __FILE__)
-require File.expand_path('../../../common/rails_integration_tests', __FILE__)
 
 describe 'Integration with Test::Unit 1 and Rails 2' do
-  def adapter_name
-    'test_unit_1_rails_2'
+  include IntegrationTests::RailsTestUnit
+
+  def configure_rails_project_generator(project_generator)
+    super
+    project_generator.configure do |project|
+      project.rails_version = 2
+    end
   end
 
-  def test_framework_path
-    'test/unit'
-  end
-
-  def before_require_test_framework
-    <<-EOT
-      RAILS_ROOT = File.expand_path(__FILE__)
-      require 'rack'
-      require 'active_support/all'
-      require 'action_controller'
-      require 'active_support/test_case'
-    EOT
-  end
-
-  def error_test
-    with_bootstrap <<-EOT
-      class FooTest < ActiveSupport::TestCase
-        def test_foo
-          object = Object.new
-          mock(object).foo
+  def self.including_the_adapter_manually_works
+    specify "including the adapter manually works" do
+      project = generate_project do |project|
+        project.add_to_prelude <<-EOT
+          class ActiveSupport::TestCase
+            include RR::Adapters::TestUnit
+          end
+        EOT
+      end
+      project.add_test_file do |file|
+        file.add_working_test_case_with_adapter_tests do |test_case|
+          test_case.add_to_body <<-EOT
+            def test_the_correct_adapters_are_loaded
+              assert_adapters_loaded #{adapters_that_should_be_loaded.inspect}
+            end
+          EOT
         end
       end
-    EOT
+      result = project.run_tests
+      result.should be_success
+      result.should_not have_errors_or_failures
+    end
   end
 
-  def include_adapter_test
-    with_bootstrap <<-EOT
-      class ActiveSupport::TestCase
-        include RR::Adapters::TestUnit
+  def self.rr_hooks_into_the_test_framework_automatically
+    specify "RR hooks into the test framework automatically" do
+      project = generate_project
+      project.add_test_file do |file|
+        file.add_working_test_case
       end
+      result = project.run_tests
+      result.should be_success
+      result.should_not have_errors_or_failures
+    end
+  end
 
-      class FooTest < ActiveSupport::TestCase
-        def test_foo
-          object = Object.new
-          mock(object).foo
-          object.foo
+  def self.using_rr_with_cucumber_works
+    specify "using RR with Cucumber works" do
+      project_generator = build_rails_project_generator do |project_generator|
+        project_generator.mixin Project::Cucumber
+      end
+      project = project_generator.call
+      result = project.run_command_within("cucumber")
+      result.should be_success
+    end
+  end
+
+  context 'when RR is listed in config/environment.rb' do
+    def configure_project_generator(project_generator)
+      super
+      project_generator.configure do |project|
+        project.autorequire_gems = true
+      end
+    end
+
+    def adapters_that_should_be_loaded
+      [:TestUnit1]
+    end
+
+    including_the_adapter_manually_works
+    using_rr_with_cucumber_works
+  end
+
+  context 'when RR is being required manually' do
+    def configure_project_generator(project_generator)
+      super
+      project_generator.configure do |project|
+        project.autorequire_gems = false
+      end
+    end
+
+    def adapters_that_should_be_loaded
+      [:TestUnit1]
+    end
+
+    rr_hooks_into_the_test_framework_automatically
+    including_the_adapter_manually_works
+    using_rr_with_cucumber_works
+
+    specify "when RR raises an error it raises a failure not an exception" do
+      project = generate_project
+      project.add_test_file do |file|
+        file.add_test_case do |test_case|
+          test_case.add_test <<-EOT
+            object = Object.new
+            mock(object).foo
+          EOT
         end
       end
-    EOT
-  end
+      result = project.run_tests
+      result.should fail_with_output(/1 failure/)
+    end
 
-  include AdapterIntegrationTests
-  include RailsIntegrationTests
+    specify "the database is properly rolled back after an RR error" do
+      project = generate_project do |project|
+        project.add_model_and_migration(:person, :people, :name => :string)
+      end
+      project.add_test_file do |file|
+        file.add_test_case do |test_case|
+          test_case.add_test <<-EOT
+            Person.create!(:name => 'Joe Blow')
+            object = Object.new
+            mock(object).foo
+          EOT
+        end
+      end
+      expect {
+        result = project.run_tests
+        result.should have_errors_or_failures
+      }.to leave_database_table_clear(project, :people)
+    end
+
+    specify "throwing an error in teardown doesn't mess things up" do
+      project = generate_project
+      project.add_test_file do |file|
+        file.add_test_case do |test_case|
+          test_case.add_to_body <<-EOT
+            def teardown
+              raise 'hell'
+            end
+          EOT
+          test_case.add_test("")   # doesn't matter
+        end
+      end
+      result = project.run_tests
+      result.should fail_with_output(/1 error/)
+    end
+  end
 end
