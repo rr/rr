@@ -6,7 +6,9 @@ module RR
       end
 
       def applies?
-        defined?(::Test::Unit) && has_test_unit_version?
+        defined?(::Test::Unit) &&
+        defined?(::Test::Unit::TestCase) &&
+        has_test_unit_version?
       end
     end
 

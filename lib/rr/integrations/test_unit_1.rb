@@ -18,8 +18,8 @@ module RR
         !test_unit_just_wraps_minitest?
       end
 
-      def hook(test_case_class = ::Test::Unit::TestCase)
-        test_case_class.class_eval do
+      def hook
+        ::Test::Unit::TestCase.class_eval do
           include RR::Adapters::RRMethods
           include Mixin
 
