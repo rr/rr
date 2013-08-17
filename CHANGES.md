@@ -2,16 +2,20 @@
 
 ## HEAD
 
-* Rescue errors when loading adapters
-* Add back RR::Adapters::RSpec2 which was removed accidentally ([#34][i34])
-* Add back tests, appraisals, etc. to the published gem ([#32][i32])
-* Bump tests from 4.0.0.rc1 to 4.0.0
+* Add back tests, appraisals, etc. to the published gem ([#32][i32]).
+  This is necessary because Debian wraps rr in a package, and they depend on the
+  tests to be present in order to run them prior to packaging.
+* Add back RR::Adapters::RSpec2 which was removed accidentally ([#34][i34]).
+  This fixes failures when running tests against sham_rack.
+* Remove deprecation warning about
+  RSpec.configuration.backtrace_clean_patterns under RSpec 2.14 ([#37][i37]).
+* Bump integration tests from Rails 4.0.0.rc1 to 4.0.0.
 * Fix Test::Unit 1 and 2 adapters to avoid a possible "undefined
-  Test::Unit::TestCase" error
+  Test::Unit::TestCase" error.
 * Including RR::Adapters::TestUnit, RR::Adapters::MiniTest, or
   RR::Adapters::RSpec2 now just re-runs the autohook mechanism instead of
-  building a fake adapter
-* Prevent adapters from being double-loaded
+  building a fake adapter.
+* Prevent adapters from being double-loaded.
 
 ## 1.1.1 (June 17, 2013)
 
@@ -479,4 +483,5 @@ Issues are re-numbered beginning from 1 from this point on.
 [i27]: http://github.com/rr/rr/issues/27
 [i34]: http://github.com/rr/rr/issues/34
 [i32]: http://github.com/rr/rr/issues/32
+[i37]: http://github.com/rr/rr/issues/37
 
