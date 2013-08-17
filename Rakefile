@@ -2,6 +2,8 @@ require 'rubygems'
 require 'bundler'
 require 'rake'
 
+require 'pp'
+
 # appraisal
 require 'appraisal'
 
@@ -17,8 +19,8 @@ Appraisal::File.each do |appraisal|
 end
 
 # spec
-require File.expand_path('../spec/suite', __FILE__)
-SpecSuite.new.define_tasks(self)
+require File.expand_path('../spec/defines_spec_suite_tasks', __FILE__)
+DefinesSpecSuiteTasks.call
 task :default => ['appraisal:install', :spec]
 
 task :package_tests do

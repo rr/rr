@@ -1,0 +1,24 @@
+18:
+  rvm_versions:
+    - name: 1.8.7
+  suites:
+    - name: rspec_1
+      desc: 'RSpec 1'
+    - name: rspec_1_rails_2
+      desc: 'RSpec 1 + Rails 2'
+  env:
+    SPEC_OPTS: '--require $PWD/spec/custom_formatter_for_rspec --format CustomFormatterForRSpec --backtrace'
+19:
+  rvm_versions:
+    - name: 1.9.3
+    - name: 2.0.0
+    - name: jruby-19mode
+  suites:
+    - name: rspec_2
+      desc: 'RSpec 2'
+    - name: rspec_2_rails_3
+      desc: 'RSpec 2 + Rails 3'
+    - name: rspec_2_rails_4
+      desc: 'RSpec 2 + Rails 4'
+  env:
+    SPEC_OPTS: '--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2 --backtrace'
