@@ -66,9 +66,9 @@ ruby_19_stuff = proc do
   end
 
   ruby_19_rails_4 = proc do
-    gem 'railties', '4.0.0.rc1'
-    gem 'activesupport', '4.0.0.rc1'
-    gem 'activerecord', '4.0.0.rc1'
+    gem 'railties', '4.0.0'
+    gem 'activesupport', '4.0.0'
+    gem 'activerecord', '4.0.0'
     gem 'rspec-rails', '~> 2.0'
     gem 'sqlite3', '~> 1.3', :platforms => :ruby
     gem 'activerecord-jdbcsqlite3-adapter', :platforms => :jruby
