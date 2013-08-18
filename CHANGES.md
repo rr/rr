@@ -1,21 +1,31 @@
 # Changelog
 
-## HEAD
+## 1.1.2 (August 17, 2013)
 
-* Add back tests, appraisals, etc. to the published gem ([#32][i32]).
+* Add tests, appraisals, etc. back to the published gem ([#32][i32]).
   This is necessary because Debian wraps rr in a package, and they depend on the
   tests to be present in order to run them prior to packaging.
 * Add back RR::Adapters::RSpec2 which was removed accidentally ([#34][i34]).
-  This fixes failures when running tests against sham_rack.
+  This fixes failures when running tests against sham_rack (which is no longer
+  using RR, but, oh well).
 * Remove deprecation warning about
   RSpec.configuration.backtrace_clean_patterns under RSpec 2.14 ([#37][i37]).
-* Bump integration tests from Rails 4.0.0.rc1 to 4.0.0.
+  NOTE: This warning will continue to appear if you are configuring RSpec using
+  `mock_with :rr`. This is because the RR adapter bundled with RSpec still
+  refers to `backtrace_clean_patterns` instead of
+  `backtrace_exclusion_patterns`. You can either wait until the next release of
+  rspec-core, or remove `mock_with :rr` (which is recommended at this point as
+  we consider RSpec's adapter to be slightly out of date, and RR provides its
+  own adapter for RSpec).
+* RR now officially supports Rails 4.0.0. (It worked before, but now we're
+  explicitly testing against it instead of 4.0.0.rc1.)
 * Fix Test::Unit 1 and 2 adapters to avoid a possible "undefined
   Test::Unit::TestCase" error.
+* Prevent adapters from being double-loaded.
 * Including RR::Adapters::TestUnit, RR::Adapters::MiniTest, or
   RR::Adapters::RSpec2 now just re-runs the autohook mechanism instead of
-  building a fake adapter.
-* Prevent adapters from being double-loaded.
+  building a fake adapter, as it was possible to include both a real and fake
+  adapter in the same space and they could conflict with each other.
 
 ## 1.1.1 (June 17, 2013)
 
