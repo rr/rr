@@ -18,7 +18,6 @@ Gem::Specification.new do |gem|
     'CHANGES.md',
     'CREDITS.md',
     'Gemfile',
-    'Gemfile.lock',
     'LICENSE',
     'README.md',
     'Rakefile',
