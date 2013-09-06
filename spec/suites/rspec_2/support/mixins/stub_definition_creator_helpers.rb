@@ -1,31 +1,5 @@
-require File.expand_path('../../spec_helper', __FILE__)
-
-describe 'stub' do
-  include StubDefinitionCreatorHelpers
-
-  context 'against instance methods', method_type: :instance do
-    context 'that exist', methods_exist: true do
-      include_context 'tests for a double definition creator method that supports stubbing'
-    end
-
-    context 'that do not exist', methods_exist: false do
-      include_context 'tests for a double definition creator method that supports stubbing'
-    end
-  end
-
-  context 'against class methods', method_type: :class do
-    context 'that exist', methods_exist: true do
-      include_context 'tests for a double definition creator method that supports stubbing'
-    end
-
-    context 'that do not exist', methods_exist: false do
-      include_context 'tests for a double definition creator method that supports stubbing'
-    end
-  end
-
-  def double_definition_creator_for(object, &block)
-    stub(object, &block)
-  end
+module StubDefinitionCreatorHelpers
+  include DoubleDefinitionCreatorHelpers
 
   def expect_that_double_can_be_defined_without_block
     _, _, return_value =

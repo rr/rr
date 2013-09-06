@@ -1,47 +1,147 @@
 require File.expand_path('../../spec_helper', __FILE__)
 
-describe '#any_instance_of' do
-  context "when passed a block" do
-    it "applies to instances instantiated before the Double expectation was created" do
-      subject_class = Class.new
-      subject = subject_class.new
-      class_called = false
-      any_instance_of(subject_class) do |o|
-        stub(o).to_s {"Subject is stubbed"}
-        stub.proxy(o).class {|klass| class_called = true; klass}
-        stub(o).foobar {:baz}
+describe 'any_instance_of' do
+  context 'stubs for instance methods of a class' do
+    context 'via block form' do
+      context 'for existing methods' do
+        it "can be defined" do
+          a_class = Class.new { def some_method; 'value'; end }
+          any_instance_of(a_class) { |c| stub(c).some_method { 'value' } }
+          instance = a_class.new
+          expect(instance.some_method).to eq 'value'
+        end
+
+        it "can be reset" do
+          a_class = Class.new { def some_method; 'original value'; end }
+          any_instance_of(a_class) { |c| stub(c).some_method { 'value' } }
+          RR.reset
+          instance = a_class.new
+          expect(instance.some_method).to eq 'original value'
+        end
       end
 
-      expect(subject.to_s).to eq "Subject is stubbed"
-      expect(subject.class).to eq subject_class
-      expect(class_called).to eq true
-      expect(subject.foobar).to eq :baz
+      context 'for non-existing methods' do
+        it "can be defined" do
+          a_class = Class.new
+          any_instance_of(a_class) { |c| stub(c).some_method { 'value' } }
+          instance = a_class.new
+          expect(instance.some_method).to eq 'value'
+        end
 
-      RR.reset
+        it "can be reset" do
+          a_class = Class.new
+          any_instance_of(a_class) { |c| stub(c).some_method { 'value' } }
+          RR.reset
+          instance = a_class.new
+          expect(instance).not_to respond_to(:some_method)
+        end
+      end
+    end
 
-      expect(subject.to_s).to_not eq "Subject is stubbed"
-      class_called = false
-      expect(subject.class).to eq subject_class
-      expect(class_called).to eq false
-      expect(subject).to_not respond_to(:baz)
+    context 'via hash form' do
+      context 'for existing methods' do
+        it "can be defined" do
+          a_class = Class.new { def some_method; 'value'; end }
+          any_instance_of(a_class, :some_method => lambda { 'value' })
+          instance = a_class.new
+          expect(instance.some_method).to eq 'value'
+        end
+
+        it "can be reset" do
+          a_class = Class.new { def some_method; 'original value'; end }
+          any_instance_of(a_class, :some_method => lambda { 'value' })
+          RR.reset
+          instance = a_class.new
+          expect(instance.some_method).to eq 'original value'
+        end
+      end
+
+      context 'for non-existing methods' do
+        it "can be defined" do
+          a_class = Class.new
+          any_instance_of(a_class, :some_method => lambda { 'value' })
+          instance = a_class.new
+          expect(instance.some_method).to eq 'value'
+        end
+
+        it "can be reset" do
+          a_class = Class.new
+          any_instance_of(a_class, :some_method => lambda { 'value' })
+          RR.reset
+          instance = a_class.new
+          expect(instance).not_to respond_to(:some_method)
+        end
+      end
     end
   end
 
-  context "when passed a Hash" do
-    it "stubs methods (key) with the value on instances instantiated before the Double expectation was created" do
-      subject_class = Class.new
-      subject = subject_class.new
-      expect(subject).to_not respond_to(:baz)
+  context 'stub-proxies for instance methods of a class' do
+    it "can be defined" do
+      a_class = Class.new { def some_method; 'value'; end }
+      any_instance_of(a_class) { |c| stub.proxy(c).some_method { 'value' } }
+      instance = a_class.new
+      expect(instance.some_method).to eq 'value'
+    end
 
-      any_instance_of(subject_class, :to_s => "Subject is stubbed", :foobar => lambda {:baz})
-
-      expect(subject.to_s).to eq "Subject is stubbed"
-      expect(subject.foobar).to eq :baz
-
+    it "can be reset" do
+      a_class = Class.new { def some_method; 'original value'; end }
+      any_instance_of(a_class) { |c| stub.proxy(c).some_method { 'value' } }
       RR.reset
+      instance = a_class.new
+      expect(instance.some_method).to eq 'original value'
+    end
+  end
 
-      expect(subject.to_s).to_not eq "Subject is stubbed"
-      expect(subject).to_not respond_to(:baz)
+  context 'mocks for instance methods of a class' do
+    context 'for existing methods' do
+      it "can be defined" do
+        a_class = Class.new { def some_method; 'value'; end }
+        any_instance_of(a_class) { |c| mock(c).some_method { 'value' } }
+        instance = a_class.new
+        expect(instance.some_method).to eq 'value'
+      end
+
+      it "can be reset" do
+        a_class = Class.new { def some_method; 'original value'; end }
+        any_instance_of(a_class) { |c| mock(c).some_method { 'value' } }
+        RR.reset
+        instance = a_class.new
+        expect(instance.some_method).to eq 'original value'
+      end
+    end
+
+    context 'for non-existing methods' do
+      it "can be defined" do
+        a_class = Class.new
+        any_instance_of(a_class) { |c| mock(c).some_method { 'value' } }
+        instance = a_class.new
+        expect(instance.some_method).to eq 'value'
+      end
+
+      it "can be reset" do
+        a_class = Class.new
+        any_instance_of(a_class) { |c| mock(c).some_method { 'value' } }
+        RR.reset
+        instance = a_class.new
+        expect(instance).not_to respond_to(:some_method)
+      end
+    end
+  end
+
+  context 'mock-proxies for instance methods of a class' do
+    it "can be defined" do
+      a_class = Class.new { def some_method; 'value'; end }
+      any_instance_of(a_class) { |c| mock.proxy(c).some_method { 'value' } }
+      instance = a_class.new
+      expect(instance.some_method).to eq 'value'
+    end
+
+    it "can be reset" do
+      a_class = Class.new { def some_method; 'original value'; end }
+      any_instance_of(a_class) { |c| mock.proxy(c).some_method { 'value' } }
+      RR.reset
+      instance = a_class.new
+      expect(instance.some_method).to eq 'original value'
     end
   end
 end
