@@ -65,21 +65,6 @@ module RR
           expect(RR.trim_backtrace).to eq false
         end
       end
-
-      describe '#have_received' do
-        it "creates an invocation matcher with a method name" do
-          method  = :test
-          matcher = 'fake'
-          mock(RR::Integrations::RSpec::InvocationMatcher).new(method) { matcher }
-          expect(have_received(method)).to eq matcher
-        end
-
-        it "creates an invocation matcher without a method name" do
-          matcher = 'fake'
-          mock(RR::Integrations::RSpec::InvocationMatcher).new(nil) { matcher }
-          expect(have_received).to eq matcher
-        end
-      end
     end
   end
 end
