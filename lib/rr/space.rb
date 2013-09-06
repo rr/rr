@@ -80,7 +80,7 @@ module RR
     end
 
     def record_call(subject, method_name, arguments, block)
-      @recorded_calls << [subject, method_name, arguments, block]
+      @recorded_calls.add(subject, method_name, arguments, block)
     end
 
     def blank_slate_whitelist

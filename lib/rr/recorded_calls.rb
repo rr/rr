@@ -9,13 +9,17 @@ module RR
 
     attr_reader :recorded_calls
 
+    def [](index)
+      @recorded_calls[index]
+    end
+
     def clear
       self.ordered_index = 0
       recorded_calls.clear
     end
 
-    def <<(recorded_call)
-      recorded_calls << recorded_call
+    def add(subject, method_name, arguments, block)
+      recorded_calls << RecordedCall.new(subject, method_name, arguments, block)
     end
 
     def any?(&block)
@@ -43,9 +47,9 @@ module RR
       unless Injections::DoubleInjection.exists_by_subject?(spy_verification.subject, spy_verification.method_name)
         RR::Errors.build_error(RR::Errors::SpyVerificationErrors::DoubleInjectionNotFoundError,
           "A Double Injection for the subject and method call:\n" <<
-          "#{spy_verification.subject.inspect}\n" <<
+          "#{spy_verification.subject_inspect}\n" <<
           "#{spy_verification.method_name}\ndoes not exist in:\n" <<
-          "\t#{recorded_calls.map {|call| call.inspect}.join("\n\t")}"
+          "\t#{recorded_calls.map {|call| call.inspect }.join("\n\t")}"
         )
       end
     end

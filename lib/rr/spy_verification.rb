@@ -32,7 +32,15 @@ module RR
         call
       end
     end
-  
+
+    def subject_inspect
+      if subject.respond_to?(:__rr__original_inspect, true)
+        subject.__rr__original_inspect
+      else
+        subject.inspect
+      end
+    end
+
   protected
     attr_writer :times_matcher
 

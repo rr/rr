@@ -49,6 +49,7 @@ require 'rr/method_dispatches/base_method_dispatch'
 require 'rr/method_dispatches/method_dispatch'
 require 'rr/method_dispatches/method_missing_dispatch'
 require 'rr/hash_with_object_id_key'
+require 'rr/recorded_call'
 require 'rr/recorded_calls'
 require 'rr/proc_from_block'
 

@@ -11,9 +11,11 @@ module RR
     describe "#record_call" do
       it "should add a call to the list" do
         object = Object.new
-        block = lambda {}
-        space.record_call(object, :to_s, [], block)
-        expect(space.recorded_calls).to eq RR::RecordedCalls.new([[object, :to_s, [], block]])
+        method_name = :to_s
+        arguments = []
+        space.record_call(object, method_name, arguments, lambda {})
+        expect(space.recorded_calls[0]).to eq \
+          RR::RecordedCall.new(object, method_name, arguments, lambda {})
       end
     end
 

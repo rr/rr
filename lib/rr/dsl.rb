@@ -1,5 +1,15 @@
 module RR
   module DSL
+    METHODS_TO_EXCLUDE_FROM_SPYING = [
+      :methods,
+      :==,
+      :__send__,
+      :__id__,
+      :object_id,
+      :class,
+      :respond_to?
+    ]
+
     include DoubleDefinitions::Strategies::StrategyMethods
 
     def mock(subject=DoubleDefinitions::DoubleDefinitionCreate::NO_SUBJECT, method_name=nil, &definition_eval_block)
@@ -118,8 +128,9 @@ module RR
     end
 
     def spy(subject)
-      methods_to_stub = subject.public_methods.map {|method_name| method_name.to_sym} -
-        [:methods, :==, :__send__, :__id__, :object_id, :class]
+      subject_methods = subject.public_methods.map {|method_name| method_name.to_sym }
+      methods_to_stub = subject_methods - METHODS_TO_EXCLUDE_FROM_SPYING
+
       methods_to_stub.each do |method|
         stub.proxy(subject, method)
       end
