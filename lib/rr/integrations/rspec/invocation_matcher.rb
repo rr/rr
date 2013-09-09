@@ -37,11 +37,3 @@ module RR
     end
   end
 end
-
-module RR
-  module Adapters
-    module Rspec
-      InvocationMatcher = RR::Integrations::RSpec::InvocationMatcher
-    end
-  end
-end

@@ -101,6 +101,8 @@ require 'rr/integrations/test_unit_2'
 require 'rr/integrations/test_unit_2_active_support'
 require 'rr/adapters'
 
+require 'rr/deprecations'
+
 require 'rr/version'
 
 module RR
