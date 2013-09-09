@@ -53,15 +53,15 @@ module RR
     end
   end
 
-  # This is here because RSpec-2's RR adapter uses it
+  # This is here because RSpec-1 and RSpec-2's RR adapters uses it
   module Extensions
-    include RR::DSL
-
-    def self.included(base)
-      RR::Deprecations.constant_deprecated_in_favor_of(
-        'RR::Extensions::InstanceMethods',
-        'RR::DSL'
-      )
+    def self.const_missing(name)
+      if name == :InstanceMethods
+        RR.autohook
+        RR::Integrations::RSpec1::Mixin
+      else
+        super
+      end
     end
   end
 

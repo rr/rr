@@ -27,23 +27,27 @@ module AdapterTests
           assert_times_called_verifications_work
         end
 
-        # RSpec-1 and RSpec-2's built-in adapter for RR
-        # doesn't include have_received
-        if method_defined?(:have_received)
-          specify 'have_received works' do
-            subject = Object.new
-            stub(subject).foobar(1, 2)
-            subject.foobar(1, 2)
-            subject.should have_received.foobar(1, 2)
+        specify 'have_received works' do
+          subject = Object.new
+          stub(subject).foobar(1, 2)
+          subject.foobar(1, 2)
+          subject.should have_received.foobar(1, 2)
 
-            expect {
-              subject.should have_received.foobar(1, 2, 3)
-            }.to raise_error(
-              ::RSpec::Expectations::ExpectationNotMetError,
-              /Expected foobar\(1, 2, 3\).+to be called 1 time/m
-            )
-          end
+          expect {
+            subject.should have_received.foobar(1, 2, 3)
+          }.to raise_error(
+            expectation_not_met_error,
+            /Expected foobar\(1, 2, 3\).+to be called 1 time/m
+          )
         end
+      end
+    end
+
+    def expectation_not_met_error
+      if defined?(::RSpec)
+        ::RSpec::Expectations::ExpectationNotMetError
+      else
+        Spec::Expectations::ExpectationNotMetError
       end
     end
 
