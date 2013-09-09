@@ -21,4 +21,4 @@
     - name: rspec_2_rails_4
       desc: 'RSpec 2 + Rails 4'
   env:
-    SPEC_OPTS: '--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2 --backtrace'
+    SPEC_OPTS: '--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2 --backtrace --fail-fast'
