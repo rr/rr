@@ -1,5 +1,12 @@
 # Changelog
 
+## HEAD
+
+* Rename RR::Adapters::RRMethods to RR::DSL, and deprecate RRMethods.
+* Fix using RSpec's RR adapter to not override our RSpec adapter.
+  If RR is required and then you use `mock_with :rr` you would not be able to
+  use `have_received`.
+
 ## 1.1.2 (August 17, 2013)
 
 * Add tests, appraisals, etc. back to the published gem ([#32][i32]).
