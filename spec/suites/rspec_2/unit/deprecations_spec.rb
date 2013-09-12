@@ -2,7 +2,7 @@ require File.expand_path('../../spec_helper', __FILE__)
 
 describe 'Deprecations' do
   before do
-    stub(RR).deprecation_warning
+    stub(RR::Deprecations).show_warning
   end
 
   specify 'RR::Adapters::MiniTest still works' do
