@@ -7,7 +7,12 @@ module RR
       :__id__,
       :object_id,
       :class,
-      :respond_to?
+      :respond_to?,
+      :inspect,
+      :to_s,
+      :respond_to_missing?,
+      :instance_eval,
+      :instance_exec
     ]
 
     include DoubleDefinitions::Strategies::StrategyMethods

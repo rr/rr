@@ -13,12 +13,12 @@ module RR
 
     include RR::DoubleDefinitions::DoubleDefinition::TimesDefinitionConstructionMethods
     include RR::DoubleDefinitions::DoubleDefinition::ArgumentDefinitionConstructionMethods
-  
+
     def ordered
       @ordered = true
       self
     end
-  
+
     def ordered?
       @ordered
     end
@@ -48,7 +48,7 @@ module RR
       # with_no_args and with actually set @argument_expectation
       args.empty? ? with_no_args : with(*args)
     end
-  
+
     def install_method_callback(return_value_block)
       # Do nothing. This is to support DefinitionConstructionMethods
     end

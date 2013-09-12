@@ -9,11 +9,11 @@ describe 'spy' do
 
     subject.some_method
     subject.reverse
-    subject.to_s
+    subject.chomp
 
     subject.should have_received.some_method
     subject.should have_received.reverse
-    subject.should have_received.to_s
+    subject.should have_received.chomp
   end
 
   it "excludes #methods from the list of recorded methods" do
@@ -65,45 +65,38 @@ describe 'spy' do
     subject.should_not have_received(:respond_to?)
   end
 
-  it "excludes #methods from the list of recorded methods" do
+  it "excludes #respond_to? from the list of recorded methods" do
     subject = Object.new
     spy(subject)
-    subject.methods
-    subject.should_not have_received.methods
+    subject.inspect
+    subject.should_not have_received.inspect
   end
 
-  it "excludes #== from the list of recorded methods" do
+  it "excludes #respond_to? from the list of recorded methods" do
     subject = Object.new
     spy(subject)
-    subject == 5
-    subject.should_not have_received(:==)
+    subject.to_s
+    subject.should_not have_received.to_s
   end
 
-  it "excludes #__send__ from the list of recorded methods" do
+  it "excludes #respond_to_missing? from the list of recorded methods" do
     subject = Object.new
     spy(subject)
-    subject.__send__('to_s')
-    subject.should_not have_received(:__send__)
+    subject.__send__(:respond_to_missing?, :foo, [])
+    subject.should_not have_received(:respond_to_missing?)
   end
 
-  it "excludes #__id__ from the list of recorded methods" do
+  it "excludes #instance_eval from the list of recorded methods" do
     subject = Object.new
     spy(subject)
-    subject.__id__
-    subject.should_not have_received(:__id__)
+    subject.instance_eval {}
+    subject.should_not have_received(:instance_eval)
   end
 
-  it "excludes #object_id from the list of recorded methods" do
+  it "excludes #instance_exec from the list of recorded methods" do
     subject = Object.new
     spy(subject)
-    subject.object_id
-    subject.should_not have_received(:object_id)
-  end
-
-  it "excludes #class from the list of recorded methods" do
-    subject = Object.new
-    spy(subject)
-    subject.class
-    subject.should_not have_received.class
+    subject.instance_exec {}
+    subject.should_not have_received(:instance_exec)
   end
 end
