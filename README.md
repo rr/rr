@@ -3,6 +3,13 @@
 RR is a test double framework for Ruby that features a rich selection of double
 techniques and a terse syntax.
 
+## Learning more
+
+1. [A whirlwind tour of RR](#a-whirlwind-tour-of-rr)
+2. [What is a test double?](doc/01_test_double.md)
+3. [Syntax between RR and other double/mock frameworks](doc/02_syntax_comparison.md)
+4. [API overview - Full listing of DSL methods](doc/03_api_overview.md)
+
 
 ## A whirlwind tour of RR
 
@@ -128,14 +135,6 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'your/test/framework'  # if you are using something other than MiniTest / Test::Unit
 require 'rr'
 ~~~
-
-
-## Learning more
-
-1. [What is a test double?](doc/01_test_double.md)
-2. [Syntax between RR and other double/mock frameworks](doc/02_syntax_comparison.md)
-3. [API overview](doc/03_api_overview.md)
-
 
 ## Compatibility
 
