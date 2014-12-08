@@ -127,6 +127,12 @@ end
 require File.expand_path('../../config/environment', __FILE__)
 require 'your/test/framework'  # if you are using something other than MiniTest / Test::Unit
 require 'rr'
+
+RSpec.configure do |config|
+  ...
+  config.mock_with :rr
+  ...
+end
 ~~~
 
 
