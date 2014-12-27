@@ -3,6 +3,15 @@
 RR is a test double framework for Ruby that features a rich selection of double
 techniques and a terse syntax.
 
+**12/27/14: This gem is no longer maintained. We recommend you use rspec-mocks,
+which has always been better maintained, has a more readable syntax, and is
+certainly more popular.**
+
+**However, if you are interested in carrying on the legacy, please [get in
+touch](elliot.winkler@gmail.com) with me about commit access. Thanks!**
+
+---
+
 ## Learning more
 
 1. [A whirlwind tour of RR](#a-whirlwind-tour-of-rr)
