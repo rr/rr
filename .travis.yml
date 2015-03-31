@@ -1,4 +1,7 @@
----
+notifications:
+  email:
+    recipients:
+      - rr-commit@googlegroups.com
 language: ruby
 script: rake spec:${SUITE}
 rvm: 1.9.3
