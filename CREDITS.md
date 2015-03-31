@@ -1,5 +1,10 @@
 # Credits
 
+## Maintainer
+
+* Kouhei Sutou ([@kou](https://github.com/kou))
+
+
 ## Authors
 
 * Brian Takita ([@btakita](http://github.com/btakita))

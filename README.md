@@ -3,13 +3,6 @@
 RR is a test double framework for Ruby that features a rich selection of double
 techniques and a terse syntax.
 
-**12/27/14: This gem is no longer maintained. We recommend you use rspec-mocks,
-which has always been better maintained, has a more readable syntax, and is
-certainly more popular.**
-
-**However, if you are interested in carrying on the legacy, please [get in
-touch](elliot.winkler@gmail.com) with me about commit access. Thanks!**
-
 ---
 
 ## Learning more
@@ -213,8 +206,9 @@ To run all the suites, simply say:
 
 ## Author/Contact
 
-RR was originally written by Brian Takita. It is currently maintained by Elliot
-Winkler (<elliot.winkler@gmail.com>).
+RR was originally written by Brian Takita. And it was maintained by
+Elliot Winkler (<elliot.winkler@gmail.com>). It is currently
+maintained by Kouhei Sutou (<kou@cozmixng.org>).
 
 
 ## Credits
