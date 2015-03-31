@@ -9,16 +9,6 @@ matrix:
   exclude:
   - rvm: 1.9.3
   include:
-  - rvm: 1.8.7
-    env:
-    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec --format CustomFormatterForRSpec
-      --backtrace"
-    - SUITE="rspec_1"
-  - rvm: 1.8.7
-    env:
-    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec --format CustomFormatterForRSpec
-      --backtrace"
-    - SUITE="rspec_1_rails_2"
   - rvm: 1.9.3
     env:
     - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
