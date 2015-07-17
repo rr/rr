@@ -26,17 +26,11 @@ class SpecSuiteConfiguration
     end
 
     def current_ruby_id
-      ruby_18? ? '18' : '19'
+      '19'
     end
 
     def matching_current_ruby_version?
       ruby_id == current_ruby_id
-    end
-
-    private
-
-    def ruby_18?
-      RUBY_VERSION =~ /^1\.8/
     end
   end
 

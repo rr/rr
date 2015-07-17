@@ -42,34 +42,6 @@ describe Enumerable do
       end
     end
 
-    if RUBY_VERSION =~ /^1.8/
-      context 'when the Enumerable is a String' do
-        subject { 'foo' }
-
-        it "returns true if the String is exactly equal to the given String" do
-          should wildcard_match('foo')
-        end
-
-        it "returns false if the string is not exactly equal to the given String" do
-          should_not wildcard_match('bar')
-        end
-
-        context 'whose #== method has been proxied' do
-          before do
-            @r1 = 'x'
-            @r2 = 'y'
-            mock.proxy(@r1) == @r1
-            mock.proxy(@r1) == @r2
-          end
-
-          it "doesn't blow up with a recursive loop error" do
-            @r1 == @r1
-            @r1 == @r2
-          end
-        end
-      end
-    end
-
     context 'when not given an Enumerable' do
       subject { klass.new({:foo => 'bar'}) }
 

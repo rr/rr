@@ -34,7 +34,6 @@ class DefinesSpecSuiteTasks
         end
       end
 
-      unless ruby_18?
         require 'rspec/core/rake_task'
 
         desc "Run the unit tests"
@@ -46,7 +45,6 @@ class DefinesSpecSuiteTasks
         RSpec::Core::RakeTask.new(:functional) do |t|
           t.pattern = 'spec/suites/rspec_2/functional/**/*_spec.rb'
         end
-      end
     end
 
     namespace :travis do
@@ -55,9 +53,5 @@ class DefinesSpecSuiteTasks
         DefinesSpecSuiteTasks.configuration.generate_travis_config
       end
     end
-  end
-
-  def self.ruby_18?
-    RUBY_VERSION =~ /^1\.8/
   end
 end

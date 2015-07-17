@@ -9,7 +9,7 @@ class Adapter
 
   def appraisal_name
     parts = []
-    parts << (RUBY_VERSION =~ /^1\.8/ ? 'ruby_18' : 'ruby_19')
+    parts << 'ruby_19'
     parts << name
     parts.join('_')
   end

@@ -305,10 +305,6 @@ module Project
       end
     end
 
-    def ruby_18?
-      RUBY_VERSION =~ /^1\.8/
-    end
-
     def under_jruby?
       RUBY_PLATFORM =~ /java/
     end
