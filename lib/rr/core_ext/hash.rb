@@ -3,6 +3,8 @@ class Hash
     return false unless other.is_a?(Hash)
 
     other_keys = other.keys
+    return false unless (other_keys - keys).empty?
+
     other_values = other.values
     each_with_index do |(key, value), i|
       if key.respond_to?(:wildcard_match?)

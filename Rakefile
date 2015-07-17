@@ -21,7 +21,13 @@ end
 # spec
 require File.expand_path('../spec/defines_spec_suite_tasks', __FILE__)
 DefinesSpecSuiteTasks.call
-task :default => ['appraisal:install', :spec]
+
+desc "Run tests"
+task :test do
+  ruby("test/run-test.rb")
+end
+
+task :default => ['appraisal:install', :spec, :test]
 
 task :package_tests do
   require File.expand_path('../lib/rr/version', __FILE__)
