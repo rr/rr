@@ -34,17 +34,17 @@ class DefinesSpecSuiteTasks
         end
       end
 
-        require 'rspec/core/rake_task'
+      require 'rspec/core/rake_task'
 
-        desc "Run the unit tests"
-        RSpec::Core::RakeTask.new(:unit) do |t|
-          t.pattern = 'spec/suites/rspec_2/unit/**/*_spec.rb'
-        end
+      desc "Run the unit tests"
+      RSpec::Core::RakeTask.new(:unit) do |t|
+        t.pattern = 'spec/suites/rspec_2/unit/**/*_spec.rb'
+      end
 
-        desc "Run the functional (API) tests"
-        RSpec::Core::RakeTask.new(:functional) do |t|
-          t.pattern = 'spec/suites/rspec_2/functional/**/*_spec.rb'
-        end
+      desc "Run the functional (API) tests"
+      RSpec::Core::RakeTask.new(:functional) do |t|
+        t.pattern = 'spec/suites/rspec_2/functional/**/*_spec.rb'
+      end
     end
 
     namespace :travis do
