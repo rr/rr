@@ -1,7 +1,7 @@
 notifications:
   email:
     recipients:
-      - rr-commit@googlegroups.com
+      - rr@ml.commit-email.info
 language: ruby
 script: rake ${TARGET}
 rvm: 1.9.3
