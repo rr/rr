@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email = ['kou@cozmixng.org']
   gem.description = 'RR is a test double framework that features a rich selection of double techniques and a terse syntax.'
   gem.summary = 'RR is a test double framework that features a rich selection of double techniques and a terse syntax.'
-  gem.homepage = 'http://rr.github.com/rr'
+  gem.homepage = 'https://rr.github.io/rr'
   gem.license = 'MIT'
 
   gem.files = FileList[
