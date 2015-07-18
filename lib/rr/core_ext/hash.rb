@@ -3,7 +3,7 @@ class Hash
     return false unless other.is_a?(Hash)
 
     other_keys = other.keys
-    return false unless (other_keys - keys).empty?
+    return false if keys.size != other_keys.size
 
     other_values = other.values
     each_with_index do |(key, value), i|
