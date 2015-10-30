@@ -1,6 +1,24 @@
 module RR
   module Integrations
-    class RSpec2 < RSpec1
+    class RSpec2
+      module Mixin
+        def setup_mocks_for_rspec
+          RR.reset
+        end
+
+        def verify_mocks_for_rspec
+          RR.verify
+        end
+
+        def teardown_mocks_for_rspec
+          RR.reset
+        end
+
+        def have_received(method = nil)
+          RSpec::InvocationMatcher.new(method)
+        end
+      end
+
       def name
         'RSpec 2'
       end

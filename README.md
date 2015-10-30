@@ -142,17 +142,13 @@ require 'rr'
 
 RR is designed and tested to work against the following Ruby versions:
 
-* 1.8.7-p374
 * 1.9.3-p392
 * 2.0.0-p195
 * JRuby 1.7.4
 
 as well as the following test frameworks:
 
-* RSpec 1 (Ruby 1.8.7)
 * RSpec 2 (Ruby 1.9+)
-* Test::Unit 1 (Ruby 1.8.7)
-* Test::Unit 2.4.x (Ruby 1.8.7)
 * Test::Unit 2.0.0 (Ruby 1.9+)
 * Test::Unit 2.5.x (Ruby 1.9+)
 * MiniTest 4 (Ruby 1.9+)
@@ -160,7 +156,6 @@ as well as the following test frameworks:
 
 and the following Rails versions:
 
-* Rails 2.3.x (Ruby 1.8.7)
 * Rails 3.2.x (Ruby 1.9+)
 * Rails 4.0.x (Ruby 1.9+)
 

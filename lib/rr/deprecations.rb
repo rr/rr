@@ -53,12 +53,12 @@ module RR
     end
   end
 
-  # This is here because RSpec-1 and RSpec-2's RR adapters uses it
+  # This is here because RSpec-2's RR adapters uses it
   module Extensions
     def self.const_missing(name)
       if name == :InstanceMethods
         RR.autohook
-        RR::Integrations::RSpec1::Mixin
+        RR::Integrations::RSpec2::Mixin
       else
         super
       end
