@@ -4,21 +4,8 @@ notifications:
       - rr@ml.commit-email.info
 language: ruby
 script: rake ${TARGET}
-rvm: 1.9.3
 matrix:
-  exclude:
-  - rvm: 1.9.3
   include:
-  - rvm: 1.9.3
-    env:
-    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
-      --backtrace"
-    - TARGET="spec:rspec_2"
-  - rvm: 1.9.3
-    env:
-    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
-      --backtrace"
-    - TARGET="spec:rspec_2_rails_4"
   - rvm: 2.0.0
     env:
     - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
@@ -38,19 +25,4 @@ matrix:
   - rvm: 2.2
     env:
     - TARGET="test"
-  - &1
-    rvm: jruby-19mode
-    env:
-    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
-      --backtrace"
-    - TARGET="spec:rspec_2"
-  - &3
-    rvm: jruby-19mode
-    env:
-    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
-      --backtrace"
-    - TARGET="spec:rspec_2_rails_4"
-  allow_failures:
-  - *1
-  - *2
-  - *3
+#  allow_failures:
