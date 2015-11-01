@@ -15,7 +15,7 @@ describe 'Integration with Test::Unit >= 2.5' do
       project = generate_project do |project|
         project.add_to_prelude <<-EOT
           class Test::Unit::TestCase
-            include RR::Adapters::TestUnit2
+            include RR::Adapters::TestUnit
           end
         EOT
       end
