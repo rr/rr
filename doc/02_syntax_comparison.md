@@ -94,3 +94,4 @@ my_object.should_receive(:hello).with('bob', 'jane').and_return('Hello Bob and J
 # RR
 mock(my_object).hello('bob', 'jane') { 'Hello Bob and Jane' }
 mock(my_object).hello('bob', 'jane').returns('Hello Bob and Jane')  # same thing, just more verbose
+~~~
