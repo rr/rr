@@ -96,6 +96,11 @@ end
 
 ## Installing RR into your project
 
+NOTE: If you want to use RR with
+[test-unit](https://test-unit.github.io/), use
+[test-unit-rr](https://test-unit.github.io/#test-unit-rr). You don't
+need to read the following subsections.
+
 For minimal setup, RR looks for an existing test framework and then hooks itself
 into it. Hence, RR works best when loaded *after* the test framework that you
 are using is loaded.
@@ -150,7 +155,7 @@ RR is designed and tested to work against the following Ruby versions:
 as well as the following test frameworks:
 
 * RSpec 2
-* Test::Unit 2.5
+* Test::Unit via [test-unit-rr](https://test-unit.github.io/#test-unit-rr)
 * MiniTest 4
 * Minitest 5
 

@@ -1,6 +1,6 @@
 # Changelog
 
-## HEAD
+## 1.1.3 - 2016-05-29
 
 * Rename RR::Adapters::RRMethods to RR::DSL, and deprecate RRMethods.
 * Fix using RSpec's RR adapter to not override our RSpec adapter.
