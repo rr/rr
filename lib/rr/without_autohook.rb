@@ -94,8 +94,6 @@ require 'rr/integrations/minitest_4'
 require 'rr/integrations/minitest_4_active_support'
 require 'rr/integrations/minitest'
 require 'rr/integrations/minitest_active_support'
-require 'rr/integrations/test_unit_200'
-require 'rr/integrations/test_unit_200_active_support'
 require 'rr/integrations/test_unit_2'
 require 'rr/integrations/test_unit_2_active_support'
 
