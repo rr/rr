@@ -142,23 +142,21 @@ require 'rr'
 
 RR is designed and tested to work against the following Ruby versions:
 
-* 2.0.0-p195
 * 2.1
 * 2.2
+* 2.3
 * JRuby 1.7.4
 
 as well as the following test frameworks:
 
-* RSpec 2 (Ruby 2.0+)
-* Test::Unit 2.0.0 (Ruby 2.0+)
-* Test::Unit 2.5.x (Ruby 2.0+)
-* MiniTest 4 (Ruby 2.0+)
-* Minitest 5 (Ruby 2.0+)
+* RSpec 2
+* Test::Unit 2.5
+* MiniTest 4
+* Minitest 5
 
 and the following Rails versions:
 
-* Rails 3.2.x (Ruby 2.0+)
-* Rails 4.0.x (Ruby 2.0+)
+* Rails 4
 
 
 ## Help!
