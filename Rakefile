@@ -4,18 +4,21 @@ require 'rake'
 
 require 'pp'
 
-# appraisal
-require 'appraisal'
-
 # build, install, release
 require 'bundler/gem_tasks'
 
-# appraisals
-Appraisal::File.each do |appraisal|
-  desc "Resolve and install dependencies for the #{appraisal.name} appraisal"
-  task "appraisal:#{appraisal.name}:install" do
-    appraisal.install
+begin
+  # appraisal
+  require 'appraisal'
+
+  # appraisals
+  Appraisal::File.each do |appraisal|
+    desc "Resolve and install dependencies for the #{appraisal.name} appraisal"
+    task "appraisal:#{appraisal.name}:install" do
+      appraisal.install
+    end
   end
+rescue LoadError
 end
 
 # spec
