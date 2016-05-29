@@ -73,7 +73,7 @@ module RR
 
         subject_class.class_eval((<<-METHOD), __FILE__, __LINE__ + 1)
           def method_missing(method_name, *args, &block)
-            if respond_to?(method_name)
+            if respond_to_missing?(method_name, true)
               super
             else
               obj = ::RR::Injections::MethodMissingInjection::BoundObjects[#{id}]
