@@ -25,4 +25,7 @@ matrix:
   - rvm: 2.2
     env:
     - TARGET="test"
+  - rvm: 2.3.1
+    env:
+    - TARGET="test"
 #  allow_failures:
