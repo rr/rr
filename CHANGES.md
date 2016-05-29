@@ -1,11 +1,50 @@
 # Changelog
 
-## 1.1.3 - 2016-05-29
+## 1.2.0 - 2016-05-30
 
-* Rename RR::Adapters::RRMethods to RR::DSL, and deprecate RRMethods.
-* Fix using RSpec's RR adapter to not override our RSpec adapter.
-  If RR is required and then you use `mock_with :rr` you would not be able to
-  use `have_received`.
+### Improvements
+
+  * Renamed RR::Adapters::RRMethods to RR::DSL.
+
+  * Deprecated RRMethods.
+
+  * Updated document. [GitHub#57][Patch by Nikolay Shebanov]
+
+  * Dropped Ruby 1.8 support.
+
+  * Dropped Ruby 1.9 support.
+
+  * Dropped Rails 3 support.
+
+  * Dropped test-unit integration support. Use
+    [test-unit-rr](https://test-unit.github.io/#test-unit-rr).
+
+  * Supported OpenStruct in Ruby 2.3
+    [GitHub#64][Reported by soylent][Reported by Arthur Le Maitre]
+
+### Fixes
+
+  * Fixed using RSpec's RR adapter to not override our RSpec adapter.
+    If RR is required and then you use `mock_with :rr` you would not be able to
+    use `have_received`.
+
+  * Fixed a bug that `Hash` argument is too wild.
+    [GitHub#54][Reported by Yutaka HARA]
+
+  * Fixed a bug that `Array` argument is too wild.
+    [GitHub#54][Reported by Skye Shaw]
+
+### Thanks
+
+  * Nikolay Shebanov
+
+  * Yutaka HARA
+
+  * Skye Shaw
+
+  * soylent
+
+  * Arthur Le Maitre
 
 ## 1.1.2 (August 17, 2013)
 
