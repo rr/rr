@@ -113,45 +113,5 @@ describe 'Integration with RSpec 2 and Rails 4' do
         result.should have_errors_or_failures
       }.to leave_database_table_clear(project, :people)
     end
-
-    specify "it is still possible to use a custom RSpec-2 adapter" do
-      project = generate_project do |project|
-        project.add_to_prelude <<-EOT
-          module RR
-            module Adapters
-              module RSpec2
-                include RRMethods
-
-                def setup_mocks_for_rspec
-                  RR.reset
-                end
-
-                def verify_mocks_for_rspec
-                  RR.verify
-                end
-
-                def teardown_mocks_for_rspec
-                  RR.reset
-                end
-
-                def have_received(method = nil)
-                  RR::Adapters::Rspec::InvocationMatcher.new(method)
-                end
-              end
-            end
-          end
-
-          RSpec.configure do |c|
-            c.mock_with RR::Adapters::RSpec2
-          end
-        EOT
-      end
-      project.add_test_file do |file|
-        file.add_test_case_with_adapter_tests
-      end
-      result = project.run_tests
-      result.should be_success
-      result.should_not have_errors_or_failures
-    end
   end
 end
