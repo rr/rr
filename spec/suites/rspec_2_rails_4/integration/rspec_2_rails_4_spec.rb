@@ -65,22 +65,6 @@ describe 'Integration with RSpec 2 and Rails 4' do
     end
   end
 
-  context 'when Bundler is autorequiring RR' do
-    def configure_project_generator(project_generator)
-      super
-      project_generator.configure do |project|
-        project.autorequire_gems = true
-      end
-    end
-
-    def adapters_that_should_be_loaded
-      [:RSpec2]
-    end
-
-    including_the_adapter_manually_works
-    using_rr_with_cucumber_works
-  end
-
   context 'when RR is being required manually' do
     def configure_project_generator(project_generator)
       super
