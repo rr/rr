@@ -3,7 +3,9 @@ notifications:
     recipients:
       - rr@ml.commit-email.info
 language: ruby
-script: rake ${TARGET}
+before_install:
+  - gem update bundler
+script: bundle exec rake ${TARGET}
 matrix:
   include:
   - rvm: 2.0.0
