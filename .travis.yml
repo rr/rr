@@ -3,7 +3,9 @@ notifications:
     recipients:
       - rr@ml.commit-email.info
 language: ruby
-script: rake ${TARGET}
+before_install:
+  - gem update bundler
+script: bundle exec rake ${TARGET}
 matrix:
   include:
   - rvm: 2.0.0
@@ -26,6 +28,9 @@ matrix:
     env:
     - TARGET="test"
   - rvm: 2.3.1
+    env:
+    - TARGET="test"
+  - rvm: 2.4.0
     env:
     - TARGET="test"
 #  allow_failures:
