@@ -33,4 +33,11 @@ matrix:
   - rvm: 2.4.0
     env:
     - TARGET="test"
-#  allow_failures:
+  - rvm: ruby-head
+    env:
+    - TARGET="test"
+  allow_failures:
+  - rvm: ruby-head
+    env:
+    - TARGET="test"
+  fast_finish: true
