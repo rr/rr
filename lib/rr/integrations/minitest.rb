@@ -20,7 +20,7 @@ module RR
       end
 
       def version_constant
-        ::Minitest::VERSION
+        ::Minitest::Unit::VERSION
       end
     end
 
