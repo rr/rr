@@ -206,7 +206,8 @@ module RR
 
     protected
       def deferred_bind_method
-        unless subject_has_method_defined?(original_method_alias_name)
+        if respond_to?(method_name) and
+            not subject_has_method_defined?(original_method_alias_name)
           bind_method_with_alias
         end
         @performed_deferred_bind = true
