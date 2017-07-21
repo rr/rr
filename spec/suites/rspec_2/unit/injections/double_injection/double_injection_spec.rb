@@ -231,12 +231,6 @@ module RR
                     end
 
                     describe "being called" do
-                      it "defines __rr__original_{method_name} to be the lazily created method" do
-                        subject.foobar
-                        expect((!!subject.methods.detect {|method| method.to_sym == :__rr__original_foobar})).to be_true
-                        expect(subject.__rr__original_foobar).to eq :original_foobar
-                      end
-
                       it "calls the lazily created method and returns the injected method return value" do
                         original_return_value = nil
                         stub.proxy(subject).foobar {|arg| original_return_value = arg; :new_foobar}
