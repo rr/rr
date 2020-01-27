@@ -33,6 +33,9 @@ matrix:
   - rvm: 2.4.0
     env:
     - TARGET="test"
+  - rvm: 2.7.0
+    env:
+    - TARGET="test"
   - rvm: ruby-head
     env:
     - TARGET="test"
