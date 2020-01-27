@@ -12,27 +12,16 @@ matrix:
     - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
       --backtrace"
     - TARGET="spec:rspec_2"
-  - rvm: 2.0.0
-    env:
-    - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
-      --backtrace"
-    - TARGET="spec:rspec_2_rails_4"
-  - rvm: 2.0.0
+  - rvm: 2.4
     env:
     - TARGET="test"
-  - rvm: 2.1
+  - rvm: 2.5
     env:
     - TARGET="test"
-  - rvm: 2.2
+  - rvm: 2.6
     env:
     - TARGET="test"
-  - rvm: 2.3.1
-    env:
-    - TARGET="test"
-  - rvm: 2.4.0
-    env:
-    - TARGET="test"
-  - rvm: 2.7.0
+  - rvm: 2.7
     env:
     - TARGET="test"
   - rvm: ruby-head
