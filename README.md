@@ -147,9 +147,8 @@ require 'rr'
 
 RR is designed and tested to work against the following Ruby versions:
 
-* 2.1
-* 2.2
-* 2.3
+* 2.4
+* 2.7
 * JRuby 1.7.4
 
 as well as the following test frameworks:
@@ -158,11 +157,6 @@ as well as the following test frameworks:
 * Test::Unit via [test-unit-rr](https://test-unit.github.io/#test-unit-rr)
 * MiniTest 4
 * Minitest 5
-
-and the following Rails versions:
-
-* Rails 4
-
 
 ## Help!
 
