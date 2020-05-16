@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+gemspec
+
+gem 'simplecov', '~> 0.7'
+gem 'appraisal', '~> 0.5'
+gem 'posix-spawn', :platforms => :mri
+gem 'open4', :platforms => :mri
+gem 'rspec', '~> 2.14'

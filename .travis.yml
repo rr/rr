@@ -8,6 +8,7 @@ script: bundle exec rake ${TARGET}
 matrix:
   include:
   - rvm: 2.0.0
+    gemfile: Gemfile.rspec
     env:
     - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
       --backtrace"
