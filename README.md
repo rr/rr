@@ -1,4 +1,4 @@
-# RR [![Gem Version](https://badge.fury.io/rb/rr.png)](http://badge.fury.io/rb/rr) [![Build Status](https://travis-ci.org/rr/rr.png?branch=master)](https://travis-ci.org/rr/rr) [![Code Climate GPA](https://codeclimate.com/github/rr/rr.png)](https://codeclimate.com/github/rr/rr)
+# RR [![Gem Version](https://badge.fury.io/rb/rr.png)](https://badge.fury.io/rb/rr) [![Build Status](https://travis-ci.org/rr/rr.png?branch=master)](https://travis-ci.org/rr/rr) [![Code Climate GPA](https://codeclimate.com/github/rr/rr.png)](https://codeclimate.com/github/rr/rr)
 
 RR is a test double framework for Ruby that features a rich selection of double
 techniques and a terse syntax.
@@ -147,35 +147,30 @@ require 'rr'
 
 RR is designed and tested to work against the following Ruby versions:
 
-* 2.1
-* 2.2
-* 2.3
+* 2.4
+* 2.5
+* 2.6
+* 2.7
 * JRuby 1.7.4
 
 as well as the following test frameworks:
 
-* RSpec 2
 * Test::Unit via [test-unit-rr](https://test-unit.github.io/#test-unit-rr)
+* RSpec 2
 * MiniTest 4
 * Minitest 5
-
-and the following Rails versions:
-
-* Rails 4
-
 
 ## Help!
 
 If you have a question or are having trouble, simply [post it as an
-issue](http://github.com/rr/rr/issues) and I'll respond as soon as I can.
+issue](https://github.com/rr/rr/issues) and I'll respond as soon as I can.
 
 
 ## Contributing
 
 Want to contribute a bug fix or new feature to RR? Great! Follow these steps:
 
-1. Make sure you have Ruby 2.0.0-p195 installed (this is the primary Ruby
-   version that RR targets).
+1. Make sure you have a recent Ruby (check the compatibility table above).
 2. Clone the repo (you probably knew that already).
 3. Make a new branch off of `master` with a descriptive name.
 4. Work on your patch.
