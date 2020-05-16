@@ -35,7 +35,7 @@ module RR
           subject_eigenclass = (class << subject; self; end)
           if (
             exists?(subject_class, method_name) &&
-            (subject_class == subject_eigenclass) || !subject.is_a?(Class)
+            ((subject_class == subject_eigenclass) || !subject.is_a?(Class))
           )
             find(subject_class, method_name.to_sym).dispatch_method(subject, arguments, block)
           else
@@ -111,7 +111,11 @@ module RR
       # is called.
       def bind
         if subject_has_method_defined?(method_name)
-          bind_method_with_alias
+          if subject_has_original_method?
+            bind_method
+          else
+            bind_method_with_alias
+          end
         else
           Injections::MethodMissingInjection.find_or_create(subject_class)
           Injections::SingletonMethodAddedInjection.find_or_create(subject_class)

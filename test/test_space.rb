@@ -125,5 +125,32 @@ class TestSpace < Test::Unit::TestCase
         end
       end
     end
+
+    sub_test_case "#any_instance_of" do
+      test "inherit" do
+        parent_class = Class.new
+        subject_class = Class.new(parent_class)
+        subject_to_s_method = subject_class.instance_method(:to_s)
+
+        any_instance_of(parent_class, :to_s => "Parent is stubbed")
+        any_instance_of(parent_class, :stubbed => lambda {:value})
+
+        any_instance_of(subject_class, :to_s => "Subject is stubbed")
+
+        assert_equal("Parent is stubbed", parent_class.new.to_s)
+
+        subject = subject_class.new
+        assert_equal("Subject is stubbed", subject.to_s)
+        assert_equal(:value, subject.stubbed)
+
+        RR.reset
+
+        assert_equal(subject_to_s_method.bind(subject).call,
+                     subject.to_s)
+        assert_raise(NoMethodError) do
+          subject.stubbed
+        end
+      end
+    end
   end
 end
