@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'rake', '~> 10.0'
 gem 'simplecov', '~> 0.7'
 gem 'appraisal', '~> 0.5'
 gem 'posix-spawn', :platforms => :mri
