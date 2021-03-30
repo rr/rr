@@ -9,8 +9,13 @@ module RR
 
       attr_reader :subject, :subject_class, :method_name
 
-      def initialize(subject, subject_class, method_name, args, block)
-        @subject, @subject_class, @method_name, @args, @block = subject, subject_class, method_name, args, block
+      def initialize(subject, subject_class, method_name, args, kwargs, block)
+        @subject = subject
+        @subject_class = subject_class
+        @method_name = method_name
+        @args = args
+        @kwargs = kwargs
+        @block = block
       end
 
       def call
@@ -40,14 +45,19 @@ module RR
     protected
       def call_implementation
         if implementation_is_original_method?
-          space.record_call(subject, method_name, args, block)
-          double.method_call(args)
+          space.record_call(subject, method_name, args, kwargs, block)
+          double.method_call(args, kwargs)
           call_original_method
         else
           if double_injection = Injections::DoubleInjection.find(subject_class, method_name)
             double_injection.bind_method
             # The DoubleInjection takes care of calling double.method_call
-            subject.__send__(method_name, *args, &block)
+            # For Ruby 2.5 or earlier
+            if kwargs.empty?
+              subject.__send__(method_name, *args, &block)
+            else
+              subject.__send__(method_name, *args, **kwargs, &block)
+            end
           else
             nil
           end

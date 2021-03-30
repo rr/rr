@@ -72,12 +72,19 @@ module RR
         BoundObjects[id] = subject_class
 
         subject_class.class_eval((<<-METHOD), __FILE__, __LINE__ + 1)
-          def method_missing(method_name, *args, &block)
+          def method_missing(method_name, *args, **kwargs, &block)
             if respond_to_missing?(method_name, true)
               super
             else
               obj = ::RR::Injections::MethodMissingInjection::BoundObjects[#{id}]
-              MethodDispatches::MethodMissingDispatch.new(self, obj, method_name, args, block).call
+              MethodDispatches::MethodMissingDispatch.new(
+                self,
+                obj,
+                method_name,
+                args,
+                kwargs,
+                block
+              ).call
             end
           end
         METHOD

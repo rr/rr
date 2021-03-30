@@ -97,9 +97,9 @@ module RR
                                 expected_keyword_arguments)
     end
 
-    def method_call(args)
+    def method_call(args, kwargs)
       if verbose?
-        puts Double.formatted_name(method_name, args)
+        puts Double.formatted_name(method_name, args, kwargs)
       end
       times_called_expectation.attempt if definition.times_matcher
       space.verify_ordered_double(self) if ordered?
