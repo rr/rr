@@ -1,5 +1,30 @@
 # Changelog
 
+## 1.2.2 - 2021-03-30
+
+### Improvements
+
+  * Added support for Ruby 3.0's keyword arguments.
+    [GitHub#17][Reported by Takuro Ashie]
+
+### Fixes
+
+  * Fixed a bug that `any_instance_of` doesn't work with class
+    hierarchies. [GitHub#12][Reported by Étienne Barrié]
+
+### Thanks
+
+  * Étienne Barrié
+
+  * Takuro Ashie
+
+## 1.2.1 - 2017-06-22
+
+### Fixes
+
+  * Fixed a bug that `RR.reset` resets newly created methods.
+    [GitHub#8]
+
 ## 1.2.0 - 2016-05-30
 
 ### Improvements
