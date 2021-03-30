@@ -7,4 +7,4 @@
     - name: rspec_2
       desc: 'RSpec 2'
   env:
-    SPEC_OPTS: '--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2 --backtrace --fail-fast'
+    SPEC_OPTS: '--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2 --backtrace'
