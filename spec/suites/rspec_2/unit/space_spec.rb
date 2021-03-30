@@ -13,9 +13,10 @@ module RR
         object = Object.new
         method_name = :to_s
         arguments = []
-        space.record_call(object, method_name, arguments, lambda {})
+        keyword_arguments = {}
+        space.record_call(object, method_name, arguments, keyword_arguments, lambda {})
         expect(space.recorded_calls[0]).to eq \
-          RR::RecordedCall.new(object, method_name, arguments, lambda {})
+          RR::RecordedCall.new(object, method_name, arguments, keyword_arguments, lambda {})
       end
     end
 
