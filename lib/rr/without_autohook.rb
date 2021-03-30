@@ -51,7 +51,6 @@ require 'rr/method_dispatches/method_missing_dispatch'
 require 'rr/hash_with_object_id_key'
 require 'rr/recorded_call'
 require 'rr/recorded_calls'
-require 'rr/proc_from_block'
 
 require 'rr/double_definitions/double_definition_create_blank_slate'
 require 'rr/double_definitions/double_definition_create'
