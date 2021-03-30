@@ -45,7 +45,12 @@ module RR
           call_original_method
         else
           if implementation
-            implementation.call(*args, **kwargs, &block)
+            # For Ruby 2.5 or earlier
+            if kwargs.empty?
+              implementation.call(*args, &block)
+            else
+              implementation.call(*args, **kwargs, &block)
+            end
           else
             nil
           end

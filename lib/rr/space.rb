@@ -15,7 +15,12 @@ module RR
 
     protected
       def method_missing(method_name, *args, **kwargs, &block)
-        instance.__send__(method_name, *args, **kwargs, &block)
+        # For Ruby 2.5 or earlier
+        if kwargs.empty?
+          instance.__send__(method_name, *args, &block)
+        else
+          instance.__send__(method_name, *args, **kwargs, &block)
+        end
       end
     end
 
