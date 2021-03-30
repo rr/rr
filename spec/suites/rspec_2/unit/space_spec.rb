@@ -203,7 +203,7 @@ module RR
 
       it "should clear the #recorded_calls" do
         object = Object.new
-        space.record_call(object, :to_s, [], nil)
+        space.record_call(object, :to_s, [], {}, nil)
 
         space.reset
         expect(space.recorded_calls).to eq RR::RecordedCalls.new([])
