@@ -31,11 +31,21 @@ module RR
 
       def call_original_method
         if subject_has_original_method?
-          subject.__send__(original_method_alias_name, *args, **kwargs, &block)
+          # For Ruby 2.5 or earlier
+          if kwargs.empty?
+            subject.__send__(original_method_alias_name, *args,&block)
+          else
+            subject.__send__(original_method_alias_name, *args, **kwargs, &block)
+          end
         elsif subject_has_original_method_missing?
           call_original_method_missing
         else
-          subject.__send__(:method_missing, method_name, *args, **kwargs, &block)
+          # For Ruby 2.5 or earlier
+          if kwargs.empty?
+            subject.__send__(:method_missing, method_name, *args, &block)
+          else
+            subject.__send__(:method_missing, method_name, *args, **kwargs, &block)
+          end
         end
       end
 
