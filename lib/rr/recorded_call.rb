@@ -19,7 +19,7 @@ module RR
         subject == other.subject &&
         method_name == other.method_name &&
         arguments == other.arguments &&
-        keyword_arguments == keyword_other.arguments
+        keyword_arguments == other.keyword_arguments
     end
 
     private
