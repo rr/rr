@@ -74,7 +74,12 @@ module RR
         subject_class.class_eval((<<-METHOD), __FILE__, __LINE__ + 1)
           def method_missing(method_name, *args, **kwargs, &block)
             if respond_to_missing?(method_name, true)
-              super
+              # For Ruby 2.5 or earlier
+              if kwargs.empty?
+                super(method_name, *args, &block)
+              else
+                super(method_name, *args, **kwargs, &block)
+              end
             else
               obj = ::RR::Injections::MethodMissingInjection::BoundObjects[#{id}]
               MethodDispatches::MethodMissingDispatch.new(
