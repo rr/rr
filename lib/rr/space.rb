@@ -14,8 +14,8 @@ module RR
       attr_writer :instance
 
     protected
-      def method_missing(method_name, *args, &block)
-        instance.__send__(method_name, *args, &block)
+      def method_missing(method_name, *args, **kwargs, &block)
+        instance.__send__(method_name, *args, **kwargs, &block)
       end
     end
 
@@ -79,8 +79,12 @@ module RR
       Injections::DoubleInjection.reset_double(class << subject; self; end, method_name)
     end
 
-    def record_call(subject, method_name, arguments, block)
-      @recorded_calls.add(subject, method_name, arguments, block)
+    def record_call(subject, method_name, arguments, keyword_arguments, block)
+      @recorded_calls.add(subject,
+                          method_name,
+                          arguments,
+                          keyword_arguments,
+                          block)
     end
 
     def blank_slate_whitelist

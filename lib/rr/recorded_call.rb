@@ -1,10 +1,15 @@
 module RR
-  class RecordedCall < Struct.new(:subject, :method_name, :arguments, :block)
+  class RecordedCall < Struct.new(:subject,
+                                  :method_name,
+                                  :arguments,
+                                  :keyword_arguments,
+                                  :block)
     def inspect
-      '[%s, %s, %s, %s]' % [
+      '[%s, %s, %s, %s, %s]' % [
         subject_to_s,
         method_name.inspect,
         arguments.inspect,
+        keyword_arguments.inspect,
         block.inspect
       ]
     end
@@ -13,7 +18,8 @@ module RR
       other.is_a?(self.class) &&
         subject == other.subject &&
         method_name == other.method_name &&
-        arguments == other.arguments
+        arguments == other.arguments &&
+        keyword_arguments == keyword_other.arguments
     end
 
     private

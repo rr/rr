@@ -4,7 +4,7 @@ module RR
       extend Forwardable
       include Space::Reader
 
-      attr_reader :args, :block, :double
+      attr_reader :args, :kwargs, :block, :double
 
       def call
         raise NotImplementedError
@@ -12,7 +12,7 @@ module RR
 
     protected
       def find_double_to_attempt
-        matches = DoubleMatches.new(doubles).find_all_matches(args)
+        matches = DoubleMatches.new(doubles).find_all_matches(args, kwargs)
 
         unless matches.exact_terminal_doubles_to_attempt.empty?
           return matches.exact_terminal_doubles_to_attempt.first
@@ -48,7 +48,13 @@ module RR
       end
 
       def call_original_method_missing
-        subject.__send__(MethodMissingDispatch.original_method_missing_alias_name, method_name, *args, &block)
+        subject.__send__(
+          MethodMissingDispatch.original_method_missing_alias_name,
+          method_name,
+          *args,
+          **kwargs,
+          &block
+        )
       end
 
       def implementation_is_original_method?
@@ -70,7 +76,7 @@ module RR
         message =
           "On subject #{subject},\n" <<
           "unexpected method invocation:\n" <<
-          "  #{Double.formatted_name(method_name, args)}\n" <<
+          "  #{Double.formatted_name(method_name, args, kwargs)}\n" <<
           "expected invocations:\n" <<
           Double.list_message_part(doubles)
         raise RR::Errors.build_error(:DoubleNotFoundError, message)

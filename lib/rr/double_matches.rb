@@ -15,9 +15,10 @@ module RR
       @wildcard_non_terminal_doubles_to_attempt = []
     end
 
-    def find_all_matches(args)
+    def find_all_matches(args, kwargs)
+      kwargs ||= {}
       @doubles.each do |double|
-        if double.exact_match?(*args)
+        if double.exact_match?(*args, **kwargs)
           matching_doubles << double
           if double.attempt?
             if double.terminal?
@@ -26,7 +27,7 @@ module RR
               exact_non_terminal_doubles_to_attempt << double
             end
           end
-        elsif double.wildcard_match?(*args)
+        elsif double.wildcard_match?(*args, **kwargs)
           matching_doubles << double
           if double.attempt?
             if double.terminal?

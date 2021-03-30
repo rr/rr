@@ -4,14 +4,20 @@ module RR
   # and the implementation.
   class Double
     extend(Module.new do
-      def formatted_name(method_name, args)
-        formatted_errors = args.collect {|arg| arg.inspect}.join(', ')
+      def formatted_name(method_name, args, kwargs)
+        formatted_arguments =
+          args.collect {|arg| arg.inspect} +
+          kwargs.collect {|keyword, value| "#{keyword}: #{value.inspect}"}
+        formatted_errors = formatted_arguments.join(', ')
         "#{method_name}(#{formatted_errors})"
       end
 
       def list_message_part(doubles)
         doubles.collect do |double|
-          "- #{formatted_name(double.method_name, double.expected_arguments)}"
+          name = formatted_name(double.method_name,
+                                double.expected_arguments,
+                                double.expected_keyword_arguments)
+          "- #{name}"
         end.join("\n")
       end
     end)
@@ -32,14 +38,14 @@ module RR
 
     # Double#exact_match? returns true when the passed in arguments
     # exactly match the ArgumentEqualityExpectation arguments.
-    def exact_match?(*arguments)
-      definition.exact_match?(*arguments)
+    def exact_match?(*arguments, **keyword_arguments)
+      definition.exact_match?(*arguments, **keyword_arguments)
     end
 
     # Double#wildcard_match? returns true when the passed in arguments
     # wildcard match the ArgumentEqualityExpectation arguments.
-    def wildcard_match?(*arguments)
-      definition.wildcard_match?(*arguments)
+    def wildcard_match?(*arguments, **keyword_arguments)
+      definition.wildcard_match?(*arguments, **keyword_arguments)
     end
 
     # Double#attempt? returns true when the
@@ -74,13 +80,21 @@ module RR
       argument_expectation.expected_arguments
     end
 
+    # The keyword arguments that this Double expects
+    def expected_keyword_arguments
+      verify_argument_expectation_is_set
+      argument_expectation.expected_keyword_arguments
+    end
+
     # The TimesCalledMatcher for the TimesCalledExpectation
     def times_matcher
       definition.times_matcher
     end
 
     def formatted_name
-      self.class.formatted_name(method_name, expected_arguments)
+      self.class.formatted_name(method_name,
+                                expected_arguments,
+                                expected_keyword_arguments)
     end
 
     def method_call(args)
@@ -146,6 +160,10 @@ module RR
 
     def args
       definition.argument_expectation.expected_arguments
+    end
+
+    def kwargs
+      definition.argument_expectation.expected_keyword_arguments
     end
 
     def argument_expectation

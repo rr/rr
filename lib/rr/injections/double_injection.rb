@@ -31,15 +31,20 @@ module RR
           exists?((class << subject; self; end), method_name)
         end
 
-        def dispatch_method(subject, subject_class, method_name, arguments, block)
+        def dispatch_method(subject,
+                            subject_class,
+                            method_name,
+                            arguments,
+                            keyword_arguments,
+                            block)
           subject_eigenclass = (class << subject; self; end)
           if (
             exists?(subject_class, method_name) &&
             ((subject_class == subject_eigenclass) || !subject.is_a?(Class))
           )
-            find(subject_class, method_name.to_sym).dispatch_method(subject, arguments, block)
+            find(subject_class, method_name.to_sym).dispatch_method(subject, arguments, keyword_arguments, block)
           else
-            new(subject_class, method_name.to_sym).dispatch_original_method(subject, arguments, block)
+            new(subject_class, method_name.to_sym).dispatch_original_method(subject, arguments, keyword_arguments, block)
           end
         end
 
@@ -91,7 +96,9 @@ module RR
 
       attr_reader :subject_class, :method_name, :doubles
 
-      MethodArguments = Struct.new(:arguments, :block)
+      MethodArguments = Struct.new(:arguments,
+                                   :keyword_arguments,
+                                   :block)
 
       def initialize(subject_class, method_name)
         @subject_class = subject_class
@@ -146,10 +153,17 @@ module RR
         BoundObjects[id] = subject_class
 
         subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
-          def #{method_name}(*args, &block)
-            arguments = MethodArguments.new(args, block)
+          def #{method_name}(*args, **kwargs, &block)
+            arguments = MethodArguments.new(args, kwargs, block)
             obj = ::RR::Injections::DoubleInjection::BoundObjects[#{id}]
-            ::RR::Injections::DoubleInjection.dispatch_method(self, obj, :#{method_name}, arguments.arguments, arguments.block)
+            ::RR::Injections::DoubleInjection.dispatch_method(
+              self,
+              obj,
+              :#{method_name},
+              arguments.arguments,
+              arguments.keyword_arguments,
+              arguments.block
+            )
           end
         RUBY
         self
@@ -179,17 +193,29 @@ module RR
         end
       end
 
-      def dispatch_method(subject, args, block)
+      def dispatch_method(subject, args, kwargs, block)
         if @dispatch_method_delegates_to_dispatch_original_method
-          dispatch_original_method(subject, args, block)
+          dispatch_original_method(subject, args, kwargs, block)
         else
-          dispatch = MethodDispatches::MethodDispatch.new(self, subject, args, block)
+          dispatch = MethodDispatches::MethodDispatch.new(
+            self,
+            subject,
+            args,
+            kwargs,
+            block
+          )
           dispatch.call
         end
       end
 
-      def dispatch_original_method(subject, args, block)
-        dispatch = MethodDispatches::MethodDispatch.new(self, subject, args, block)
+      def dispatch_original_method(subject, args, kwargs, block)
+        dispatch = MethodDispatches::MethodDispatch.new(
+          self,
+          subject,
+          args,
+          kwargs,
+          block
+        )
         dispatch.call_original_method
       end
 

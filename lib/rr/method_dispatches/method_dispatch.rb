@@ -3,13 +3,17 @@ module RR
     class MethodDispatch < BaseMethodDispatch
       attr_reader :double_injection, :subject
 
-      def initialize(double_injection, subject, args, block)
-        @double_injection, @subject, @args, @block = double_injection, subject, args, block
+      def initialize(double_injection, subject, args, kwargs, block)
+        @double_injection = double_injection
+        @subject = subject
+        @args = args
+        @kwargs = kwargs
+        @block = block
         @double = find_double_to_attempt
       end
 
       def call
-        space.record_call(subject, method_name, args, block)
+        space.record_call(subject, method_name, args, kwargs, block)
         if double
           double.method_call(args)
           call_yields
@@ -27,11 +31,11 @@ module RR
 
       def call_original_method
         if subject_has_original_method?
-          subject.__send__(original_method_alias_name, *args, &block)
+          subject.__send__(original_method_alias_name, *args, **kwargs, &block)
         elsif subject_has_original_method_missing?
           call_original_method_missing
         else
-          subject.__send__(:method_missing, method_name, *args, &block)
+          subject.__send__(:method_missing, method_name, *args, **kwargs, &block)
         end
       end
 
@@ -41,12 +45,7 @@ module RR
           call_original_method
         else
           if implementation
-            if implementation.is_a?(Method)
-              implementation.call(*args, &block)
-            else
-              call_args = block ? args + [ProcFromBlock.new(&block)] : args
-              implementation.call(*call_args)
-            end
+            implementation.call(*args, **kwargs, &block)
           else
             nil
           end

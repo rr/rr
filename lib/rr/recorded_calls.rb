@@ -18,8 +18,12 @@ module RR
       recorded_calls.clear
     end
 
-    def add(subject, method_name, arguments, block)
-      recorded_calls << RecordedCall.new(subject, method_name, arguments, block)
+    def add(subject, method_name, arguments, keyword_arguments, block)
+      recorded_calls << RecordedCall.new(subject,
+                                         method_name,
+                                         arguments,
+                                         keyword_arguments,
+                                         block)
     end
 
     def any?(&block)
@@ -81,15 +85,18 @@ module RR
 
     def match_double_injection(spy_verification)
       lambda do |recorded_call|
-        recorded_call[0] == spy_verification.subject &&
-        recorded_call[1] == spy_verification.method_name
+        recorded_call.subject == spy_verification.subject &&
+          recorded_call.method_name == spy_verification.method_name
       end
     end
 
     def match_argument_expectation(spy_verification)
       lambda do |recorded_call|
-        spy_verification.argument_expectation.exact_match?(*recorded_call[2]) ||
-        spy_verification.argument_expectation.wildcard_match?(*recorded_call[2])
+        expectation = spy_verification.argument_expectation
+        arguments = recorded_call.arguments
+        keyword_arguments = recorded_call.keyword_arguments
+        expectation.exact_match?(*arguments, **keyword_arguments) ||
+          expectation.wildcard_match?(*arguments, **keyword_arguments)
       end
     end
 

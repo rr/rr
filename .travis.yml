@@ -13,9 +13,6 @@ matrix:
     - SPEC_OPTS="--require $PWD/spec/custom_formatter_for_rspec_2 --format CustomFormatterForRSpec2
       --backtrace"
     - TARGET="spec:rspec_2"
-  - rvm: 2.4
-    env:
-    - TARGET="test"
   - rvm: 2.5
     env:
     - TARGET="test"
@@ -23,6 +20,9 @@ matrix:
     env:
     - TARGET="test"
   - rvm: 2.7
+    env:
+    - TARGET="test"
+  - rvm: 3.0
     env:
     - TARGET="test"
   - rvm: ruby-head

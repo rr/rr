@@ -33,7 +33,7 @@ module RR
         class Mock < VerificationStrategy
           protected
           def do_call
-            definition.with(*args).once
+            definition.with(*args, **kwargs).once
           end
         end
       end

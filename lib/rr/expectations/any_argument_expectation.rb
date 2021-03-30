@@ -5,11 +5,11 @@ module RR
         super
       end
 
-      def exact_match?(*arguments)
+      def exact_match?(*arguments, **keyword_arguments)
         false
       end
 
-      def wildcard_match?(*arguments)
+      def wildcard_match?(*arguments, **keyword_arguments)
         true
       end
 

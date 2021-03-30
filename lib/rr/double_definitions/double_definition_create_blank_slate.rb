@@ -14,13 +14,13 @@ module RR
         end
       end
 
-      def method_missing(method_name, *args, &block)
-        @double_definition_create.call(method_name, *args, &block)
+      def method_missing(method_name, *args, **kwargs, &block)
+        @double_definition_create.call(method_name, *args, **kwargs, &block)
       end
 
       def __double_definition_create__
         @double_definition_create
       end
-    end    
+    end
   end
 end

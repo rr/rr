@@ -42,8 +42,9 @@ module RR
         # Passing in a block sets the return value.
         #
         #   mock(subject).method_name.with(1, 2) {:return_value}
-        def with(*args, &return_value_block)
-          @argument_expectation = Expectations::ArgumentEqualityExpectation.new(*args)
+        def with(*args, **kwargs, &return_value_block)
+          @argument_expectation =
+            Expectations::ArgumentEqualityExpectation.new(*args, **kwargs)
           install_method_callback return_value_block
           self
         end
@@ -298,18 +299,18 @@ module RR
           @verbose ? true : false
         end
 
-        def exact_match?(*arguments)
+        def exact_match?(*arguments, **keyword_arguments)
           unless @argument_expectation
             raise RR::Errors.build_error(:DoubleDefinitionError, "#argument_expectation must be defined on #{inspect}")
           end
-          @argument_expectation.exact_match?(*arguments)
+          @argument_expectation.exact_match?(*arguments, **keyword_arguments)
         end
 
-        def wildcard_match?(*arguments)
+        def wildcard_match?(*arguments, **keyword_arguments)
           unless @argument_expectation
             raise RR::Errors.build_error(:DoubleDefinitionError, "#argument_expectation must be defined on #{inspect}")
           end
-          @argument_expectation.wildcard_match?(*arguments)
+          @argument_expectation.wildcard_match?(*arguments, **keyword_arguments)
         end
 
         def terminal?
@@ -320,7 +321,19 @@ module RR
         end
 
         def expected_arguments
-          argument_expectation ? argument_expectation.expected_arguments : []
+          if argument_expectation
+            argument_expectation.expected_arguments
+          else
+            []
+          end
+        end
+
+        def expected_keyword_arguments
+          if argument_expectation
+            argument_expectation.expected_keyword_arguments
+          else
+            {}
+          end
         end
 
         def implementation_is_original_method?

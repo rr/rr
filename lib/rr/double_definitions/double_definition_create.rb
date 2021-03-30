@@ -30,11 +30,11 @@ module RR
         @double_injection_strategy = self.class.default_double_injection_strategy.call(self)
       end
 
-      def call(method_name, *args, &handler)
+      def call(method_name, *args, **kwargs, &handler)
         definition = DoubleDefinition.new(self)
-        verification_strategy.call(definition, method_name, args, handler)
-        implementation_strategy.call(definition, method_name, args, handler)
-        double_injection_strategy.call(definition, method_name, args, handler)
+        verification_strategy.call(definition, method_name, args, kwargs, handler)
+        implementation_strategy.call(definition, method_name, args, kwargs, handler)
+        double_injection_strategy.call(definition, method_name, args, kwargs, handler)
         definition
       end
 
