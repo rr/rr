@@ -15,7 +15,7 @@ module RR
       def call
         space.record_call(subject, method_name, args, kwargs, block)
         if double
-          double.method_call(args)
+          double.method_call(args, kwargs)
           call_yields
           return_value_1 = call_implementation
           return_value_2 = extract_subject_from_return_value(return_value_1)
