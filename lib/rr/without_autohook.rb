@@ -87,6 +87,8 @@ require 'rr/spy_verification'
 
 require 'rr/integrations'
 require 'rr/integrations/decorator'
+require 'rr/integrations/rspec/invocation_matcher'
+require 'rr/integrations/rspec_2'
 require 'rr/integrations/minitest_4'
 require 'rr/integrations/minitest_4_active_support'
 require 'rr/integrations/minitest'

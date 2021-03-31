@@ -51,6 +51,10 @@ mock(MyClass).foo(1, 2) { 'bar' }
 ### Spies
 
 ~~~ ruby
+# RSpec
+stub(object).foo
+expect(object).to have_received.foo
+
 # Test::Unit
 stub(object).foo
 assert_received(object) {|o| o.foo }
@@ -152,6 +156,7 @@ RR is designed and tested to work against the following Ruby versions:
 as well as the following test frameworks:
 
 * Test::Unit via [test-unit-rr](https://test-unit.github.io/#test-unit-rr)
+* RSpec 2
 * MiniTest 4
 * Minitest 5
 
