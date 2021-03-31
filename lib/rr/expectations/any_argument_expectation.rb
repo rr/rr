@@ -2,14 +2,14 @@ module RR
   module Expectations
     class AnyArgumentExpectation < ArgumentEqualityExpectation #:nodoc:
       def initialize
-        super
+        super([], {})
       end
 
-      def exact_match?(*arguments, **keyword_arguments)
+      def exact_match?(arguments, keyword_arguments)
         false
       end
 
-      def wildcard_match?(*arguments, **keyword_arguments)
+      def wildcard_match?(arguments, keyword_arguments)
         true
       end
 

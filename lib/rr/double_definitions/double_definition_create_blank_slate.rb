@@ -14,8 +14,14 @@ module RR
         end
       end
 
-      def method_missing(method_name, *args, **kwargs, &block)
-        @double_definition_create.call(method_name, *args, **kwargs, &block)
+      if KeywordArguments.fully_supported?
+        def method_missing(method_name, *args, **kwargs, &block)
+          @double_definition_create.call(method_name, args, kwargs, &block)
+        end
+      else
+        def method_missing(method_name, *args, &block)
+          @double_definition_create.call(method_name, args, {}, &block)
+        end
       end
 
       def __double_definition_create__

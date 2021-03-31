@@ -32,8 +32,14 @@ module RR
         #   end
         class Mock < VerificationStrategy
           protected
-          def do_call
-            definition.with(*args, **kwargs).once
+          if KeywordArguments.fully_supported?
+            def do_call
+              definition.with(*args, **kwargs).once
+            end
+          else
+            def do_call
+              definition.with(*args).once
+            end
           end
         end
       end

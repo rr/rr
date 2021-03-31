@@ -47,14 +47,25 @@ module RR
         end
       end
 
-      def call_original_method_missing
-        subject.__send__(
-          MethodMissingDispatch.original_method_missing_alias_name,
-          method_name,
-          *args,
-          **kwargs,
-          &block
-        )
+      if KeywordArguments.fully_supported?
+        def call_original_method_missing
+          subject.__send__(
+            MethodMissingDispatch.original_method_missing_alias_name,
+            method_name,
+            *args,
+            **kwargs,
+            &block
+          )
+        end
+      else
+        def call_original_method_missing
+          subject.__send__(
+            MethodMissingDispatch.original_method_missing_alias_name,
+            method_name,
+            *args,
+            &block
+          )
+        end
       end
 
       def implementation_is_original_method?

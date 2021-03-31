@@ -32,11 +32,21 @@ module RR
           raise NotImplementedError
         end
 
-        def permissive_argument
-          if args.empty? and kwargs.empty?
-            definition.with_any_args
-          else
-            definition.with(*args, **kwargs)
+        if KeywordArguments.fully_supported?
+          def permissive_argument
+            if args.empty? and kwargs.empty?
+              definition.with_any_args
+            else
+              definition.with(*args, **kwargs)
+            end
+          end
+        else
+          def permissive_argument
+            if args.empty?
+              definition.with_any_args
+            else
+              definition.with(*args)
+            end
           end
         end
 

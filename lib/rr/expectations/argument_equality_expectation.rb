@@ -12,24 +12,35 @@ module RR
       attr_reader :expected_arguments
       attr_reader :expected_keyword_arguments
 
-      def initialize(*expected_arguments,
-                     **expected_keyword_arguments)
+      def initialize(expected_arguments,
+                     expected_keyword_arguments)
         @expected_arguments = expected_arguments
         @expected_keyword_arguments = expected_keyword_arguments
       end
 
-      def exact_match?(*arguments, **keyword_arguments)
-        unless self.class.recursive_safe_eq(expected_arguments,arguments)
+      def exact_match?(arguments, keyword_arguments)
+        return false unless arguments.length == expected_arguments.length
+        arguments.each_with_index do |arg, index|
+          expected_arg = expected_arguments[index]
+          return false unless self.class.recursive_safe_eq(expected_arg, arg)
+        end
+        keywords = keyword_arguments.keys
+        expected_keywords = expected_keyword_arguments.keys
+        unless keywords.length == expected_keywords.length
           return false
         end
-        unless self.class.recursive_safe_eq(expected_keyword_arguments,
-                                            keyword_arguments)
-          return false
+        keywords.each do |keyword|
+          keyword_argument = keyword_arguments[keyword]
+          expected_keyword_argument = expected_keyword_arguments[keyword]
+          unless self.class.recursive_safe_eq(expected_keyword_argument,
+                                              keyword_argument)
+            return false
+          end
         end
         true
       end
 
-      def wildcard_match?(*arguments, **keyword_arguments)
+      def wildcard_match?(arguments, keyword_arguments)
         return false unless arguments.length == expected_arguments.length
         arguments.each_with_index do |arg, index|
           expected_argument = expected_arguments[index]

@@ -152,20 +152,37 @@ module RR
         id = BoundObjects.size
         BoundObjects[id] = subject_class
 
-        subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
-          def #{method_name}(*args, **kwargs, &block)
-            arguments = MethodArguments.new(args, kwargs, block)
-            obj = ::RR::Injections::DoubleInjection::BoundObjects[#{id}]
-            ::RR::Injections::DoubleInjection.dispatch_method(
-              self,
-              obj,
-              :#{method_name},
-              arguments.arguments,
-              arguments.keyword_arguments,
-              arguments.block
-            )
-          end
-        RUBY
+        if KeywordArguments.fully_supported?
+          subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
+            def #{method_name}(*args, **kwargs, &block)
+              arguments = MethodArguments.new(args, kwargs, block)
+              obj = ::RR::Injections::DoubleInjection::BoundObjects[#{id}]
+              ::RR::Injections::DoubleInjection.dispatch_method(
+                self,
+                obj,
+                :#{method_name},
+                arguments.arguments,
+                arguments.keyword_arguments,
+                arguments.block
+              )
+            end
+          RUBY
+        else
+          subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
+            def #{method_name}(*args, &block)
+              arguments = MethodArguments.new(args, {}, block)
+              obj = ::RR::Injections::DoubleInjection::BoundObjects[#{id}]
+              ::RR::Injections::DoubleInjection.dispatch_method(
+                self,
+                obj,
+                :#{method_name},
+                arguments.arguments,
+                arguments.keyword_arguments,
+                arguments.block
+              )
+            end
+          RUBY
+        end
         self
       end
 

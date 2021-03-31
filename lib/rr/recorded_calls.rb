@@ -95,15 +95,18 @@ module RR
         expectation = spy_verification.argument_expectation
         arguments = recorded_call.arguments
         keyword_arguments = recorded_call.keyword_arguments
-        expectation.exact_match?(*arguments, **keyword_arguments) ||
-          expectation.wildcard_match?(*arguments, **keyword_arguments)
+        expectation.exact_match?(arguments, keyword_arguments) ||
+          expectation.wildcard_match?(arguments, keyword_arguments)
       end
     end
 
     def invocation_count_error(spy_verification, matching_recorded_calls)
+      method_name = spy_verification.method_name
+      arguments = spy_verification.argument_expectation.expected_arguments
+      keyword_arguments = spy_verification.argument_expectation.expected_keyword_arguments
       RR::Errors.build_error(RR::Errors::SpyVerificationErrors::InvocationCountError,
         "On subject #{spy_verification.subject.inspect}\n" <<
-        "Expected #{Double.formatted_name(spy_verification.method_name, spy_verification.argument_expectation.expected_arguments)}\n" <<
+        "Expected #{Double.formatted_name(method_name, arguments, keyword_arguments)}\n" <<
         "to be called #{spy_verification.times_matcher.expected_times_message},\n" <<
         "but was called #{matching_recorded_calls.size} times.\n" <<
         "All of the method calls related to Doubles are:\n" <<

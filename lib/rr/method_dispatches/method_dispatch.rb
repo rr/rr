@@ -31,20 +31,18 @@ module RR
 
       def call_original_method
         if subject_has_original_method?
-          # For Ruby 2.5 or earlier
-          if kwargs.empty?
-            subject.__send__(original_method_alias_name, *args,&block)
-          else
+          if KeywordArguments.fully_supported?
             subject.__send__(original_method_alias_name, *args, **kwargs, &block)
+          else
+            subject.__send__(original_method_alias_name, *args, &block)
           end
         elsif subject_has_original_method_missing?
           call_original_method_missing
         else
-          # For Ruby 2.5 or earlier
-          if kwargs.empty?
-            subject.__send__(:method_missing, method_name, *args, &block)
-          else
+          if KeywordArguments.fully_supported?
             subject.__send__(:method_missing, method_name, *args, **kwargs, &block)
+          else
+            subject.__send__(:method_missing, method_name, *args, &block)
           end
         end
       end
@@ -55,11 +53,10 @@ module RR
           call_original_method
         else
           if implementation
-            # For Ruby 2.5 or earlier
-            if kwargs.empty?
-              implementation.call(*args, &block)
-            else
+            if KeywordArguments.fully_supported?
               implementation.call(*args, **kwargs, &block)
+            else
+              implementation.call(*args, &block)
             end
           else
             nil

@@ -223,7 +223,7 @@ module RR
 
               describe "#subject.method_name being called" do
                 it "returns the return value of the Double#returns block" do
-                  double_definition_create.call(:foobar, 1, 2) {:baz}
+                  double_definition_create.call(:foobar, [1, 2], {}) {:baz}
                   expect(subject.foobar(1, 2)).to eq :baz
                 end
               end
@@ -254,7 +254,7 @@ module RR
                       original_method_called = true
                     end
                   end
-                  double_definition_create.call(:foobar, 1, 2)
+                  double_definition_create.call(:foobar, [1, 2], {})
                   subject.foobar(1, 2)
                   expect(original_method_called).to be_true
                 end
@@ -264,7 +264,7 @@ module RR
                     def subject.foobar(*args)
                       :baz;
                     end
-                    double_definition_create.call(:foobar, 1, 2)
+                    double_definition_create.call(:foobar, [1, 2], {})
                     expect(subject.foobar(1, 2)).to eq :baz
                   end
                 end
@@ -279,7 +279,7 @@ module RR
                   end
 
                   it "calls the block with the return value of the original method" do
-                    double_definition_create.call(:foobar, 1, 2) do |value|
+                    double_definition_create.call(:foobar, [1, 2], {}) do |value|
                       mock(value).a_method {99}
                       value
                     end
@@ -288,7 +288,7 @@ module RR
                   end
 
                   it "returns the return value of the block" do
-                    double_definition_create.call(:foobar, 1, 2) do |value|
+                    double_definition_create.call(:foobar, [1, 2], {}) do |value|
                       :something_else
                     end
                     expect(subject.foobar(1, 2)).to eq :something_else
@@ -306,7 +306,7 @@ module RR
 
               context "when not passed a block" do
                 it "returns nil" do
-                  double_definition_create.call(:foobar)
+                  double_definition_create.call(:foobar, [], {})
                   expect(subject.foobar).to be_nil
                 end
               end
@@ -314,7 +314,7 @@ module RR
               context "when passed a block" do
                 describe "#subject.method_name being called" do
                   it "returns the return value of the block" do
-                    double_definition_create.call(:foobar) {:baz}
+                    double_definition_create.call(:foobar, [], {}) {:baz}
                     expect(subject.foobar).to eq :baz
                   end
                 end
@@ -323,7 +323,7 @@ module RR
               context "when not passed args" do
                 describe "#subject.method_name being called with any arguments" do
                   it "invokes the implementation of the Stub" do
-                    double_definition_create.call(:foobar) {:baz}
+                    double_definition_create.call(:foobar, [], {}) {:baz}
                     expect(subject.foobar(1, 2)).to eq :baz
                     expect(subject.foobar()).to eq :baz
                     expect(subject.foobar([])).to eq :baz
@@ -334,14 +334,14 @@ module RR
               context "when passed args" do
                 describe "#subject.method_name being called with the passed-in arguments" do
                   it "invokes the implementation of the Stub" do
-                    double_definition_create.call(:foobar, 1, 2) {:baz}
+                    double_definition_create.call(:foobar, [1, 2], {}) {:baz}
                     expect(subject.foobar(1, 2)).to eq :baz
                   end
                 end
 
                 describe "#subject.method_name being called with different arguments" do
                   it "raises a DoubleNotFoundError" do
-                    double_definition_create.call(:foobar, 1, 2) {:baz}
+                    double_definition_create.call(:foobar, [1, 2], {}) {:baz}
                     expect {
                       subject.foobar
                     }.to raise_error(RR::Errors::DoubleNotFoundError)
@@ -362,7 +362,7 @@ module RR
               context "when not passed a block" do
                 describe "#subject.method_name being called" do
                   it "invokes the original implementanion" do
-                    double_definition_create.call(:foobar)
+                    double_definition_create.call(:foobar, [], {})
                     expect(subject.foobar).to eq :original_return_value
                   end
                 end
@@ -372,7 +372,7 @@ module RR
                 describe "#subject.method_name being called" do
                   it "invokes the original implementanion and invokes the block with the return value of the original implementanion" do
                     passed_in_value = nil
-                    double_definition_create.call(:foobar) do |original_return_value|
+                    double_definition_create.call(:foobar, [], {}) do |original_return_value|
                       passed_in_value = original_return_value
                     end
                     subject.foobar
@@ -380,7 +380,7 @@ module RR
                   end
 
                   it "returns the return value of the block" do
-                    double_definition_create.call(:foobar) do |original_return_value|
+                    double_definition_create.call(:foobar, [], {}) do |original_return_value|
                       :new_return_value
                     end
                     expect(subject.foobar).to eq :new_return_value
@@ -391,14 +391,14 @@ module RR
               context "when passed args" do
                 describe "#subject.method_name being called with the passed-in arguments" do
                   it "invokes the implementation of the Stub" do
-                    double_definition_create.call(:foobar, 1, 2) {:baz}
+                    double_definition_create.call(:foobar, [1, 2], {}) {:baz}
                     expect(subject.foobar(1, 2)).to eq :baz
                   end
                 end
 
                 describe "#subject.method_name being called with different arguments" do
                   it "raises a DoubleNotFoundError" do
-                    double_definition_create.call(:foobar, 1, 2) {:baz}
+                    double_definition_create.call(:foobar, [1, 2], {}) {:baz}
                     expect {
                       subject.foobar
                     }.to raise_error(RR::Errors::DoubleNotFoundError)
@@ -416,7 +416,7 @@ module RR
             context "when not passed args" do
               describe "#subject.method_name being called with any arguments" do
                 it "raises a TimesCalledError" do
-                  double_definition_create.call(:foobar)
+                  double_definition_create.call(:foobar, [], {})
                   expect { subject.foobar }.to raise_error(RR::Errors::TimesCalledError)
                   expect { subject.foobar(1, 2) }.to raise_error(RR::Errors::TimesCalledError)
                 end
@@ -426,14 +426,14 @@ module RR
             context "when passed args" do
               describe "#subject.method_name being called with the passed-in arguments" do
                 it "raises a TimesCalledError" do
-                  double_definition_create.call(:foobar, 1, 2)
+                  double_definition_create.call(:foobar, [1, 2], {})
                   expect { subject.foobar(1, 2) }.to raise_error(RR::Errors::TimesCalledError)
                 end
               end
 
               describe "#subject.method_name being called with different arguments" do
                 it "raises a DoubleNotFoundError" do
-                  double_definition_create.call(:foobar, 1, 2)
+                  double_definition_create.call(:foobar, [1, 2], {})
                   expect { subject.foobar() }.to raise_error(RR::Errors::DoubleNotFoundError)
                 end
               end

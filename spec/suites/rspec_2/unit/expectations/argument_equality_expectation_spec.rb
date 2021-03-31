@@ -5,7 +5,7 @@ module RR
     describe ArgumentEqualityExpectation do
       attr_reader :expectation
       before do
-        @expectation = ArgumentEqualityExpectation.new(1, 2, 3)
+        @expectation = ArgumentEqualityExpectation.new([1, 2, 3], {})
       end
 
       describe "#expected_arguments" do
@@ -16,30 +16,30 @@ module RR
 
       describe "==" do
         it "returns true when passed in expected_arguments are equal" do
-          expect(expectation).to eq ArgumentEqualityExpectation.new(1, 2, 3)
+          expect(expectation).to eq ArgumentEqualityExpectation.new([1, 2, 3], {})
         end
 
         it "returns false when passed in expected_arguments are not equal" do
-          expect(expectation).to_not eq ArgumentEqualityExpectation.new(1, 2)
-          expect(expectation).to_not eq ArgumentEqualityExpectation.new(1)
-          expect(expectation).to_not eq ArgumentEqualityExpectation.new(:something)
-          expect(expectation).to_not eq ArgumentEqualityExpectation.new()
+          expect(expectation).to_not eq ArgumentEqualityExpectation.new([1, 2], {})
+          expect(expectation).to_not eq ArgumentEqualityExpectation.new([1], {})
+          expect(expectation).to_not eq ArgumentEqualityExpectation.new([:something], {})
+          expect(expectation).to_not eq ArgumentEqualityExpectation.new([], {})
         end
       end
 
       describe "#exact_match?" do
         context "when all arguments exactly match" do
           it "returns true" do
-            expect(expectation).to be_exact_match(1, 2, 3)
+            expect(expectation).to be_exact_match([1, 2, 3], {})
           end
         end
 
         context "when all arguments do not exactly match" do
           it "returns false" do
-            expectation.should_not be_exact_match(1, 2)
-            expectation.should_not be_exact_match(1)
-            expectation.should_not be_exact_match()
-            expectation.should_not be_exact_match("does not match")
+            expectation.should_not be_exact_match([1, 2], {})
+            expectation.should_not be_exact_match([1], {})
+            expectation.should_not be_exact_match([], {})
+            expectation.should_not be_exact_match(["does not match"], {})
           end
         end
       end
@@ -47,26 +47,26 @@ module RR
       describe "#wildcard_match?" do
         context "when not an exact match" do
           it "returns false" do
-            expectation = ArgumentEqualityExpectation.new(1)
-            expectation.should_not be_wildcard_match(1, 2, 3)
-            expectation.should_not be_wildcard_match("whatever")
-            expectation.should_not be_wildcard_match("whatever", "else")
+            expectation = ArgumentEqualityExpectation.new([1], {})
+            expectation.should_not be_wildcard_match([1, 2, 3], {})
+            expectation.should_not be_wildcard_match(["whatever"], {})
+            expectation.should_not be_wildcard_match(["whatever", "else"], {})
           end
         end
 
         context "when an exact match" do
           it "returns true" do
-            expectation = ArgumentEqualityExpectation.new(1, 2)
-            expect(expectation).to be_wildcard_match(1, 2)
-            expectation.should_not be_wildcard_match(1)
-            expectation.should_not be_wildcard_match("whatever", "else")
+            expectation = ArgumentEqualityExpectation.new([1, 2], {})
+            expect(expectation).to be_wildcard_match([1, 2], {})
+            expectation.should_not be_wildcard_match([1], {})
+            expectation.should_not be_wildcard_match(["whatever", "else"], {})
           end
         end
 
         context "when not passed correct number of arguments" do
           it "returns false" do
-            expectation.should_not be_wildcard_match()
-            expectation.should_not be_wildcard_match(Object.new, Object.new)
+            expectation.should_not be_wildcard_match([], {})
+            expectation.should_not be_wildcard_match([Object.new, Object.new], {})
           end
         end
       end

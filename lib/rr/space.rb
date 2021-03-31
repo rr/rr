@@ -13,13 +13,14 @@ module RR
       end
       attr_writer :instance
 
-    protected
-      def method_missing(method_name, *args, **kwargs, &block)
-        # For Ruby 2.5 or earlier
-        if kwargs.empty?
-          instance.__send__(method_name, *args, &block)
-        else
+      protected
+      if KeywordArguments.fully_supported?
+        def method_missing(method_name, *args, **kwargs, &block)
           instance.__send__(method_name, *args, **kwargs, &block)
+        end
+      else
+        def method_missing(method_name, *args, &block)
+          instance.__send__(method_name, *args, &block)
         end
       end
     end

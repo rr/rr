@@ -38,14 +38,14 @@ module RR
 
     # Double#exact_match? returns true when the passed in arguments
     # exactly match the ArgumentEqualityExpectation arguments.
-    def exact_match?(*arguments, **keyword_arguments)
-      definition.exact_match?(*arguments, **keyword_arguments)
+    def exact_match?(arguments, keyword_arguments)
+      definition.exact_match?(arguments, keyword_arguments)
     end
 
     # Double#wildcard_match? returns true when the passed in arguments
     # wildcard match the ArgumentEqualityExpectation arguments.
-    def wildcard_match?(*arguments, **keyword_arguments)
-      definition.wildcard_match?(*arguments, **keyword_arguments)
+    def wildcard_match?(arguments, keyword_arguments)
+      definition.wildcard_match?(arguments, keyword_arguments)
     end
 
     # Double#attempt? returns true when the

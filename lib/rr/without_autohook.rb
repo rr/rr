@@ -6,6 +6,8 @@ require 'rr/core_ext/array'
 require 'rr/core_ext/range'
 require 'rr/core_ext/regexp'
 
+require 'rr/keyword_arguments'
+
 require 'rr/class_instance_method_defined'
 require 'rr/blank_slate'
 

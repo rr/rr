@@ -71,28 +71,43 @@ module RR
         id = BoundObjects.size
         BoundObjects[id] = subject_class
 
-        subject_class.class_eval((<<-METHOD), __FILE__, __LINE__ + 1)
-          def method_missing(method_name, *args, **kwargs, &block)
-            if respond_to_missing?(method_name, true)
-              # For Ruby 2.5 or earlier
-              if kwargs.empty?
+        if KeywordArguments.fully_supported?
+          subject_class.class_eval((<<-METHOD), __FILE__, __LINE__ + 1)
+            def method_missing(method_name, *args, **kwargs, &block)
+              if respond_to_missing?(method_name, true)
+                super(method_name, *args, **kwargs, &block)
+              else
+                obj = ::RR::Injections::MethodMissingInjection::BoundObjects[#{id}]
+                MethodDispatches::MethodMissingDispatch.new(
+                  self,
+                  obj,
+                  method_name,
+                  args,
+                  kwargs,
+                  block
+                ).call
+              end
+            end
+          METHOD
+        else
+          subject_class.class_eval((<<-METHOD), __FILE__, __LINE__ + 1)
+            def method_missing(method_name, *args, &block)
+              if respond_to_missing?(method_name, true)
                 super(method_name, *args, &block)
               else
-                super(method_name, *args, **kwargs, &block)
+                obj = ::RR::Injections::MethodMissingInjection::BoundObjects[#{id}]
+                MethodDispatches::MethodMissingDispatch.new(
+                  self,
+                  obj,
+                  method_name,
+                  args,
+                  {},
+                  block
+                ).call
               end
-            else
-              obj = ::RR::Injections::MethodMissingInjection::BoundObjects[#{id}]
-              MethodDispatches::MethodMissingDispatch.new(
-                self,
-                obj,
-                method_name,
-                args,
-                kwargs,
-                block
-              ).call
             end
-          end
-        METHOD
+          METHOD
+        end
       end
 
       def original_method_alias_name
