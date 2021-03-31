@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  spec:
+    image: ruby:2.0
+    volumes:
+      - .:/rr:delegated
+    command:
+      /rr/docker/run-spec.sh
