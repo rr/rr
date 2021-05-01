@@ -151,6 +151,7 @@ RR is designed and tested to work against the following Ruby versions:
 * 2.5
 * 2.6
 * 2.7
+* 3.0
 * JRuby 1.7.4
 
 as well as the following test frameworks:
