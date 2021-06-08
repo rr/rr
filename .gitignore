@@ -1,12 +1,5 @@
-.*
-!.travis.yml
-!.rbenv-version
-!.rvmrc
-!.rspec
-!.gitignore
-!.ruby-version
-Gemfile.lock
-coverage
-pkg
-spec/tmp
-tmp
+/Gemfile.lock
+/coverage
+/pkg
+/spec/tmp
+/tmp
