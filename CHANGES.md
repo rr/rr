@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.1 - 2021-06-18
+
+### Improvements
+
+  * Suppressed keyword arguments related warnings on Ruby 2.7.
+    [GitHub#81][Reported by akira yamada]
+
+### Thanks
+
+  * akira yamada
+
 ## 3.0.0 - 2021-03-31
 
 ### Improvements
