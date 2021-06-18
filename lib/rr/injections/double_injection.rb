@@ -137,14 +137,25 @@ module RR
         id = BoundObjects.size
         BoundObjects[id] = subject_class
 
-        subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
-          def #{method_name}(*args, &block)
-            ::RR::Injections::DoubleInjection::BoundObjects[#{id}].class_eval do
-              remove_method(:#{method_name})
+        if KeywordArguments.fully_supported?
+          subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
+            def #{method_name}(*args, **kwargs, &block)
+              ::RR::Injections::DoubleInjection::BoundObjects[#{id}].class_eval do
+                remove_method(:#{method_name})
+              end
+              method_missing(:#{method_name}, *args, **kwargs, &block)
             end
-            method_missing(:#{method_name}, *args, &block)
-          end
-        RUBY
+          RUBY
+        else
+          subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
+            def #{method_name}(*args, &block)
+              ::RR::Injections::DoubleInjection::BoundObjects[#{id}].class_eval do
+                remove_method(:#{method_name})
+              end
+              method_missing(:#{method_name}, *args, &block)
+            end
+          RUBY
+        end
         self
       end
 
