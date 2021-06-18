@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.2 - 2021-06-18
+
+### Improvements
+
+  * `stub`: Added support for Ruby 3.0's keyword arguments.
+    [GitHub#82][Reported by akira yamada]
+
+### Thanks
+
+  * akira yamada
+
 ## 3.0.1 - 2021-06-18
 
 ### Improvements
