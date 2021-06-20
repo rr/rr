@@ -31,7 +31,7 @@ module RR
 
       def call_original_method
         if subject_has_original_method?
-          if KeywordArguments.fully_supported?
+          if KeywordArguments.fully_supported? && !kwargs.empty?
             subject.__send__(original_method_alias_name, *args, **kwargs, &block)
           else
             subject.__send__(original_method_alias_name, *args, &block)
@@ -53,7 +53,7 @@ module RR
           call_original_method
         else
           if implementation
-            if KeywordArguments.fully_supported?
+            if KeywordArguments.fully_supported? && kwargs.empty?
               implementation.call(*args, **kwargs, &block)
             else
               implementation.call(*args, &block)
