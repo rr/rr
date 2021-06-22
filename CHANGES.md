@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.3 - 2021-06-22
+
+### Improvements
+
+  * Improved keyword arguments support.
+    [GitHub#83][Patch by akira yamada]
+
+### Thanks
+
+  * akira yamada
+
 ## 3.0.2 - 2021-06-18
 
 ### Improvements
