@@ -1,51 +1,101 @@
 class TestMockProxyKwargs < Test::Unit::TestCase
-  class C
-    def m1(a, b)
-      [a, b]
-    end
-
-    def m2(a, **b)
-      [a, b]
-    end
-
-    def m3(*a)
-      [a]
-    end
-
-    def m4(*a, **b)
-      [a, b]
-    end
-
-    def m5(a, *b)
-      [a, b]
-    end
-
-    def m6(*a, b)
-      [a, b]
+  def call_method(object, style)
+    case style
+    when :kwargs
+      object.call(1, a: 2)
+    when :hash
+      object.call(1, {a: 2})
+    when :kwrest
+      object.call(1, **{a: 2})
     end
   end
 
-  setup do
-    @obj1 = C.new
-    @obj2 = C.new
-  end
-
-  prefix = { req: '', rest: '*', keyrest: '**' }
-  %i[m1 m2 m3 m4 m5 m6].each do |method|
-    sig = C.instance_method(method).parameters
-      .map { |t, n| "#{prefix[t]}#{n}" }
-      .join(', ')
-    data(:args, ['1, a: 2', '1, { a: 2 }', '1, **{ a: 2 }'])
-    test "#{method}(#{sig})" do
-      eval("proxy.mock(@obj2).#{method}.with_any_args", binding, __FILE__, __LINE__)
-
-      val1, val2 = %w[obj1 obj2].map do |var|
-        eval("@#{var}.#{method}(#{data[:args]})", binding, __FILE__, __LINE__)
-      rescue => e
-        { class: e.class, message: e.message }
+  data(:style, [:kwargs, :hash, :kwrest], keep: true)
+  test "a, b" do
+    klass = Class.new do
+      def call(a, b)
+        [a, b]
       end
-
-      assert_equal(val1, val2)
     end
+    obj1 = klass.new
+    obj2 = klass.new
+    proxy.mock(obj2).call.with_any_args
+    assert_equal(call_method(obj1, data[:style]),
+                 call_method(obj2, data[:style]))
+  end
+
+  test "a, **b" do
+    klass = Class.new do
+      def call(a, **b)
+        [a, b]
+      end
+    end
+    obj1 = klass.new
+    obj2 = klass.new
+    proxy.mock(obj2).call.with_any_args
+    case data[:style]
+    when :hash
+      assert_raise(ArgumentError) do
+        obj1.call(1, {a: 2})
+      end
+      assert_raise(ArgumentError) do
+        obj2.call(1, {a: 2})
+      end
+    else
+      assert_equal(call_method(obj1, data[:style]),
+                   call_method(obj2, data[:style]))
+    end
+  end
+
+  test "*a" do
+    klass = Class.new do
+      def call(*a)
+        [a]
+      end
+    end
+    obj1 = klass.new
+    obj2 = klass.new
+    proxy.mock(obj2).call.with_any_args
+    assert_equal(call_method(obj1, data[:style]),
+                 call_method(obj2, data[:style]))
+  end
+
+  test "*a, **b" do
+    klass = Class.new do
+      def call(*a, **b)
+        [a, b]
+      end
+    end
+    obj1 = klass.new
+    obj2 = klass.new
+    proxy.mock(obj2).call.with_any_args
+    assert_equal(call_method(obj1, data[:style]),
+                 call_method(obj2, data[:style]))
+  end
+
+  test "a, *b" do
+    klass = Class.new do
+      def call(a, *b)
+        [a, b]
+      end
+    end
+    obj1 = klass.new
+    obj2 = klass.new
+    proxy.mock(obj2).call.with_any_args
+    assert_equal(call_method(obj1, data[:style]),
+                 call_method(obj2, data[:style]))
+  end
+
+  test "*a, b" do
+    klass = Class.new do
+      def call(*a, b)
+        [a, b]
+      end
+    end
+    obj1 = klass.new
+    obj2 = klass.new
+    proxy.mock(obj2).call.with_any_args
+    assert_equal(call_method(obj1, data[:style]),
+                 call_method(obj2, data[:style]))
   end
 end
