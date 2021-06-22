@@ -53,7 +53,7 @@ module RR
           call_original_method
         else
           if implementation
-            if KeywordArguments.fully_supported? && kwargs.empty?
+            if KeywordArguments.fully_supported? && !kwargs.empty?
               implementation.call(*args, **kwargs, &block)
             else
               implementation.call(*args, &block)
