@@ -10,6 +10,12 @@ module RR
           false
         end
       end
+
+      def accept_kwargs?(subject_class, method_name)
+        subject_class.instance_method(method_name).parameters.any? { |t, _| t == :key || t == :keyrest }
+      rescue NameError
+        true
+      end
     end
   end
 end

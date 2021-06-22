@@ -52,7 +52,7 @@ module RR
           if double_injection = Injections::DoubleInjection.find(subject_class, method_name)
             double_injection.bind_method
             # The DoubleInjection takes care of calling double.method_call
-            if KeywordArguments.fully_supported?
+            if KeywordArguments.fully_supported? && !kwargs.empty?
               subject.__send__(method_name, *args, **kwargs, &block)
             else
               subject.__send__(method_name, *args, &block)

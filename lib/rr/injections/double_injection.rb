@@ -137,7 +137,7 @@ module RR
         id = BoundObjects.size
         BoundObjects[id] = subject_class
 
-        if KeywordArguments.fully_supported?
+        if KeywordArguments.fully_supported? && KeywordArguments.accept_kwargs?(subject_class, method_name)
           subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
             def #{method_name}(*args, **kwargs, &block)
               ::RR::Injections::DoubleInjection::BoundObjects[#{id}].class_eval do
@@ -163,7 +163,7 @@ module RR
         id = BoundObjects.size
         BoundObjects[id] = subject_class
 
-        if KeywordArguments.fully_supported?
+        if KeywordArguments.fully_supported? && KeywordArguments.accept_kwargs?(subject_class, method_name)
           subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
             def #{method_name}(*args, **kwargs, &block)
               arguments = MethodArguments.new(args, kwargs, block)
