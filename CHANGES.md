@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.4 - 2021-06-23
+
+### Fixes
+
+  * Fix inverted condition in keyword arguments related code.
+    [GitHub#84][Patch by akira yamada]
+
+### Thanks
+
+  * akira yamada
+
 ## 3.0.3 - 2021-06-22
 
 ### Improvements
