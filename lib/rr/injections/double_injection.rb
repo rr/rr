@@ -137,25 +137,14 @@ module RR
         id = BoundObjects.size
         BoundObjects[id] = subject_class
 
-        if KeywordArguments.fully_supported? && KeywordArguments.accept_kwargs?(subject_class, method_name)
-          subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
-            def #{method_name}(*args, **kwargs, &block)
-              ::RR::Injections::DoubleInjection::BoundObjects[#{id}].class_eval do
-                remove_method(:#{method_name})
-              end
-              method_missing(:#{method_name}, *args, **kwargs, &block)
+        subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
+          def #{method_name}(*args, &block)
+            ::RR::Injections::DoubleInjection::BoundObjects[#{id}].class_eval do
+              remove_method(:#{method_name})
             end
-          RUBY
-        else
-          subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
-            def #{method_name}(*args, &block)
-              ::RR::Injections::DoubleInjection::BoundObjects[#{id}].class_eval do
-                remove_method(:#{method_name})
-              end
-              method_missing(:#{method_name}, *args, &block)
-            end
-          RUBY
-        end
+            method_missing(:#{method_name}, *args, &block)
+          end
+        RUBY
         self
       end
 
@@ -163,7 +152,7 @@ module RR
         id = BoundObjects.size
         BoundObjects[id] = subject_class
 
-        if KeywordArguments.fully_supported? && KeywordArguments.accept_kwargs?(subject_class, method_name)
+        if KeywordArguments.fully_supported?
           subject_class.class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
             def #{method_name}(*args, **kwargs, &block)
               arguments = MethodArguments.new(args, kwargs, block)
