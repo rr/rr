@@ -22,6 +22,7 @@ module RR
         def method_missing(method_name, *args, &block)
           @double_definition_create.call(method_name, args, {}, &block)
         end
+        ruby2_keywords(:method_missing) if respond_to?(:ruby2_keywords, true)
       end
 
       def __double_definition_create__

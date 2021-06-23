@@ -144,6 +144,7 @@ module RR
             end
             method_missing(:#{method_name}, *args, &block)
           end
+          ruby2_keywords(:#{method_name}) if respond_to?(:ruby2_keywords, true)
         RUBY
         self
       end
@@ -181,6 +182,7 @@ module RR
                 arguments.block
               )
             end
+            ruby2_keywords(:#{method_name}) if respond_to?(:ruby2_keywords, true)
           RUBY
         end
         self
