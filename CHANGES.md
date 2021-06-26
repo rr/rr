@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.5 - 2021-06-26
+
+### Improvements
+
+  * Improved keyword arguments support on Ruby 2.7.
+    [GitHub#85][Patch by akira yamada]
+
+### Thanks
+
+  * akira yamada
+
 ## 3.0.4 - 2021-06-23
 
 ### Fixes
