@@ -22,6 +22,7 @@ module RR
         def method_missing(method_name, *args, &block)
           instance.__send__(method_name, *args, &block)
         end
+        ruby2_keywords(:method_missing) if respond_to?(:ruby2_keywords, true)
       end
     end
 

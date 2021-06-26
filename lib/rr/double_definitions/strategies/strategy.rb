@@ -36,8 +36,6 @@ module RR
           def permissive_argument
             if args.empty? and kwargs.empty?
               definition.with_any_args
-            elsif kwargs.empty?
-              definition.with(*args)
             else
               definition.with(*args, **kwargs)
             end
