@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.6 - 2021-08-07
+
+### Improvements
+
+  * `assert_received`: Add support for keyword arguments.
+    [GitHub#86][Reported by imadoki]
+
+### Thanks
+
+  * imadoki
+
 ## 3.0.5 - 2021-06-26
 
 ### Improvements
