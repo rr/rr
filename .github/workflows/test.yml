@@ -1,0 +1,25 @@
+name: Test
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    name: "Ruby ${{ matrix.ruby-version }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version:
+          - "2.6"
+          - "2.7"
+          - "3.0"
+          - "head"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "${{ matrix.ruby-version }}"
+      - run: bundle install
+      - run: bundle exec rake test
