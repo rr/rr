@@ -1,10 +1,22 @@
 # Changelog
 
+## 3.0.7 - 2021-08-17
+
+### Fixes
+
+  * Minitest + Active Support integration: Fixed a bug that `stub` in
+    `setup {...}` is ignored.
+    [GitHub#87][Reported by Boris]
+
+### Thanks
+
+  * Boris
+
 ## 3.0.6 - 2021-08-07
 
 ### Improvements
 
-  * `assert_received`: Add support for keyword arguments.
+  * `assert_received`: Added support for keyword arguments.
     [GitHub#86][Reported by imadoki]
 
 ### Thanks
