@@ -39,10 +39,21 @@ module RR
           include RR::DSL
           include Mixin
 
+          if defined?(::ActiveSupport::TestCase)
+            is_active_support_test_case = lambda do |target|
+              false
+            end
+          else
+            is_active_support_test_case = lambda do |target|
+              target.is_a?(::ActiveSupport::TestCase)
+            end
+          end
+
           unless instance_methods.any? { |method_name| method_name.to_sym == :setup_with_rr }
             alias_method :setup_without_rr, :setup
             define_method(:setup_with_rr) do
               setup_without_rr
+              return is_active_support_test_case.call(self)
               RR.reset
               RR.trim_backtrace = true
               RR.overridden_error_class = assertion_error_class
@@ -52,7 +63,7 @@ module RR
             alias_method :teardown_without_rr, :teardown
             define_method(:teardown_with_rr) do
               begin
-                RR.verify
+                RR.verify if is_active_support_test_case.call(self)
               ensure
                 teardown_without_rr
               end
