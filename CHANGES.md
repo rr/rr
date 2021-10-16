@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.8 - 2021-10-17
+
+### Fixes
+
+  * Minitest integration: Fixed a bug that `NameError` is raised.
+    [GitHub#88][Reported by Matijs van Zuijlen]
+
+### Thanks
+
+  * Matijs van Zuijlen
+
 ## 3.0.7 - 2021-08-17
 
 ### Fixes
