@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.9 - 2021-12-07
+
+### Improvements
+
+  * Marked TruffleRuby as "keyword arguments aren't fully supported yet".
+
 ## 3.0.8 - 2021-10-17
 
 ### Fixes
