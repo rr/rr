@@ -13,6 +13,7 @@ when "minitest"
   require "minitest"
   require "rr"
 when "minitest-active-support"
+  require "active_support"
   require "active_support/test_case"
   require "rr"
 end
