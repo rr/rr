@@ -19,12 +19,11 @@ jobs:
           - "head"
           - "truffleruby-head"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{ matrix.ruby-version }}"
           bundler-cache: true
-      - run: bundle install
       - run: bundle exec rake test
 
   integration:
@@ -39,10 +38,9 @@ jobs:
     env:
       RR_INTEGRATION: "${{ matrix.integration }}"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.0"
           bundler-cache: true
-      - run: bundle install
       - run: bundle exec rake test
