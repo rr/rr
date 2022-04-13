@@ -100,7 +100,7 @@
 ### Improvements
 
   * Added support for Ruby 3.0's keyword arguments.
-    [GitHub#17][Reported by Takuro Ashie]
+    [GitHub#77][Reported by Takuro Ashie]
 
 ### Fixes
 
