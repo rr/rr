@@ -1,5 +1,31 @@
 # Changelog
 
+## 3.1.0 - 2022-07-14
+
+### Improvements
+
+  * Improved CI.
+    [GitHub#89](https://github.com/rr/rr/pull/89)[Patch by Peter Goldstein]
+    [GitHub#90](https://github.com/rr/rr/pull/90)[Patch by mishina]
+    [GitHub#91](https://github.com/rr/rr/pull/91)[Patch by mishina]
+
+  * Improved `wildcard_match?` against `Hash`.
+    [GitHub#94](https://github.com/rr/rr/issues/94)
+    [Reported by kawamotosatoshi]
+
+### Fixes
+
+  * Fixed document.
+    [GitHub#92](https://github.com/rr/rr/pull/92)[Patch by mishina]
+
+### Thanks
+
+  * Peter Goldstein
+
+  * mishina
+
+  * kawamotosatoshi
+
 ## 3.0.9 - 2021-12-07
 
 ### Improvements
