@@ -11,5 +11,18 @@ class TestHash < Test::Unit::TestCase
         !{:a => 1}.wildcard_match?(:a => 1, :b => 2)
       end
     end
+
+    test "different order" do
+      assert do
+        {a: 1, b: 2}.wildcard_match?(b: 2, a: 1)
+      end
+    end
+
+    test "different order with wildcard" do
+      pattern = {:a => 1, :b => 2, is_a(Symbol) => 3, is_a(Symbol) => 1}
+      assert do
+        pattern.wildcard_match?(:d => 1, :c => 3, :b => 2, :a => 1)
+      end
+    end
   end
 end
