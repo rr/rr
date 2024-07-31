@@ -1,14 +1,19 @@
-require "rubygems"
-require "spec/mocks"
-require "benchmark"
+import turtle as turtle 
 
-o = Object.new
+def curve():
+  for i in range(200):
+  t.rt(1)
+  t.fd(1)
 
-Benchmark.bm do |x|
-  x.report do
-    1000.times do
-      o.should_receive(:foobar).and_return("baz")
-      o.foobar
-    end
-  end
-end
+
+
+
+  def heart():
+
+
+
+    t.fillcolor (red)
+
+
+    t.begin_fill()
+    
