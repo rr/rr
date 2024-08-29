@@ -74,12 +74,12 @@ module RR
 
       def extract_subject_from_return_value(return_value)
         case return_value
-          when DoubleDefinitions::DoubleDefinition
-            return_value.root_subject
-          when DoubleDefinitions::DoubleDefinitionCreateBlankSlate
-            return_value.__double_definition_create__.root_subject
-          else
-            return_value
+        when DoubleDefinitions::DoubleDefinition
+          return_value.root_subject
+        when DoubleDefinitions::DoubleDefinitionCreateBlankSlate
+          return_value.__double_definition_create__.root_subject
+        else
+          return_value
         end
       end
 
