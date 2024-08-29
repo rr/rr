@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.1.1 - 2024-08-30
+
+### Improvements
+
+  * Suppressed a warning:
+    * GH-99
+    * Patch by Kevin Newton
+
+### Thanks
+
+  * Kevin Newton
+
 ## 3.1.0 - 2022-07-14
 
 ### Improvements
