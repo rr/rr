@@ -15,7 +15,7 @@ jobs:
         run: |
           ruby \
             -e 'print("## RR "); \
-                puts(ARGF.read.split(/^### /)[1].gsub(/ {.+?}/, ""))' \
+                puts(ARGF.read.split(/^## /)[1].gsub(/ {.+?}/, ""))' \
             CHANGES.md > release-note.md
       - name: Upload to release
         run: |
