@@ -77,4 +77,3 @@ module RR
     RR.register_adapter MiniTest4
   end
 end
-
