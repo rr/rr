@@ -1,10 +1,18 @@
-source 'https://rubygems.org'
+# -*- ruby -*-
+
+source "https://rubygems.org"
 
 gemspec
 
-gem 'rake', '~> 10.0'
-gem 'simplecov', '~> 0.7'
-gem 'appraisal', '~> 0.5'
-gem 'posix-spawn', :platforms => :mri
-gem 'open4', :platforms => :mri
-gem 'rspec', '~> 2.14'
+group :development, :test do
+  gem("bundler")
+  gem("rake", "~> 10.0")
+end
+
+group :test do
+  gem("appraisal", "~> 0.5")
+  gem("open4", :platforms => :mri)
+  gem("posix-spawn", :platforms => :mri)
+  gem("rspec", "~> 2.14")
+  gem("simplecov", "~> 0.7")
+end

@@ -28,9 +28,4 @@ Gem::Specification.new do |gem|
   ].to_a
 
   gem.require_paths = ['lib']
-
-  gem.add_development_dependency("bundler")
-  gem.add_development_dependency("rake")
-  gem.add_development_dependency("test-unit")
-  gem.add_development_dependency("test-unit-rr")
 end
