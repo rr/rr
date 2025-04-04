@@ -17,6 +17,7 @@ group :development, :test do
 end
 
 group :test do
+  gem("ostruct")
   gem("test-unit")
   gem("test-unit-rr")
 end
