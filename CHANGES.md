@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.1.2 - 2025-04-08
+
+### Improvements
+
+  * TruffleRuby: Enabled full keyword argument support.
+
+  * Suppressed a "test is missing assertions" warning reported with
+    Active Support 7.2 or later:
+    * [GH-104](https://github.com/rr/rr/issues/104)
+    * Patch by Erick Guan
+
+### Thanks
+
+  * Erick Guan
+
 ## 3.1.1 - 2024-08-30
 
 ### Improvements
