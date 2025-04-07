@@ -3,6 +3,7 @@ module RR
     class MiniTest4
       module Mixin
         def assert_received(subject, &block)
+          self.assertions += 1
           block.call(received(subject)).call
         end
       end
@@ -77,4 +78,3 @@ module RR
     RR.register_adapter MiniTest4
   end
 end
-
