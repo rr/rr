@@ -21,7 +21,7 @@ jobs:
       matrix:
         ruby-version: ${{ fromJson(needs.ruby-versions.outputs.versions) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{ matrix.ruby-version }}"
@@ -40,7 +40,7 @@ jobs:
     env:
       RR_INTEGRATION: "${{ matrix.integration }}"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ruby
