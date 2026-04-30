@@ -42,7 +42,7 @@ jobs:
         with:
           ruby-version: ruby
           bundler-cache: true
-      - uses: rubygems/configure-rubygems-credentials@v1.0.0
+      - uses: rubygems/configure-rubygems-credentials@v2.0.0
         if: github.ref_type == 'tag'
       - name: Push gems
         if: github.ref_type == 'tag'
